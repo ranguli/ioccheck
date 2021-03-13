@@ -4,8 +4,9 @@ import pytest
 import vt
 import os
 
+
 @pytest.fixture(scope="module")
-def virus_total_eicar_detection():
+def vt_eicar_detections():
     return {
         "Bkav": {
             "category": "malicious",
@@ -600,6 +601,7 @@ def virus_total_eicar_detection():
             "engine_update": "20210313",
         },
     }
+
 
 @pytest.fixture(scope="module")
 def virus_total_no_detetions():
@@ -1208,26 +1210,19 @@ def virus_total_no_detetions():
     return "275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f"
 
 
-
-
 @pytest.fixture(scope="module")
 def sha256_test_hash_1():
     """ Known good SHA-256 hash (of /bin/bash) to test against """
     return "04a484f27a4b485b28451923605d9b528453d6c098a5a5112bec859fb5f2eea9"
+
 
 @pytest.fixture(scope="module")
 def md5_test_hash_1():
     """ Known good SHA-256 hash (of /bin/bash) to test against """
     return "7063c3930affe123baecd3b340f1ad2c"
 
+
 @pytest.fixture(scope="module")
 def sha256_test_hash_eicar():
     """ SHA256 hash of the EICAR "test virus" """
     return "275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f"
-
-@pytest.fixture(scope="module")
-def vt_eicar_response():
-    client = vt.Client(os.getenv("API_KEY"))
-    eicar = "275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f"
-
-    return client.get_object(f"/files/{eicar}")

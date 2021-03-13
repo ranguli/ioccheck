@@ -3,33 +3,41 @@ import re
 
 from hashcheck.services import Service, all_services
 from hashcheck.exceptions import InvalidHashException
+from hashcheck.reports import VirusTotalReport
 
 @dataclass
 class SHA256:
-    regex: str = r'^[A-Fa-f0-9]{64}$'
+    regex: str = r"^[A-Fa-f0-9]{64}$"
+
 
 @dataclass
 class MD5:
-    regex: str = r'^[a-f0-9]{32}$'
+    regex: str = r"^[a-f0-9]{32}$"
 
-hash_types  = [SHA256, MD5]
+
+hash_types = [SHA256, MD5]
+
 
 class Hash:
-
-    def __init__(self, file_hash: str, hash_type = None):
+    def __init__(self, file_hash: str, hash_type=None):
         self.hash = file_hash
         self.name = None
 
+        print(self.hash)
+        print(type(self.hash))
+
         if hash_type:
             if not self.__check_hash_type(hash_type.regex, file_hash):
-                raise InvalidHashException("Hash is not a supported hash type.  Supported types are {','.join(hash_types.keys())}")
+                raise InvalidHashException(
+                    "Hash is not a supported hash type.  Supported types are {','.join(hash_types.keys())}"
+                )
             else:
                 self.hash_type = hash_type
         else:
             self.hash_type = self.__guess_hash_type(self.hash)
 
         self.is_sha256 = True if self.hash_type == SHA256 else False
-        self.is_md5  = True if self.hash_type == MD5 else False
+        self.is_md5 = True if self.hash_type == MD5 else False
 
     def __guess_hash_type(self, file_hash: str):
         """ Try all known hash regexes to determine the type of a hash. """
@@ -41,7 +49,9 @@ class Hash:
                 break
 
         if actual_type is None:
-            raise InvalidHashException("Hash is not a supported hash type.  Supported types are {','.join(hash_types.keys())}")
+            raise InvalidHashException(
+                "Hash is not a supported hash type.  Supported types are {','.join(hash_types.keys())}"
+            )
 
         return actual_type
 
@@ -53,19 +63,27 @@ class Hash:
         return self.hash
 
     def check(self, services=None):
+        reports = HashcheckReports()
+
         if services is None:
             for service in all_services:
-                print(service)
+                service = service(self.hash)
+                if service.name == "virustotal":
+                    reports.virustotal = service.report
         else:
             if isinstance(services, list):
                 for service in services:
-                    print(service)
-            elif issubclass(type(services), Service):
-                print(services)
+                    service = services(self.hash)
+                    if service.name == "virustotal":
+                        reports.virustotal = service.report
+            elif issubclass(services, Service):
+                service = services(self.hash)
+                if service.name == "virustotal":
+                    reports.virustotal = service.report
             else:
-                raise ValueError("fuck i don't know!!!!!!!!!")
-                print(services)
+                raise ValueError("Error while checking services")
+        return reports
 
-        # self.name = result from thing
-        # self.is_malicious = result from thing
-
+@dataclass
+class HashcheckReports():
+    virustotal: VirusTotalReport = None
