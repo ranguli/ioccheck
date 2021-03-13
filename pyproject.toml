@@ -6,6 +6,7 @@ authors = ["ranguli <hello@joshmurphy.ca>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+vt-py = "^0.6.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

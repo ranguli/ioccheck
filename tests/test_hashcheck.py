@@ -1,17 +1,9 @@
 from hashcheck import Hash, SHA256, MD5
 from hashcheck.exceptions import InvalidHashException
+from hashcheck.services import VirusTotal
 
+from tests.fixtures import sha256_test_hash_1, md5_test_hash_1
 import pytest
-
-@pytest.fixture
-def sha256_test_hash_1():
-    """ Known good SHA-256 hash to test against """
-    return "5891b5b522d5df086d0ff0b110fbd9d21bb4fc7163af34d08286a2e846f6be03"
-
-@pytest.fixture
-def md5_test_hash_1():
-    """ Known good MD5 hash to test against """
-    return "b1946ac92492d2347c6235b4d2611184"
 
 @pytest.mark.parametrize("file_hash,hash_type", [
     ("5891b5b522d5df086d0ff0b110fbd9d21bb4fc7163af34d08286a2e846f6be03", SHA256),
@@ -35,3 +27,12 @@ def test_md5_hash_is_operator(md5_test_hash_1):
     _hash = Hash(md5_test_hash_1)
 
     assert _hash.hash_type is MD5
+
+def test_sha256_hash_all_services(sha256_test_hash_1):
+    _hash = Hash(sha256_test_hash_1)
+    _hash.check()
+
+def test_sha256_hash_vt_service(sha256_test_hash_1):
+    _hash = Hash(sha256_test_hash_1)
+    _hash.check(services=VirusTotal)
+
