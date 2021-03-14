@@ -5,6 +5,7 @@ from hashcheck.services import Service, all_services
 from hashcheck.exceptions import InvalidHashException
 from hashcheck.reports import VirusTotalReport
 
+
 @dataclass
 class SHA256:
     regex: str = r"^[A-Fa-f0-9]{64}$"
@@ -22,22 +23,23 @@ class Hash:
     def __init__(self, file_hash: str, hash_type=None):
         self.hash = file_hash
         self.name = None
+        self.reports = None
+        self.type = hash_type
 
-        print(self.hash)
-        print(type(self.hash))
+        if not isinstance(self.hash, str):
+            raise InvalidHashException
 
         if hash_type:
             if not self.__check_hash_type(hash_type.regex, file_hash):
                 raise InvalidHashException(
                     "Hash is not a supported hash type.  Supported types are {','.join(hash_types.keys())}"
                 )
-            else:
-                self.hash_type = hash_type
+                self.type = hash_type
         else:
-            self.hash_type = self.__guess_hash_type(self.hash)
+            self.type = self.__guess_hash_type(self.hash)
 
-        self.is_sha256 = True if self.hash_type == SHA256 else False
-        self.is_md5 = True if self.hash_type == MD5 else False
+        self.is_sha256 = True if self.type == SHA256 else False
+        self.is_md5 = True if self.type == MD5 else False
 
     def __guess_hash_type(self, file_hash: str):
         """ Try all known hash regexes to determine the type of a hash. """
@@ -63,7 +65,7 @@ class Hash:
         return self.hash
 
     def check(self, services=None):
-        reports = HashcheckReports()
+        reports = HashReport()
 
         if services is None:
             for service in all_services:
@@ -82,8 +84,9 @@ class Hash:
                     reports.virustotal = service.report
             else:
                 raise ValueError("Error while checking services")
-        return reports
+        self.reports = reports
+
 
 @dataclass
-class HashcheckReports():
+class HashReport:
     virustotal: VirusTotalReport = None
