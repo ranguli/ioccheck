@@ -1,5 +1,6 @@
 import pytest
-from hashcheck import Hash, SHA256, MD5
+from hashcheck import Hash
+from hashcheck.types import SHA256, MD5
 from hashcheck.services import VirusTotal
 
 
@@ -15,7 +16,7 @@ def md5_test_hash_clean():
     return "7063c3930affe123baecd3b340f1ad2c"
 
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def sha256_test_hash_eicar():
     """ EICAR SHA256 hash """
     return "275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f"

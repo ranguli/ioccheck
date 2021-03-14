@@ -1,0 +1,1 @@
+from .virustotal import VirusTotalReport

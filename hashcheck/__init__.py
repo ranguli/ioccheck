@@ -1,30 +1,36 @@
 from dataclasses import dataclass
+import configparser
 import re
+import os
+from pathlib import Path
+import logging
 
-from hashcheck.services import Service, all_services
+from hashcheck.services.service import Service
+from hashcheck.services import all_services
+from hashcheck.types import SHA256, MD5, hash_types, HashType
 from hashcheck.exceptions import InvalidHashException
 from hashcheck.reports import VirusTotalReport
 
+hashcheck_logger = logging.getLogger(__name__)
+hashcheck_logger.setLevel(logging.INFO)
 
-@dataclass
-class SHA256:
-    regex: str = r"^[A-Fa-f0-9]{64}$"
+fh = logging.FileHandler("hashcheck.log")
+fh.setLevel(logging.INFO)
 
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 
-@dataclass
-class MD5:
-    regex: str = r"^[a-f0-9]{32}$"
+fh.setFormatter(formatter)
+hashcheck_logger.addHandler(fh)
 
-
-hash_types = [SHA256, MD5]
+default_config_path = os.path.join(Path.home(), ".hashcheck")
 
 
 class Hash:
-    def __init__(self, file_hash: str, hash_type=None):
+    def __init__(self, file_hash: str, hash_type: HashType = None):
         self.hash = file_hash
         self.name = None
         self.reports = None
-        self.type = hash_type
+        self.hash_type = hash_type
 
         if not isinstance(self.hash, str):
             raise InvalidHashException
@@ -34,12 +40,11 @@ class Hash:
                 raise InvalidHashException(
                     "Hash is not a supported hash type.  Supported types are {','.join(hash_types.keys())}"
                 )
-                self.type = hash_type
         else:
-            self.type = self.__guess_hash_type(self.hash)
+            self.hash_type = self.__guess_hash_type(self.hash)
 
-        self.is_sha256 = True if self.type == SHA256 else False
-        self.is_md5 = True if self.type == MD5 else False
+        self.is_sha256 = True if self.hash_type == SHA256 else False
+        self.is_md5 = True if self.hash_type == MD5 else False
 
     def __guess_hash_type(self, file_hash: str):
         """ Try all known hash regexes to determine the type of a hash. """
@@ -64,22 +69,45 @@ class Hash:
     def __str__(self):
         return self.hash
 
-    def check(self, services=None):
+    def _get_credentials(self, config_header, config_path: str) -> str:
+        hashcheck_logger.info(
+            f"Default config path is {default_config_path}, supplied path is {config_path}"
+        )
+
+        if not Path(config_path).is_file():
+            raise FileNotFoundError(f"File {config_path} does not exist.")
+
+        try:
+            config = configparser.ConfigParser()
+            config.read(config_path)
+            api_key = config[config_header]["API_KEY"]
+        except KeyError:
+            raise KeyError(f"Could not find necessary API keys in {config_path}")
+
+        return api_key
+
+    def check(self, services=None, config_path=None):
         reports = HashReport()
+
+        if config_path is None:
+            config_path = default_config_path
 
         if services is None:
             for service in all_services:
-                service = service(self.hash)
+                api_key = self._get_credentials(service.name, config_path)
+                service = service(self.hash, api_key)
                 if service.name == "virustotal":
                     reports.virustotal = service.report
         else:
             if isinstance(services, list):
                 for service in services:
-                    service = services(self.hash)
+                    api_key = self._get_credentials(service.name, config_path)
+                    service = service(self.hash, api_key)
                     if service.name == "virustotal":
                         reports.virustotal = service.report
             elif issubclass(services, Service):
-                service = services(self.hash)
+                api_key = self._get_credentials(services.name, config_path)
+                service = services(self.hash, api_key)
                 if service.name == "virustotal":
                     reports.virustotal = service.report
             else:
