@@ -1,1 +1,0 @@
-from hashcheck import Hash

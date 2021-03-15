@@ -24,6 +24,8 @@ hashcheck_logger.addHandler(fh)
 
 default_config_path = os.path.join(Path.home(), ".hashcheck")
 
+invalid_hash_message = f"Hash is not a supported hash type. Supported types are {', '.join([str(hash_type) for hash_type in hash_types])}."
+
 
 class Hash:
     def __init__(self, file_hash: str, hash_type: HashType = None):
@@ -37,9 +39,7 @@ class Hash:
 
         if hash_type:
             if not self.__check_hash_type(hash_type.regex, file_hash):
-                raise InvalidHashException(
-                    "Hash is not a supported hash type.  Supported types are {','.join(hash_types.keys())}"
-                )
+                raise InvalidHashException(invalid_hash_message)
         else:
             self.hash_type = self.__guess_hash_type(self.hash)
 
@@ -56,9 +56,7 @@ class Hash:
                 break
 
         if actual_type is None:
-            raise InvalidHashException(
-                "Hash is not a supported hash type.  Supported types are {','.join(hash_types.keys())}"
-            )
+            raise InvalidHashException(invalid_hash_message)
 
         return actual_type
 
@@ -70,9 +68,8 @@ class Hash:
         return self.hash
 
     def _get_credentials(self, config_header, config_path: str) -> str:
-        hashcheck_logger.info(
-            f"Default config path is {default_config_path}, supplied path is {config_path}"
-        )
+
+        self.__get_configured_services(config_path)
 
         if not Path(config_path).is_file():
             raise FileNotFoundError(f"File {config_path} does not exist.")
@@ -86,14 +83,33 @@ class Hash:
 
         return api_key
 
+    def __get_configured_services(self, config_path: str) -> list:
+        """ Return a list of Service objects with credentials in the config"""
+
+        hashcheck_logger.info(
+            f"Default config path is {default_config_path}, supplied path is {config_path}"
+        )
+
+        if not Path(config_path).is_file():
+            raise FileNotFoundError(f"File {config_path} does not exist.")
+
+        config = configparser.ConfigParser()
+        config.read(config_path)
+
+        return [
+            service for service in all_services if service.name in config.sections()
+        ]
+
     def check(self, services=None, config_path=None):
+        # TODO: refactor
         reports = HashReport()
 
         if config_path is None:
             config_path = default_config_path
 
         if services is None:
-            for service in all_services:
+            configured_services = self.__get_configured_services(config_path)
+            for service in configured_services:
                 api_key = self._get_credentials(service.name, config_path)
                 service = service(self.hash, api_key)
                 if service.name == "virustotal":

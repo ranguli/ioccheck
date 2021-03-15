@@ -26,7 +26,9 @@ def main():
     # Make a pretty table of the results
     cprint("[*] VirusTotal detections:", "blue")
 
-    detection_count_string = f"{virustotal.detection_count} engines ({virustotal.detection_coverage*100}%) detected this file.\n"
+    detection_percent = virustotal.detection_coverage * 100
+
+    detection_count_string = f"{virustotal.detection_count} engines ({detection_percent:.2g}%) detected this file.\n"
     if virustotal.detection_count == 0:
         detection_count_string = colored(detection_count_string, "green")
     elif virustotal.detection_count > 0:
