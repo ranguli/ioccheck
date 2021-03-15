@@ -2,9 +2,17 @@ import nox
 
 
 @nox.session(python=["3.7", "3.8"])
-def test(session):
+def testnosecret(session):
+    # Only run tests that don't require secrets
     session.install("pytest", ".")
-    session.run("pytest")
+    session.run("pytest", "-m", "not secret")
+
+
+@nox.session(python=["3.7", "3.8"])
+def testsecret(session):
+    # Only run tests that require secrets
+    session.install("pytest", ".")
+    session.run("pytest", "-m", "secret")
 
 
 @nox.session(python=["3.8"])

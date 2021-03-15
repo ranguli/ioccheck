@@ -1,8 +1,13 @@
+import pytest
+
+
 class TestHashReport:
     class TestVirusTotalReport:
+        @pytest.mark.secret
         def test_detections_exist(self, hashcheck_eicar_report_virus_total):
             assert hashcheck_eicar_report_virus_total.reports.virustotal.detections
 
+        @pytest.mark.secret
         def test_detections_malwarebytes(self, hashcheck_eicar_report_virus_total):
             """ Malwarebytes is known not to detect EICAR """
             assert (
@@ -12,6 +17,7 @@ class TestHashReport:
                 == "undetected"
             )
 
+        @pytest.mark.secret
         def test_detections_sophos(self, hashcheck_eicar_report_virus_total):
             """ Sophos is known to detect EICAR """
             assert (
@@ -21,6 +27,7 @@ class TestHashReport:
                 == "malicious"
             )
 
+        @pytest.mark.secret
         def test_investigation_url(self, hashcheck_eicar_report_virus_total):
             assert (
                 hashcheck_eicar_report_virus_total.reports.virustotal.investigation_url

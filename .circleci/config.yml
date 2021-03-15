@@ -14,7 +14,7 @@ jobs:
     - run:
         name: Run tests
         command: |
-          poetry run nox -e test
+          poetry run nox -e testnosecret
   lint:
     working_directory: ~/main
     docker:
