@@ -78,11 +78,11 @@ workflows:
               only: /.*/
             tags:
               only: /.*/
-     - format:
+      - format:
           requires:
             - test
           filters:
             branches:
               only: /.*/
             tags:
-              only: /.*/              
+              only: /.*/
