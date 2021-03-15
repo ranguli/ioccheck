@@ -5,11 +5,26 @@ description = ""
 authors = ["ranguli <hello@joshmurphy.ca>"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.7.3"
+vt-py = "^0.6.1"
+ratelimit = "^2.2.1"
+backoff = "^1.10.0"
+
+tabulate = {version = "^0.8.9", optional = true}
+termcolor = {version = "^1.1.0", optional = true}
+click = {version = "^7.1.2", optional = true}
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
+black = "^20.8b1"
+flake8 = "^3.8.4"
+bandit = "^1.7.0"
+nox = "^2020.12.31"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+hashcheck = "hashcheck.cli:run"
+

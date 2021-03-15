@@ -1,16 +1,9 @@
-from dataclasses import dataclass
+#!/usr/bin/env python
+
 
 class Service(object):
+    def check_hash(self, file_hash):
+        return self._get_api_response(file_hash)
 
-    def __init__(self):
-        pass
-
-    def check_hash(self):
-        pass
-
-
-@dataclass
-class Report:
-    url: str
-    malicious: bool
-    api_response: dict
+    def __str__(self):
+        return self.name

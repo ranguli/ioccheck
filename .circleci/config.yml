@@ -14,7 +14,7 @@ jobs:
     - run:
         name: Run tests
         command: |
-          poetry run nox -e test
+          poetry run nox -e testnosecret
   lint:
     working_directory: ~/main
     docker:
@@ -63,26 +63,20 @@ workflows:
             tags:
               only: /.*/
       - lint:
-          requires:
-            - test
           filters:
             branches:
               only: /.*/
             tags:
               only: /.*/
       - audit:
-          requires:
-            - test
           filters:
             branches:
               only: /.*/
             tags:
               only: /.*/
-     - format:
-          requires:
-            - test
+      - format:
           filters:
             branches:
               only: /.*/
             tags:
-              only: /.*/              
+              only: /.*/
