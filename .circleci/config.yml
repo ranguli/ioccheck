@@ -1,0 +1,71 @@
+version: 2
+jobs:
+  test:
+    working_directory: ~/main
+    docker:
+    - image: circleci/python:3.8.6
+    steps:
+    - checkout
+    - run:
+        name: Install poetry
+        command: |
+          sudo pip install poetry
+          poetry install
+    - run:
+        name: Run tests
+        command: |
+          poetry run nox -e test
+  lint:
+    working_directory: ~/main
+    docker:
+      - image: circleci/python:3.8.6
+    steps:
+      - checkout
+      - run:
+          name: Run code linters
+          command: |
+            sudo pip install poetry
+            poetry install
+            poetry run tox -e lint
+  audit:
+    working_directory: ~/main
+    docker:
+      - image: circleci/python:3.8.6
+    steps:
+      - checkout
+      - run:
+          name: Run security audit
+          command: |
+            sudo pip install poetry
+            poetry install
+            poetry run nox -e audit
+
+workflows:
+  version: 2
+  test_lint_audit:
+    jobs:
+      - test:
+          context: Default
+          filters:
+            branches:
+              only: /.*/
+            tags:
+              only: /.*/
+      - lint:
+          context: Default
+          requires:
+            - test
+          filters:
+            branches:
+              only: /.*/
+            tags:
+              only: /.*/
+      - audit:
+          context: Default
+          requires:
+            - test
+          filters:
+            branches:
+              only: /.*/
+            tags:
+              only: /.*/
