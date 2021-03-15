@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import sys
+
 import click
 from termcolor import colored, cprint
 
@@ -26,6 +28,7 @@ heading_color = "blue"
 
 cprint(banner, heading_color)
 
+
 @click.command()
 @click.argument("file_hash")
 def run(file_hash):
@@ -36,7 +39,7 @@ def run(file_hash):
         _hash.check()
 
     except InvalidHashException as e:
-        print(e)
+        sys.exit(e)
 
     hash_algorithm_heading = colored("[*] Hashing algorithm:", heading_color)
     print(f"{hash_algorithm_heading} {_hash.hash_type}")

@@ -12,7 +12,7 @@ class TestBadHash:
     def test_bad_hash_exit_code(self, file_hash):
         runner = CliRunner()
         result = runner.invoke(run, [file_hash])
-        assert result.exit_code == 0
+        assert result.exit_code == 1
 
     @pytest.mark.parametrize("file_hash", bad_hash_inputs)
     def test_bad_hash_stdout(self, file_hash):

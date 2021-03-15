@@ -8,11 +8,13 @@ class Formatter:
     def __init__(self):
         pass
 
-class VirusTotalFormatter(Formatter):
 
+class VirusTotalFormatter(Formatter):
     def __init__(self, report: VirusTotalReport):
         self.reputation = self._format_reputation(report.reputation)
-        self.detections = self._format_detections(report.get_detections(), report.detection_coverage, report.detection_count)
+        self.detections = self._format_detections(
+            report.get_detections(), report.detection_coverage, report.detection_count
+        )
 
     def _format_reputation(self, reputation: int) -> str:
 
@@ -46,4 +48,3 @@ class VirusTotalFormatter(Formatter):
             table.append([detection, malicious, result.get("result")])
 
         return tabulate(table, headers="firstrow", tablefmt="fancy_grid")
-
