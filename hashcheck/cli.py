@@ -10,5 +10,6 @@ from hashcheck.exceptions import InvalidHashException
 def run(file_hash):
     try:
         _hash = Hash(file_hash)
+        print(_hash)
     except InvalidHashException as e:
         print(e)
