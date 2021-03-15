@@ -63,24 +63,18 @@ workflows:
             tags:
               only: /.*/
       - lint:
-          requires:
-            - test
           filters:
             branches:
               only: /.*/
             tags:
               only: /.*/
       - audit:
-          requires:
-            - test
           filters:
             branches:
               only: /.*/
             tags:
               only: /.*/
       - format:
-          requires:
-            - test
           filters:
             branches:
               only: /.*/
