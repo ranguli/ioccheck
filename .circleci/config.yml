@@ -45,14 +45,12 @@ workflows:
   test_lint_audit:
     jobs:
       - test:
-          context: Default
           filters:
             branches:
               only: /.*/
             tags:
               only: /.*/
       - lint:
-          context: Default
           requires:
             - test
           filters:
@@ -61,7 +59,6 @@ workflows:
             tags:
               only: /.*/
       - audit:
-          context: Default
           requires:
             - test
           filters:
