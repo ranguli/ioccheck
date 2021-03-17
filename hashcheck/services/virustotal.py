@@ -7,13 +7,16 @@ from backoff import on_exception, expo
 import vt
 
 from hashcheck.services.service import Service
-from hashcheck.reports import VirusTotalReport
 
-logger = logging.getLogger()
-logging.basicConfig(
-    filename="hashcheck.log", format="%(levelname)s:%(message)s", level=logging.DEBUG
-)
-logger.setLevel(logging.INFO)
+logger = logging.getLogger(__name__)
+
+f_handler = logging.FileHandler("hashcheck.log")
+f_handler.setLevel(logging.INFO)
+
+f_format = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+f_handler.setFormatter(f_format)
+
+logger.addHandler(f_handler)
 
 
 class VirusTotal(Service):
@@ -22,38 +25,79 @@ class VirusTotal(Service):
     def __init__(self, file_hash, api_key):
         self.client = vt.Client(api_key)
         self.url = "https://virustotal.com"
-        self.response = self._get_api_response(file_hash)
-        self.report = self._get_report(file_hash, self.response)
+
+        try:
+            self.response = self._get_api_response(file_hash)
+        except vt.APIError as e:
+            # if e[0] == 'WrongCredentialsError':
+            #    raise InvalidCredentialsError
+
+            # print(e)
+            # exit()
+            logger.error(e)
+            return
+
+        self.investigation_url = self._make_investigation_url(self.url, file_hash)
+        self.is_malicious = self._is_malicious(self.response)
+
+        self.detections = self._get_detections(self.response)
+        self.detection_coverage = self._get_detection_coverage(self.detections)
+        self.detection_count = self._get_detection_count(self.detections)
+
+        self.reputation = self._get_reputation(self.response)
+        self.popular_threat_names = self._get_popular_threat_names(self.response)
+
+        self.relationships = self._get_relationships(self.response)
+        self.tags = self._get_tags(self.response)
 
     @on_exception(expo, RateLimitException, max_tries=10, max_time=80)
     @limits(calls=4, period=60)
     def _get_api_response(self, file_hash):
         result = None
+
         f = io.StringIO()
         with redirect_stdout(f), redirect_stderr(f):
             result = self.client.get_object(f"/files/{file_hash}")
-        logging.info(f"Received {result} from VirusTotal API")
 
         return result
 
-    def _get_report(self, file_hash, response):
-        return VirusTotalReport(
-            response.meaningful_name,
-            self.__make_investigation_url(self.url, file_hash),
-            self.__is_malicious(response),
-            response,
-            self._get_detections(response),
-            self._get_reputation(response),
-        )
-
-    def __make_investigation_url(self, url, file_hash):
+    def _make_investigation_url(self, url, file_hash):
         return f"{url}/gui/file/{file_hash}/"
 
-    def __is_malicious(self, response):
+    def _is_malicious(self, response):
         return
+
+    def _get_detection_count(self, detections):
+        return len(
+            [k for k, v in detections.items() if v.get("category") == "malicious"]
+        )
+
+    def _get_detection_coverage(self, detections):
+        return self._get_detection_count(detections) / len(detections.keys())
 
     def _get_detections(self, response):
         return response.last_analysis_results
 
+    def _get_detections_coverage(self, response):
+        return response.last_analysis_results
+
     def _get_reputation(self, response):
         return response.reputation
+
+    def _get_relationships(self, response):
+        return response.relationships
+
+    def _get_popular_threat_names(self, response):
+        names = response.popular_threat_classification.get("popular_threat_name")
+
+        # Convert the nest of k,v pairs into a dict, then sort by votes in k
+        names = {k: row[0] for row in names for k in row[1:]}
+
+        return [v for k, v in sorted(names.items(), reverse=True)]
+
+    def _get_tags(self, response):
+        try:
+            result = self.response.tags if self.response.tags else None
+        except AttributeError:
+            pass
+        return result
