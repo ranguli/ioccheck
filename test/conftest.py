@@ -1,7 +1,8 @@
 import pytest
+
 from hashcheck import Hash
-from hashcheck.types import SHA256, MD5
-from hashcheck.services import VirusTotal, MalwareBazaar
+from hashcheck.services import MalwareBazaar, VirusTotal
+from hashcheck.types import MD5, SHA256
 
 
 @pytest.fixture

@@ -6,9 +6,10 @@ import click
 from termcolor import colored, cprint
 
 from hashcheck import Hash
-from hashcheck.exceptions import InvalidHashException
-from hashcheck.formatters import VirusTotalFormatter
-
+from hashcheck.exceptions import (HashNotFoundException,
+                                  InvalidCredentialsException,
+                                  InvalidHashException)
+from hashcheck.formatters import MalwareBazaarFormatter, VirusTotalFormatter
 
 banner = """
 888                        888               888                        888
@@ -41,33 +42,37 @@ def run(file_hash):
 
     except InvalidHashException as e:
         sys.exit(e)
+    except InvalidCredentialsException as e:
+        cprint(
+            f"[!] The {e.service} API responded with an error. Ensure your credentials are valid.",
+            "red",
+        )
+    except HashNotFoundException as e:
+        cprint(f"[!] The {e.service} API has no data for {_hash}.", "red")
 
     hash_algorithm_heading = colored("[*] Hashing algorithm:", heading_color)
     print(f"{hash_algorithm_heading} {_hash.hash_type}")
 
-    virus_total_results(_hash, heading_color)
+    try:
+        virustotal_results(_hash, heading_color)
+    except AttributeError:
+        cprint("[!] There was an error displaying the VirusTotal report.", "red")
+
+    try:
+        malwarebazaar_results(_hash, heading_color)
+    except AttributeError:
+        cprint("[!] There was an error diplaying the MalwareBazaar report.", "red")
 
 
-def virus_total_results(_hash, heading_color):
+def virustotal_results(_hash, heading_color):
     """ Use the VirusTotalFormatter to print pre-formatted output """
 
     virustotal = _hash.reports.virustotal
 
-    try:
-        virustotal.response
-    except AttributeError:
-        print(
-            colored(
-                "[*] The VirusTotal API responded with an error. Ensure your credentials are valid, and that your hash exists on VirusTotal.",
-                "red",
-            )
-        )
-        return
-
-    virustotal_formatter = VirusTotalFormatter(virustotal)
+    formatter = VirusTotalFormatter(virustotal)
 
     tags_heading = colored("[*] VirusTotal tags:", heading_color)
-    print(f"{tags_heading} {virustotal_formatter.tags}")
+    print(f"{tags_heading} {formatter.tags}")
 
     investigation_url_heading = colored("[*] VirusTotal URL:", heading_color)
     print(f"{investigation_url_heading} {virustotal.investigation_url}")
@@ -75,11 +80,31 @@ def virus_total_results(_hash, heading_color):
     # Make a pretty table of the results
     detections_heading = colored("[*] VirusTotal detections:", "blue")
 
-    print(f"{detections_heading} {virustotal_formatter.detection_count}")
-    print(virustotal_formatter.detections)
+    print(f"{detections_heading} {formatter.detection_count}")
+    print(formatter.detections)
 
     reputation_heading = colored("[*] VirusTotal reputation:", heading_color)
-    print(f"{reputation_heading} {virustotal_formatter.reputation}")
+    print(f"{reputation_heading} {formatter.reputation}")
 
     threat_names_heading = colored("[*] VirusTotal threat labels:", heading_color)
-    print(f"{threat_names_heading} {virustotal_formatter.popular_threat_names}")
+    print(f"{threat_names_heading} {formatter.popular_threat_names}")
+
+
+def malwarebazaar_results(_hash, heading_color):
+    """ Use the MalwareBazaarFormatter to print pre-formatted output """
+
+    malwarebazaar = _hash.reports.malwarebazaar
+
+    formatter = MalwareBazaarFormatter(malwarebazaar)
+
+    tags_heading = colored("[*] MalwareBazaar tags:", heading_color)
+    print(f"{tags_heading} {formatter.tags}")
+
+    file_size_heading = colored("[*] File details:", heading_color)
+    print(
+        f"{file_size_heading} {formatter.file_type} | {malwarebazaar.mime_type} ({formatter.file_size})"
+    )
+
+    cprint("[*] File hashes:\n", heading_color)
+    print(formatter.hashes)
+

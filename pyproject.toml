@@ -13,6 +13,8 @@ tabulate = "^0.8.9"
 termcolor = "^1.1.0"
 click = "^7.1.2"
 requests = "^2.25.1"
+"hurry.filesize" = "^0.9"
+isort = "^5.7.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

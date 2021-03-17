@@ -1,8 +1,8 @@
 import pytest
 
 from hashcheck import Hash
-from hashcheck.types import SHA256, MD5
 from hashcheck.exceptions import InvalidHashException
+from hashcheck.types import MD5, SHA256
 
 
 class TestHashCreation:

@@ -1,19 +1,23 @@
-from dataclasses import dataclass
 import configparser
-import re
-import os
-from pathlib import Path
 import logging
+import os
+import re
+from dataclasses import dataclass
+from pathlib import Path
 
-from hashcheck.services.service import Service
-from hashcheck.services import VirusTotal, MalwareBazaar, all_services
-from hashcheck.types import SHA256, MD5, SHA1, hash_types, HashType
 from hashcheck.exceptions import InvalidHashException
+from hashcheck.services import MalwareBazaar, VirusTotal, all_services
+from hashcheck.services.service import Service
+from hashcheck.types import MD5, SHA1, SHA256, HashType, hash_types
 
 default_config_path = os.path.join(Path.home(), ".hashcheck")
 invalid_hash_message = f"Hash is not a supported hash type. Supported types are {', '.join([str(hash_type) for hash_type in hash_types])}."
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("hashcheck")
+
+aiohttp_logger = logging.getLogger("aiohttp")
+aiohttp_logger.propagate = False
+aiohttp_logger.enabled = False
 
 f_handler = logging.FileHandler("hashcheck.log")
 f_handler.setLevel(logging.INFO)
@@ -73,7 +77,7 @@ class Hash:
 
         if not Path(config_path).is_file():
             message = f"File {config_path} does not exist."
-            # logger.error(message)
+            logger.error(message)
             raise FileNotFoundError(message)
 
         try:
@@ -90,9 +94,9 @@ class Hash:
     def _get_configured_services(self, config_path: str) -> list:
         """ Return a list of Service objects with credentials in the config"""
 
-        # logger.info(
-        #    f"Default config path is {default_config_path}, supplied path is {config_path}"
-        # )
+        logger.info(
+            f"Default config path is {default_config_path}, supplied path is {config_path}"
+        )
 
         if not Path(config_path).is_file():
             message = f"File {config_path} does not exist"
@@ -128,6 +132,7 @@ class Hash:
                 raise ValueError("Error while checking services")
 
         self.reports = HashReport(**reports)
+        logging.info(f"Generated report {self.reports}")
 
     def _add_report(
         self, file_hash: str, service: Service, config_path: str, reports: dict

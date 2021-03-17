@@ -1,8 +1,8 @@
 import pytest
 from click.testing import CliRunner
 
-from hashcheck.cli import run
 from hashcheck import invalid_hash_message
+from hashcheck.cli import run
 
 bad_hash_inputs = [("12345"), ("asdf")]
 

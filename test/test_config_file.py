@@ -1,9 +1,9 @@
+from configparser import ParsingError
+
 import pytest
 
 from hashcheck import Hash
 from hashcheck.services import VirusTotal
-
-from configparser import ParsingError
 
 
 class TestConfigFile:

@@ -1,14 +1,19 @@
-from contextlib import redirect_stdout, redirect_stderr
-import io
 import logging
 
-from ratelimit import limits, RateLimitException
-from backoff import on_exception, expo
 import vt
+from backoff import expo, on_exception
+from ratelimit import RateLimitException, limits
 
+from hashcheck.exceptions import (HashNotFoundException,
+                                  InvalidCredentialsException)
 from hashcheck.services.service import Service
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("hashcheck")
+
+asyncio_logger = logging.getLogger("asyncio")
+asyncio_logger.propogate = False
+asyncio_logger.enabled = False
+asyncio_logger.setLevel(logging.CRITICAL)
 
 f_handler = logging.FileHandler("hashcheck.log")
 f_handler.setLevel(logging.INFO)
@@ -28,13 +33,11 @@ class VirusTotal(Service):
 
         try:
             self.response = self._get_api_response(file_hash)
-        except vt.APIError as e:
-            # if e[0] == 'WrongCredentialsError':
-            #    raise InvalidCredentialsError
-
-            # print(e)
-            # exit()
-            logger.error(e)
+        except vt.error.APIError as e:
+            if e.code == "NotFoundError":
+                raise HashNotFoundException("VirusTotal")
+            elif e.code == "CredentialsError":
+                raise InvalidCredentialsException("VirusTotal")
             return
 
         self.investigation_url = self._make_investigation_url(self.url, file_hash)
@@ -53,12 +56,7 @@ class VirusTotal(Service):
     @on_exception(expo, RateLimitException, max_tries=10, max_time=80)
     @limits(calls=4, period=60)
     def _get_api_response(self, file_hash):
-        result = None
-
-        f = io.StringIO()
-        with redirect_stdout(f), redirect_stderr(f):
-            result = self.client.get_object(f"/files/{file_hash}")
-
+        result = self.client.get_object(f"/files/{file_hash}")
         return result
 
     def _make_investigation_url(self, url, file_hash):
@@ -73,7 +71,10 @@ class VirusTotal(Service):
         )
 
     def _get_detection_coverage(self, detections):
-        return self._get_detection_count(detections) / len(detections.keys())
+        if len(detections.keys()) == 0:
+            return 0
+        else:
+            return self._get_detection_count(detections) / len(detections.keys())
 
     def _get_detections(self, response):
         return response.last_analysis_results

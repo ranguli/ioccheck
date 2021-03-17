@@ -1,8 +1,8 @@
+from tabulate import tabulate
+from termcolor import colored
+
 from hashcheck.formatters import Formatter
 from hashcheck.services import VirusTotal
-
-from termcolor import colored
-from tabulate import tabulate
 
 
 class VirusTotalFormatter(Formatter):
@@ -16,7 +16,6 @@ class VirusTotalFormatter(Formatter):
         self.detection_count = self._format_detection_count(
             service.detection_coverage, service.detection_count
         )
-        self.raw_response = self._format_raw_response(service)
         self.relationships = service.relationships
         self.popular_threat_names = self._format_popular_threat_names(service)
         self.tags = self._format_tags(service)
@@ -63,13 +62,7 @@ class VirusTotalFormatter(Formatter):
         return result
 
     def _format_tags(self, service):
-        return ",".join(service.tags)
+        return ", ".join(service.tags)
 
     def _format_popular_threat_names(self, service):
-        return ",".join(service.popular_threat_names)
-
-    def _format_raw_response(self, service):
-        pass
-        # print(dir(service.response))
-        # print(service.response.tags)
-        # print(service.response.signature_info)
+        return ", ".join(service.popular_threat_names)

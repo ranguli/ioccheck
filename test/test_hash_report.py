@@ -34,7 +34,6 @@ class TestHashReport:
                 == "https://virustotal.com/gui/file/275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f/"
             )
 
-    """
     class TestMalwareBazaarReport:
         @pytest.mark.secret
         def test_other_hashes(self, hashcheck_emotet_report_malwarebazaar):
@@ -75,4 +74,3 @@ class TestHashReport:
                 )
                 == " 526866190c8081698169b4be19a6b987d494604343fe874475126527841c83a7"
             )
-    """
