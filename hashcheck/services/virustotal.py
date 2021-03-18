@@ -4,8 +4,6 @@ import vt
 from backoff import expo, on_exception
 from ratelimit import RateLimitException, limits
 
-from hashcheck.exceptions import (HashNotFoundException,
-                                  InvalidCredentialsException)
 from hashcheck.services.service import Service
 
 logger = logging.getLogger("hashcheck")
@@ -33,11 +31,7 @@ class VirusTotal(Service):
 
         try:
             self.response = self._get_api_response(file_hash)
-        except vt.error.APIError as e:
-            if e.code == "NotFoundError":
-                raise HashNotFoundException("VirusTotal")
-            elif e.code == "CredentialsError":
-                raise InvalidCredentialsException("VirusTotal")
+        except vt.error.APIError:
             return
 
         self.investigation_url = self._make_investigation_url(self.url, file_hash)
@@ -89,12 +83,8 @@ class VirusTotal(Service):
         return response.relationships
 
     def _get_popular_threat_names(self, response):
-        names = response.popular_threat_classification.get("popular_threat_name")
-
-        # Convert the nest of k,v pairs into a dict, then sort by votes in k
-        names = {k: row[0] for row in names for k in row[1:]}
-
-        return [v for k, v in sorted(names.items(), reverse=True)]
+        names = response.get("popular_threat_classification").get("popular_threat_name")
+        return [name[0] for name in names] if names else None
 
     def _get_tags(self, response):
         try:

@@ -6,9 +6,7 @@ import click
 from termcolor import colored, cprint
 
 from hashcheck import Hash
-from hashcheck.exceptions import (HashNotFoundException,
-                                  InvalidCredentialsException,
-                                  InvalidHashException)
+from hashcheck.exceptions import InvalidHashException
 from hashcheck.formatters import MalwareBazaarFormatter, VirusTotalFormatter
 
 banner = """
@@ -39,16 +37,8 @@ def run(file_hash):
     try:
         _hash = Hash(file_hash)
         _hash.check()
-
     except InvalidHashException as e:
         sys.exit(e)
-    except InvalidCredentialsException as e:
-        cprint(
-            f"[!] The {e.service} API responded with an error. Ensure your credentials are valid.",
-            "red",
-        )
-    except HashNotFoundException as e:
-        cprint(f"[!] The {e.service} API has no data for {_hash}.", "red")
 
     hash_algorithm_heading = colored("[*] Hashing algorithm:", heading_color)
     print(f"{hash_algorithm_heading} {_hash.hash_type}")
@@ -86,8 +76,9 @@ def virustotal_results(_hash, heading_color):
     reputation_heading = colored("[*] VirusTotal reputation:", heading_color)
     print(f"{reputation_heading} {formatter.reputation}")
 
-    threat_names_heading = colored("[*] VirusTotal threat labels:", heading_color)
-    print(f"{threat_names_heading} {formatter.popular_threat_names}")
+    if formatter.popular_threat_names:
+        threat_names_heading = colored("[*] VirusTotal threat labels:", heading_color)
+        print(f"{threat_names_heading} {formatter.popular_threat_names}")
 
 
 def malwarebazaar_results(_hash, heading_color):
@@ -97,8 +88,9 @@ def malwarebazaar_results(_hash, heading_color):
 
     formatter = MalwareBazaarFormatter(malwarebazaar)
 
-    tags_heading = colored("[*] MalwareBazaar tags:", heading_color)
-    print(f"{tags_heading} {formatter.tags}")
+    if formatter.tags:
+        tags_heading = colored("[*] MalwareBazaar tags:", heading_color)
+        print(f"{tags_heading} {formatter.tags}")
 
     file_size_heading = colored("[*] File details:", heading_color)
     print(
@@ -107,4 +99,3 @@ def malwarebazaar_results(_hash, heading_color):
 
     cprint("[*] File hashes:\n", heading_color)
     print(formatter.hashes)
-

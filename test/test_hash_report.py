@@ -43,7 +43,7 @@ class TestHashReport:
         def test_other_hashes_2(self, hashcheck_emotet_report_malwarebazaar):
             assert (
                 hashcheck_emotet_report_malwarebazaar.reports.malwarebazaar.hashes.get(
-                    "SHA3-384"
+                    "sha3_384_hash"
                 )
                 == "86e1cbf6b132b980d805cd40980070275ba160b19ec1cf3bb97324470601e3bca9a416806d67c7ef76e6217b50638cb1"
             )
@@ -52,7 +52,7 @@ class TestHashReport:
         def test_other_hashes_3(self, hashcheck_emotet_report_malwarebazaar):
             assert (
                 hashcheck_emotet_report_malwarebazaar.reports.malwarebazaar.hashes.get(
-                    "SHA1"
+                    "sha1_hash"
                 )
                 == "476c133118dddb3eeb192c3cfcd90080ebc07662"
             )
@@ -61,7 +61,7 @@ class TestHashReport:
         def test_other_hashes_4(self, hashcheck_emotet_report_malwarebazaar):
             assert (
                 hashcheck_emotet_report_malwarebazaar.reports.malwarebazaar.hashes.get(
-                    "MD5"
+                    "md5_hash"
                 )
                 == "7258d39f41a2bbf908aa0da116d71785"
             )
@@ -70,7 +70,7 @@ class TestHashReport:
         def test_other_hashes_5(self, hashcheck_emotet_report_malwarebazaar):
             assert (
                 hashcheck_emotet_report_malwarebazaar.reports.malwarebazaar.hashes.get(
-                    "MD5"
+                    "sha256_hash"
                 )
-                == " 526866190c8081698169b4be19a6b987d494604343fe874475126527841c83a7"
+                == "526866190c8081698169b4be19a6b987d494604343fe874475126527841c83a7"
             )
