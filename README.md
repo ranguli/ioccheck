@@ -7,6 +7,14 @@ A tool for simplifying the process of researching file hashes.
 * Look up hashes across multiple threat intelligence services, from a single command or a few lines of Python.
 * Currenty supports the following services:
   * [VirusTotal](https://virustotal.com)
+  * [MalwareBazaar](https://bazaar.abuse.ch/)
+* Planned support:
+  * [URLhaus](https://urlhaus.abuse.ch/)
+  * [OTX](https://otx.alienvault.com/)
+  * [InQuest Labs](https://labs.inquest.net/)
+  * [MalShare](https://www.malshare.com/)
+  * [Malpedia](https://malpedia.caad.fkie.fraunhofer.de/)
+  * [Maltiverse](https://maltiverse.com/)
 
 ## Quickstart
 ```bash
