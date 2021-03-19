@@ -5,22 +5,22 @@ from dataclasses import dataclass
 from pathlib import Path
 
 
-from hashcheck import IOC, IOCReport
+from ioccheck import IOC, IOCReport
 
-from hashcheck.exceptions import InvalidHashException
-from hashcheck.services import MalwareBazaar, VirusTotal, hash_services
-from hashcheck.types import MD5, SHA256, HashType, hash_types
+from ioccheck.exceptions import InvalidHashException
+from ioccheck.services import MalwareBazaar, VirusTotal, hash_services
+from ioccheck.types import MD5, SHA256, HashType, hash_types
 
-default_config_path = os.path.join(Path.home(), ".hashcheck")
+default_config_path = os.path.join(Path.home(), ".ioccheck")
 invalid_hash_message = f"Hash is not a supported hash type. Supported types are {', '.join([str(hash_type) for hash_type in hash_types])}."
 
-logger = logging.getLogger("hashcheck")
+logger = logging.getLogger("ioccheck")
 
 aiohttp_logger = logging.getLogger("aiohttp")
 aiohttp_logger.propagate = False
 aiohttp_logger.enabled = False
 
-f_handler = logging.FileHandler("hashcheck.log")
+f_handler = logging.FileHandler("ioccheck.log")
 f_handler.setLevel(logging.INFO)
 
 f_format = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")

@@ -4,13 +4,13 @@ import os
 from dataclasses import dataclass
 from pathlib import Path
 
-from hashcheck.services.service import Service
+from ioccheck.services.service import Service
 
-default_config_path = os.path.join(Path.home(), ".hashcheck")
+default_config_path = os.path.join(Path.home(), ".ioccheck")
 
-logger = logging.getLogger("hashcheck")
+logger = logging.getLogger("ioccheck")
 
-f_handler = logging.FileHandler("hashcheck.log")
+f_handler = logging.FileHandler("ioccheck.log")
 f_handler.setLevel(logging.INFO)
 
 f_format = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")

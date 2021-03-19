@@ -5,7 +5,7 @@ import shodan
 from backoff import expo, on_exception
 from ratelimit import RateLimitException, limits
 
-from hashcheck.services.service import Service
+from ioccheck.services.service import Service
 
 
 class Shodan(Service):

@@ -4,16 +4,11 @@ import vt
 from backoff import expo, on_exception
 from ratelimit import RateLimitException, limits
 
-from hashcheck.services.service import Service
+from ioccheck.services.service import Service
 
-logger = logging.getLogger("hashcheck")
+logger = logging.getLogger("ioccheck")
 
-asyncio_logger = logging.getLogger("asyncio")
-asyncio_logger.propogate = False
-asyncio_logger.enabled = False
-asyncio_logger.setLevel(logging.CRITICAL)
-
-f_handler = logging.FileHandler("hashcheck.log")
+f_handler = logging.FileHandler("ioccheck.log")
 f_handler.setLevel(logging.INFO)
 
 f_format = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")

@@ -1,8 +1,8 @@
 from tabulate import tabulate
 from termcolor import colored
 
-from hashcheck.formatters import Formatter
-from hashcheck.services import VirusTotal
+from ioccheck.formatters import Formatter
+from ioccheck.services import VirusTotal
 
 
 class VirusTotalFormatter(Formatter):

@@ -2,15 +2,15 @@ import logging
 import ipaddress
 from dataclasses import dataclass
 
-from hashcheck import IOC
-from hashcheck.services import Shodan, ip_services
-from hashcheck.exceptions import InvalidIPException
+from ioccheck import IOC
+from ioccheck.services import Shodan, ip_services
+from ioccheck.exceptions import InvalidIPException
 
 from shodan.exception import APIError
 
 logger = logging.getLogger(__name__)
 
-f_handler = logging.FileHandler("hashcheck.log")
+f_handler = logging.FileHandler("ioccheck.log")
 f_handler.setLevel(logging.INFO)
 
 f_format = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")

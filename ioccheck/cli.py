@@ -8,9 +8,9 @@ from termcolor import colored, cprint
 
 from pyfiglet import Figlet
 
-from hashcheck import Hash, IP
-from hashcheck.exceptions import InvalidHashException, InvalidIPException
-from hashcheck.formatters import MalwareBazaarFormatter, VirusTotalFormatter
+from ioccheck import Hash, IP
+from ioccheck.exceptions import InvalidHashException, InvalidIPException
+from ioccheck.formatters import MalwareBazaarFormatter, VirusTotalFormatter
 
 
 fonts = [

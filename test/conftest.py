@@ -1,8 +1,8 @@
 import pytest
 
-from hashcheck import Hash
-from hashcheck.services import MalwareBazaar, VirusTotal
-from hashcheck.types import MD5, SHA256
+from ioccheck import Hash
+from ioccheck.services import MalwareBazaar, VirusTotal
+from ioccheck.types import MD5, SHA256
 
 
 @pytest.fixture
@@ -36,55 +36,55 @@ def md5_test_hash_eicar():
 
 
 @pytest.fixture
-def hashcheck_eicar_sha256_implicit(sha256_test_hash_eicar):
+def ioccheck_eicar_sha256_implicit(sha256_test_hash_eicar):
     _hash = Hash(sha256_test_hash_eicar)
     return _hash
 
 
 @pytest.fixture
-def hashcheck_eicar_sha256_explicit(sha256_test_hash_eicar):
+def ioccheck_eicar_sha256_explicit(sha256_test_hash_eicar):
     _hash = Hash(sha256_test_hash_eicar, SHA256)
     return _hash
 
 
 @pytest.fixture
-def hashcheck_eicar_md5_implicit(md5_test_hash_eicar):
+def ioccheck_eicar_md5_implicit(md5_test_hash_eicar):
     _hash = Hash(md5_test_hash_eicar)
     return _hash
 
 
 @pytest.fixture
-def hashcheck_eicar_md5_explicit(md5_test_hash_eicar):
+def ioccheck_eicar_md5_explicit(md5_test_hash_eicar):
     _hash = Hash(md5_test_hash_eicar, MD5)
     return _hash
 
 
 @pytest.fixture
-def hashcheck_clean_sha256_implicit(sha256_test_hash_clean):
+def ioccheck_clean_sha256_implicit(sha256_test_hash_clean):
     _hash = Hash(sha256_test_hash_clean)
     return _hash
 
 
 @pytest.fixture
-def hashcheck_clean_sha256_explicit(sha256_test_hash_clean):
+def ioccheck_clean_sha256_explicit(sha256_test_hash_clean):
     _hash = Hash(sha256_test_hash_clean, SHA256)
     return _hash
 
 
 @pytest.fixture
-def hashcheck_clean_md5_implicit(md5_test_hash_clean):
+def ioccheck_clean_md5_implicit(md5_test_hash_clean):
     _hash = Hash(md5_test_hash_clean)
     return _hash
 
 
 @pytest.fixture
-def hashcheck_clean_md5_explicit(md5_test_hash_clean):
+def ioccheck_clean_md5_explicit(md5_test_hash_clean):
     _hash = Hash(md5_test_hash_clean, MD5)
     return _hash
 
 
 @pytest.fixture
-def hashcheck_eicar_report_all(sha256_test_hash_eicar):
+def ioccheck_eicar_report_all(sha256_test_hash_eicar):
     _hash = Hash(sha256_test_hash_eicar, SHA256)
     _hash.check()
 
@@ -92,7 +92,7 @@ def hashcheck_eicar_report_all(sha256_test_hash_eicar):
 
 
 @pytest.fixture
-def hashcheck_eicar_report_virus_total(sha256_test_hash_eicar):
+def ioccheck_eicar_report_virus_total(sha256_test_hash_eicar):
     _hash = Hash(sha256_test_hash_eicar, SHA256)
     _hash.check(services=VirusTotal)
 
@@ -100,7 +100,7 @@ def hashcheck_eicar_report_virus_total(sha256_test_hash_eicar):
 
 
 @pytest.fixture
-def hashcheck_emotet_report_malwarebazaar(sha256_test_hash_emotet):
+def ioccheck_emotet_report_malwarebazaar(sha256_test_hash_emotet):
     _hash = Hash(sha256_test_hash_emotet, SHA256)
     _hash.check(services=MalwareBazaar)
 

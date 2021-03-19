@@ -3,8 +3,8 @@ import logging
 import pytest
 from click.testing import CliRunner
 
-from hashcheck.hash import invalid_hash_message
-from hashcheck.cli import run
+from ioccheck.hash import invalid_hash_message
+from ioccheck.cli import run
 
 
 logger = logging.getLogger(__name__)

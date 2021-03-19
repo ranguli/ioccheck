@@ -24,10 +24,10 @@ def format(session):
 @nox.session(python=["3.8"])
 def lint(session):
     session.install("flake8")
-    session.run("flake8", "./hashcheck", "./test")
+    session.run("flake8", "./ioccheck", "./test")
 
 
 @nox.session(python=["3.8"])
 def audit(session):
     session.install("bandit")
-    session.run("bandit", "-r", "./hashcheck")
+    session.run("bandit", "-r", "./ioccheck")
