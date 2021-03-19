@@ -62,7 +62,7 @@ class VirusTotalFormatter(Formatter):
         return result
 
     def _format_tags(self, service):
-        return ", ".join(service.tags)
+        return ", ".join(service.tags) if service.tags else None
 
     def _format_popular_threat_names(self, service):
         return (

@@ -83,7 +83,13 @@ class VirusTotal(Service):
         return response.relationships
 
     def _get_popular_threat_names(self, response):
-        names = response.get("popular_threat_classification").get("popular_threat_name")
+        try:
+            names = response.get("popular_threat_classification").get(
+                "popular_threat_name"
+            )
+        except AttributeError:
+            return None
+
         return [name[0] for name in names] if names else None
 
     def _get_tags(self, response):

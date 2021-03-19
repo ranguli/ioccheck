@@ -1,45 +1,78 @@
 #!/usr/bin/env python
 
 import sys
+import random
 
 import click
 from termcolor import colored, cprint
 
-from hashcheck import Hash
-from hashcheck.exceptions import InvalidHashException
+from pyfiglet import Figlet
+
+from hashcheck import Hash, IP
+from hashcheck.exceptions import InvalidHashException, InvalidIPException
 from hashcheck.formatters import MalwareBazaarFormatter, VirusTotalFormatter
 
-banner = """
-888                        888               888                        888
-888                        888               888                        888
-888                        888               888                        888
-88888b.   8888b.  .d8888b  88888b.   .d8888b 88888b.   .d88b.   .d8888b 888  888
-888 "88b     "88b 88K      888 "88b d88P"    888 "88b d8P  Y8b d88P"    888 .88P
-888  888 .d888888 "Y8888b. 888  888 888      888  888 88888888 888      888888K
-888  888 888  888      X88 888  888 Y88b.    888  888 Y8b.     Y88b.    888 "88b
-888  888 "Y888888  88888P' 888  888  "Y8888P 888  888  "Y8888   "Y8888P 888  888
 
-                                                                           0.1.0
-https://github.com/ranguli/hashcheck
-"""
+fonts = [
+    "slant",
+    "banner",
+    "basic",
+    "bell",
+    "block",
+    "calgphy2",
+    "colossal",
+    "cosmic",
+    "doom",
+    "larry3d",
+    "poison",
+    "smkeyboard",
+    "standard",
+    "straight",
+    "trek",
+]
+figlet = Figlet(font=random.choice(fonts))  # nosec
+
+
+# 0.1.0
+# https://github.com/ranguli/ioccheck
 
 heading_color = "blue"
 
-cprint(banner, heading_color)
+
+cprint(figlet.renderText("ioccheck"), heading_color)
+
+cprint("v0.1.0 (https://github.com/ranguli/ioccheck)\n", heading_color)
 
 
 @click.command()
-@click.argument("file_hash")
-def run(file_hash):
-    printed_hash = colored(file_hash, heading_color)
-    print(f"Checking hash {printed_hash}.\n")
+@click.argument("ioc")
+def run(ioc):
+    printed_ioc = colored(ioc, heading_color)
+    print(f"Checking IOC {printed_ioc}.\n")
+
+    check_message = "[*] Checking if IOC is a"
+    fail_message = "[!] IOC is not a"
 
     try:
-        _hash = Hash(file_hash)
+        cprint(f"{check_message} file hash.", heading_color)
+        _hash = Hash(ioc)
         _hash.check()
-    except InvalidHashException as e:
-        sys.exit(e)
+    except InvalidHashException:
+        cprint(f"{fail_message} file hash.", "yellow")
+        pass
 
+    try:
+        cprint(f"{check_message} IP address.", heading_color)
+        _ip = IP(ioc)
+        _ip.check()
+    except InvalidIPException:
+        sys.exit(colored(f"{fail_message} IP address.", "yellow"))
+
+    if not _ip and not _hash:
+        sys.exit("[!] IOC is not supported")
+
+
+def hash_results(_hash, heading_color):
     hash_algorithm_heading = colored("[*] Hashing algorithm:", heading_color)
     print(f"{hash_algorithm_heading} {_hash.hash_type}")
 
@@ -61,8 +94,9 @@ def virustotal_results(_hash, heading_color):
 
     formatter = VirusTotalFormatter(virustotal)
 
-    tags_heading = colored("[*] VirusTotal tags:", heading_color)
-    print(f"{tags_heading} {formatter.tags}")
+    if formatter.tags:
+        tags_heading = colored("[*] VirusTotal tags:", heading_color)
+        print(f"{tags_heading} {formatter.tags}")
 
     investigation_url_heading = colored("[*] VirusTotal URL:", heading_color)
     print(f"{investigation_url_heading} {virustotal.investigation_url}")

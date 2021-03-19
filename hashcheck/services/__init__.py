@@ -1,4 +1,6 @@
 from .malwarebazaar import MalwareBazaar
 from .virustotal import VirusTotal
+from .shodan import Shodan
 
-all_services = [VirusTotal, MalwareBazaar]
+hash_services = [VirusTotal, MalwareBazaar]
+ip_services = [Shodan]
