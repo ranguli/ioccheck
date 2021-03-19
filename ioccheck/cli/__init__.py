@@ -2,6 +2,7 @@
 
 import sys
 import random
+import logging
 
 import click
 from termcolor import colored, cprint
@@ -10,8 +11,11 @@ from pyfiglet import Figlet
 
 from ioccheck import Hash, IP
 from ioccheck.exceptions import InvalidHashException, InvalidIPException
-from ioccheck.formatters import MalwareBazaarFormatter, VirusTotalFormatter
+from .formatters import MalwareBazaarFormatter, VirusTotalFormatter
 
+aiohttp_logger = logging.getLogger("aiohttp")
+aiohttp_logger.propagate = False
+aiohttp_logger.enabled = False
 
 fonts = [
     "slant",
@@ -31,16 +35,9 @@ fonts = [
     "trek",
 ]
 figlet = Figlet(font=random.choice(fonts))  # nosec
-
-
-# 0.1.0
-# https://github.com/ranguli/ioccheck
-
 heading_color = "blue"
 
-
 cprint(figlet.renderText("ioccheck"), heading_color)
-
 cprint("v0.1.0 (https://github.com/ranguli/ioccheck)\n", heading_color)
 
 
@@ -61,15 +58,15 @@ def run(ioc):
         cprint(f"{fail_message} file hash.", "yellow")
         pass
 
-    try:
-        cprint(f"{check_message} IP address.", heading_color)
-        _ip = IP(ioc)
-        _ip.check()
-    except InvalidIPException:
-        sys.exit(colored(f"{fail_message} IP address.", "yellow"))
+        try:
+            cprint(f"{check_message} IP address.", heading_color)
+            _ip = IP(ioc)
+            _ip.check()
+        except InvalidIPException:
+            sys.exit(colored(f"{fail_message} IP address.", "yellow"))
 
-    if not _ip and not _hash:
-        sys.exit("[!] IOC is not supported")
+    #if not _ip and not _hash:
+    #    sys.exit("[!] IOC is not supported")
 
 
 def hash_results(_hash, heading_color):

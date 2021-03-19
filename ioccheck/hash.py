@@ -14,7 +14,7 @@ from ioccheck.types import MD5, SHA256, HashType, hash_types
 default_config_path = os.path.join(Path.home(), ".ioccheck")
 invalid_hash_message = f"Hash is not a supported hash type. Supported types are {', '.join([str(hash_type) for hash_type in hash_types])}."
 
-logger = logging.getLogger("ioccheck")
+logger = logging.getLogger(__name__)
 
 aiohttp_logger = logging.getLogger("aiohttp")
 aiohttp_logger.propagate = False

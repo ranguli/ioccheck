@@ -1,7 +1,7 @@
 from tabulate import tabulate
 from termcolor import colored
 
-from ioccheck.formatters import Formatter
+from ioccheck.cli.formatters import Formatter
 from ioccheck.services import VirusTotal
 
 

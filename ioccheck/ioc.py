@@ -8,7 +8,11 @@ from ioccheck.services.service import Service
 
 default_config_path = os.path.join(Path.home(), ".ioccheck")
 
-logger = logging.getLogger("ioccheck")
+logger = logging.getLogger(__name__)
+
+aiohttp_logger = logging.getLogger("aiohttp")
+aiohttp_logger.propagate = False
+aiohttp_logger.enabled = False
 
 f_handler = logging.FileHandler("ioccheck.log")
 f_handler.setLevel(logging.INFO)
@@ -17,7 +21,6 @@ f_format = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message
 f_handler.setFormatter(f_format)
 
 logger.addHandler(f_handler)
-
 
 @dataclass
 class IOCReport:
