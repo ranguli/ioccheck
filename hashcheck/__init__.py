@@ -38,7 +38,7 @@ class Hash:
     def __init__(self, file_hash: str, hash_type: HashType = None):
         self.hash = file_hash
         self.name = None
-        self.reports = {}
+        self.reports = None
         self.hash_type = hash_type
 
         if not isinstance(self.hash, str):
