@@ -30,7 +30,6 @@ class IPReport:
 
 class IP(IOC):
     def __init__(self, ip_addr: str):
-        self.ioc = None
         self.name = None
         self.reports = None
         self.all_services = ip_services
@@ -56,6 +55,4 @@ class IP(IOC):
                 raise InvalidIPException
 
         if reports:
-            return IPReport(**reports)
-        else:
-            return None
+            self.reports = IPReport(**reports)

@@ -1,8 +1,24 @@
+import logging
+
 from tabulate import tabulate
 from termcolor import colored
 
 from ioccheck.cli.formatters import Formatter
 from ioccheck.services import VirusTotal
+
+logger = logging.getLogger(__name__)
+
+aiohttp_logger = logging.getLogger("aiohttp")
+aiohttp_logger.propagate = False
+aiohttp_logger.enabled = False
+
+f_handler = logging.FileHandler("ioccheck.log")
+f_handler.setLevel(logging.INFO)
+
+f_format = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+f_handler.setFormatter(f_format)
+
+logger.addHandler(f_handler)
 
 
 class VirusTotalFormatter(Formatter):

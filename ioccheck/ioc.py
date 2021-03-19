@@ -82,7 +82,9 @@ class IOC:
         if services is None:
             configured_services = self._get_configured_services(config_path)
             [
-                self._get_report(self.ioc, service, config_path, reports)
+                reports.update(
+                    self._get_report(self.ioc, service, config_path, reports)
+                )
                 for service in configured_services
             ]
         else:
@@ -99,7 +101,6 @@ class IOC:
                 )
             else:
                 raise ValueError("Error while checking services")
-
         return reports
 
     def _get_report(

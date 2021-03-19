@@ -75,4 +75,4 @@ class Hash(IOC):
 
     def check(self, services=None, config_path=None):
         reports = self._get_reports(services, config_path)
-        return HashReport(**reports)
+        self.reports = HashReport(**reports)

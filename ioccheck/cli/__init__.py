@@ -11,11 +11,12 @@ from pyfiglet import Figlet
 
 from ioccheck import Hash, IP
 from ioccheck.exceptions import InvalidHashException, InvalidIPException
-from .formatters import MalwareBazaarFormatter, VirusTotalFormatter
+from ioccheck.cli.formatters import MalwareBazaarFormatter, VirusTotalFormatter
 
 aiohttp_logger = logging.getLogger("aiohttp")
 aiohttp_logger.propagate = False
 aiohttp_logger.enabled = False
+aiohttp_logger.setLevel(logging.WARNING)
 
 fonts = [
     "slant",
@@ -34,40 +35,12 @@ fonts = [
     "straight",
     "trek",
 ]
+
 figlet = Figlet(font=random.choice(fonts))  # nosec
 heading_color = "blue"
 
 cprint(figlet.renderText("ioccheck"), heading_color)
 cprint("v0.1.0 (https://github.com/ranguli/ioccheck)\n", heading_color)
-
-
-@click.command()
-@click.argument("ioc")
-def run(ioc):
-    printed_ioc = colored(ioc, heading_color)
-    print(f"Checking IOC {printed_ioc}.\n")
-
-    check_message = "[*] Checking if IOC is a"
-    fail_message = "[!] IOC is not a"
-
-    try:
-        cprint(f"{check_message} file hash.", heading_color)
-        _hash = Hash(ioc)
-        _hash.check()
-    except InvalidHashException:
-        cprint(f"{fail_message} file hash.", "yellow")
-        pass
-
-        try:
-            cprint(f"{check_message} IP address.", heading_color)
-            _ip = IP(ioc)
-            _ip.check()
-        except InvalidIPException:
-            sys.exit(colored(f"{fail_message} IP address.", "yellow"))
-
-    #if not _ip and not _hash:
-    #    sys.exit("[!] IOC is not supported")
-
 
 def hash_results(_hash, heading_color):
     hash_algorithm_heading = colored("[*] Hashing algorithm:", heading_color)
@@ -102,7 +75,6 @@ def virustotal_results(_hash, heading_color):
     detections_heading = colored("[*] VirusTotal detections:", "blue")
 
     print(f"{detections_heading} {formatter.detection_count}")
-    print(formatter.detections)
 
     reputation_heading = colored("[*] VirusTotal reputation:", heading_color)
     print(f"{reputation_heading} {formatter.reputation}")
@@ -130,3 +102,28 @@ def malwarebazaar_results(_hash, heading_color):
 
     cprint("[*] File hashes:\n", heading_color)
     print(formatter.hashes)
+
+ioc_types = [
+    {"name": "file hash", "ioc": Hash, "exception": InvalidHashException, "results": hash_results},
+    {"name": "IP address", "ioc": IP, "exception": InvalidIPException}
+]
+
+
+@click.command()
+@click.argument("ioc")
+def run(ioc):
+    printed_ioc = colored(ioc, heading_color)
+    # print(f"Checking IOC {printed_ioc}.\n")
+
+    check_message = "[*] Checking if IOC is a"
+    fail_message = "[!] IOC is not a"
+
+    for ioc_type in ioc_types:
+        try:
+            cprint(f"{check_message} {ioc_type.get('name')}.", heading_color)
+            ioc = ioc_type.get("ioc")(ioc)
+            ioc.check()
+            ioc_type.get("results")(ioc, heading_color)
+            break
+        except ioc_type.get("exception"):
+            cprint(f"{fail_message} {ioc_type.get('name')}.", "yellow")

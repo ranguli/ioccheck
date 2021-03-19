@@ -1,3 +1,5 @@
+import logging
+
 from typing import Union
 from ipaddress import IPv4Address, IPv6Address
 
@@ -6,6 +8,20 @@ from backoff import expo, on_exception
 from ratelimit import RateLimitException, limits
 
 from ioccheck.services.service import Service
+
+logger = logging.getLogger(__name__)
+
+aiohttp_logger = logging.getLogger("aiohttp")
+aiohttp_logger.propagate = False
+aiohttp_logger.enabled = False
+
+f_handler = logging.FileHandler("ioccheck.log")
+f_handler.setLevel(logging.INFO)
+
+f_format = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+f_handler.setFormatter(f_format)
+
+logger.addHandler(f_handler)
 
 
 class Shodan(Service):
