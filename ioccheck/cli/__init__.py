@@ -8,6 +8,7 @@ import click
 from pyfiglet import Figlet
 from termcolor import colored, cprint
 
+from ioccheck import __version__
 from ioccheck.cli.formatters import (MalwareBazaarFormatter, ShodanFormatter,
                                      VirusTotalFormatter)
 from ioccheck.exceptions import (InvalidHashException, InvalidIPException,
@@ -36,11 +37,12 @@ fonts = [
     "trek",
 ]
 
+
 figlet = Figlet(font=random.choice(fonts))  # nosec
 heading_color = "blue"
 
 cprint(figlet.renderText("ioccheck"), heading_color)
-cprint("v0.1.0 (https://github.com/ranguli/ioccheck)\n", heading_color)
+cprint(f"v{__version__} (https://github.com/ranguli/ioccheck)\n", heading_color)
 
 
 def ip_results(ip, heading_color):
