@@ -51,6 +51,18 @@ jobs:
             sudo pip install poetry
             poetry install
             poetry run nox -e audit
+  typecheck:
+    working_directory: ~/main
+    docker:
+      - image: circleci/python:3.8.6
+    steps:
+      - checkout
+      - run:
+          name: Run type checking
+          command: |
+            sudo pip install poetry
+            poetry install
+            poetry run nox -e typecheck
 
 workflows:
   version: 2
@@ -68,13 +80,19 @@ workflows:
               only: /.*/
             tags:
               only: /.*/
+      - format:
+          filters:
+            branches:
+              only: /.*/
+            tags:
+              only: /.*/
       - audit:
           filters:
             branches:
               only: /.*/
             tags:
               only: /.*/
-      - format:
+      - typecheck:
           filters:
             branches:
               only: /.*/

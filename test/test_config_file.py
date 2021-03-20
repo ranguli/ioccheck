@@ -1,26 +1,21 @@
+from configparser import ParsingError
+
 import pytest
 
-from hashcheck import Hash
-from hashcheck.services import VirusTotal
-
-from vt.error import APIError
-
-from configparser import ParsingError
+from ioccheck.iocs import Hash
+from ioccheck.services import VirusTotal
 
 
 class TestConfigFile:
     def test_config_file_1(self, sha256_test_hash_eicar):
-        with pytest.raises(APIError):
-            _hash = Hash(sha256_test_hash_eicar)
-            _hash.check(
-                services=VirusTotal, config_path="./test/hashcheck_bad_config_1.in"
-            )
+        _hash = Hash(sha256_test_hash_eicar)
+        _hash.check(services=VirusTotal, config_path="./test/ioccheck_bad_config_1.in")
 
     def test_config_file_2(self, sha256_test_hash_eicar):
         with pytest.raises(ParsingError):
             _hash = Hash(sha256_test_hash_eicar)
             _hash.check(
-                services=VirusTotal, config_path="./test/hashcheck_bad_config_2.in"
+                services=VirusTotal, config_path="./test/ioccheck_bad_config_2.in"
             )
 
     def test_config_file_3(self, sha256_test_hash_eicar):
