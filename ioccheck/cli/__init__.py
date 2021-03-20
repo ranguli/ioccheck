@@ -8,11 +8,11 @@ import click
 from pyfiglet import Figlet
 from termcolor import colored, cprint
 
-from ioccheck import IP, Hash
 from ioccheck.cli.formatters import (MalwareBazaarFormatter, ShodanFormatter,
                                      VirusTotalFormatter)
 from ioccheck.exceptions import (InvalidHashException, InvalidIPException,
                                  NoConfiguredServicesException)
+from ioccheck.iocs import IP, Hash
 
 asyncio_logger = logging.getLogger("asyncio")
 asyncio_logger.setLevel(logging.CRITICAL)

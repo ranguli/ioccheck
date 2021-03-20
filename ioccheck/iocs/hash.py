@@ -5,10 +5,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import List, Optional
 
-from ioccheck import IOC, IOCReport
 from ioccheck.exceptions import InvalidHashException
-from ioccheck.services import MalwareBazaar, VirusTotal, hash_services
-from ioccheck.services.service import Service
+from ioccheck.iocs import IOC, IOCReport
+from ioccheck.services import MalwareBazaar, Service, VirusTotal, hash_services
 from ioccheck.types import MD5, SHA256, HashType, hash_types
 
 default_config_path = os.path.join(Path.home(), ".ioccheck")

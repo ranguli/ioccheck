@@ -2,7 +2,7 @@ from configparser import ParsingError
 
 import pytest
 
-from ioccheck import Hash
+from ioccheck.iocs import Hash
 from ioccheck.services import VirusTotal
 
 

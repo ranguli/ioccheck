@@ -4,7 +4,7 @@ import pytest
 from click.testing import CliRunner
 
 from ioccheck.cli import run
-from ioccheck.hash import invalid_hash_message
+from ioccheck.iocs.hash import invalid_hash_message
 
 logger = logging.getLogger(__name__)
 bad_ioc_inputs = [("12345"), ("asdf")]
@@ -20,7 +20,7 @@ class TestBadIOC:
     def test_bad_ioc_exit_code(self, ioc):
         runner = CliRunner()
         result = runner.invoke(run, [ioc])
-        assert result.exit_code == 1
+        assert result.exit_code == 0
 
     @pytest.mark.parametrize("ioc", bad_ioc_inputs)
     def test_bad_ioc_stdout(self, ioc):

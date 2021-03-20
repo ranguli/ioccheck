@@ -3,8 +3,8 @@ import logging
 from dataclasses import dataclass
 from typing import List, Union
 
-from ioccheck import IOC, IOCReport
 from ioccheck.exceptions import InvalidIPException
+from ioccheck.iocs import IOC, IOCReport
 from ioccheck.services import Shodan, ip_services
 
 logger = logging.getLogger(__name__)

@@ -1,6 +1,6 @@
 import pytest
 
-from ioccheck import Hash
+from ioccheck.iocs import Hash
 from ioccheck.services import MalwareBazaar, VirusTotal
 from ioccheck.types import MD5, SHA256
 

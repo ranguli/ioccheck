@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from ioccheck.exceptions import NoConfiguredServicesException
-from ioccheck.services.service import Service
+from ioccheck.services import Service
 
 default_config_path = os.path.join(Path.home(), ".ioccheck")
 

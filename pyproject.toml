@@ -18,6 +18,7 @@ isort = "^5.7.0"
 shodan = "^1.25.0"
 pyfiglet = "^0.8.post1"
 mypy = "^0.812"
+coverage = "^5.5"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

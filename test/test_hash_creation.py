@@ -1,7 +1,7 @@
 import pytest
 
-from ioccheck import Hash
 from ioccheck.exceptions import InvalidHashException
+from ioccheck.iocs import Hash
 from ioccheck.types import MD5, SHA256
 
 
