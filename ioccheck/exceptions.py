@@ -4,3 +4,7 @@ class InvalidHashException(Exception):
 
 class InvalidIPException(Exception):
     pass
+
+
+class NoConfiguredServicesException(Exception):
+    pass

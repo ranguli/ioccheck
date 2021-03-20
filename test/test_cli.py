@@ -3,9 +3,8 @@ import logging
 import pytest
 from click.testing import CliRunner
 
-from ioccheck.hash import invalid_hash_message
 from ioccheck.cli import run
-
+from ioccheck.hash import invalid_hash_message
 
 logger = logging.getLogger(__name__)
 bad_ioc_inputs = [("12345"), ("asdf")]

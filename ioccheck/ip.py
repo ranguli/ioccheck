@@ -1,18 +1,13 @@
-import logging
 import ipaddress
+import logging
 from dataclasses import dataclass
+from typing import List, Union
 
-from ioccheck import IOC
-from ioccheck.services import Shodan, ip_services
+from ioccheck import IOC, IOCReport
 from ioccheck.exceptions import InvalidIPException
-
-from shodan.exception import APIError
+from ioccheck.services import Shodan, ip_services
 
 logger = logging.getLogger(__name__)
-
-aiohttp_logger = logging.getLogger("aiohttp")
-aiohttp_logger.propagate = False
-aiohttp_logger.enabled = False
 
 f_handler = logging.FileHandler("ioccheck.log")
 f_handler.setLevel(logging.INFO)
@@ -24,35 +19,25 @@ logger.addHandler(f_handler)
 
 
 @dataclass
-class IPReport:
-    shodan: Shodan = None
+class IPReport(IOCReport):
+    shodan: Shodan = None  # type: ignore
 
 
 class IP(IOC):
     def __init__(self, ip_addr: str):
-        self.name = None
-        self.reports = None
         self.all_services = ip_services
+
+        if not isinstance(ip_addr, str):
+            raise InvalidIPException
 
         try:
             self.ioc = ipaddress.ip_address(ip_addr)
         except ValueError:
             raise InvalidIPException
 
-        if not isinstance(self.ioc, str):
-            raise InvalidIPException
-
         # self.is_ipv4 = True if self.hash_type == SHA256 else False
         # self.is_ipv6 = True if self.hash_type == MD5 else False
 
-    def check(self, services=None, config_path=None):
-        reports = None
-
-        try:
-            reports = self._get_reports(services, config_path)
-        except APIError as e:
-            if e == "Invalid IP":
-                raise InvalidIPException
-
-        if reports:
-            self.reports = IPReport(**reports)
+    def check(self, services: Union[List, None], config_path: Union[str, None]):
+        reports = self._get_reports(services, config_path)
+        self.reports = IPReport(**reports)

@@ -1,22 +1,22 @@
 #!/usr/bin/env python
 
-import sys
-import random
 import logging
+import random
+import sys
 
 import click
+from pyfiglet import Figlet
 from termcolor import colored, cprint
 
-from pyfiglet import Figlet
+from ioccheck import IP, Hash
+from ioccheck.cli.formatters import (MalwareBazaarFormatter, ShodanFormatter,
+                                     VirusTotalFormatter)
+from ioccheck.exceptions import (InvalidHashException, InvalidIPException,
+                                 NoConfiguredServicesException)
 
-from ioccheck import Hash, IP
-from ioccheck.exceptions import InvalidHashException, InvalidIPException
-from ioccheck.cli.formatters import MalwareBazaarFormatter, VirusTotalFormatter
+asyncio_logger = logging.getLogger("asyncio")
+asyncio_logger.setLevel(logging.CRITICAL)
 
-aiohttp_logger = logging.getLogger("aiohttp")
-aiohttp_logger.propagate = False
-aiohttp_logger.enabled = False
-aiohttp_logger.setLevel(logging.WARNING)
 
 fonts = [
     "slant",
@@ -41,6 +41,26 @@ heading_color = "blue"
 
 cprint(figlet.renderText("ioccheck"), heading_color)
 cprint("v0.1.0 (https://github.com/ranguli/ioccheck)\n", heading_color)
+
+
+def ip_results(ip, heading_color):
+    try:
+        shodan_results(ip, heading_color)
+    except AttributeError:
+        cprint("[!] There was an error displaying the Shodan report.", "red")
+
+
+def shodan_results(ip, heading_color):
+    shodan = ip.reports.shodan
+
+    formatter = ShodanFormatter(shodan)
+
+    cprint("[*] Shodan location data:", heading_color)
+    print(formatter.location)
+
+    tags_header = colored("[*] Shodan tags:", heading_color)
+    print(f"{tags_header} {formatter.tags}")
+
 
 def hash_results(_hash, heading_color):
     hash_algorithm_heading = colored("[*] Hashing algorithm:", heading_color)
@@ -103,9 +123,20 @@ def malwarebazaar_results(_hash, heading_color):
     cprint("[*] File hashes:\n", heading_color)
     print(formatter.hashes)
 
+
 ioc_types = [
-    {"name": "file hash", "ioc": Hash, "exception": InvalidHashException, "results": hash_results},
-    {"name": "IP address", "ioc": IP, "exception": InvalidIPException}
+    {
+        "name": "file hash",
+        "ioc": Hash,
+        "exception": InvalidHashException,
+        "results": hash_results,
+    },
+    {
+        "name": "IP address",
+        "ioc": IP,
+        "exception": InvalidIPException,
+        "results": ip_results,
+    },
 ]
 
 
@@ -113,7 +144,7 @@ ioc_types = [
 @click.argument("ioc")
 def run(ioc):
     printed_ioc = colored(ioc, heading_color)
-    # print(f"Checking IOC {printed_ioc}.\n")
+    print(f"Checking IOC {printed_ioc}.\n")
 
     check_message = "[*] Checking if IOC is a"
     fail_message = "[!] IOC is not a"
@@ -127,3 +158,9 @@ def run(ioc):
             break
         except ioc_type.get("exception"):
             cprint(f"{fail_message} {ioc_type.get('name')}.", "yellow")
+        except NoConfiguredServicesException:
+            sys.exit(
+                colored(
+                    "[!] No configured services available to search that IOC.", "red"
+                )
+            )
