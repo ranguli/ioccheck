@@ -32,11 +32,13 @@ class IP(IOC):
         # self.is_ipv4 = True if self.hash_type == SHA256 else False
         # self.is_ipv6 = True if self.hash_type == MD5 else False
 
-    def check(self, services: Optional[List] = None, config_path: Optional[str] = None) -> None:
+    def check(
+        self, services: Optional[List] = None, config_path: Optional[str] = None
+    ) -> None:
         reports = self._get_reports(services, config_path)
         self.reports = IPReport(**reports)
 
-    def _get_ip(self, ip_addr: str) -> Union[IPv4Address,IPv6Address]:
+    def _get_ip(self, ip_addr: str) -> Union[IPv4Address, IPv6Address]:
         if not isinstance(ip_addr, str):
             raise InvalidIPException
 

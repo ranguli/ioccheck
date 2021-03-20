@@ -47,7 +47,7 @@ fonts = [
 figlet = Figlet(font=random.choice(fonts))  # nosec
 heading_color = "blue"
 
-version = pkg_resources.get_distribution('ioccheck').version
+version = pkg_resources.get_distribution("ioccheck").version
 
 cprint(figlet.renderText("ioccheck"), heading_color)
 cprint(f"v{version} (https://github.com/ranguli/ioccheck)\n", heading_color)

@@ -5,6 +5,7 @@ from dataclasses import dataclass
 class IOCType:
     pass
 
+
 @dataclass
 class HashType(IOCType):
     name: str

@@ -2,7 +2,6 @@ import pytest
 
 from ioccheck.exceptions import InvalidIPException
 from ioccheck.iocs import IP
-from ioccheck.types import IPv4, IPv6
 
 
 class TestIPCreation:
@@ -25,7 +24,6 @@ class TestIPCreation:
                 ("192.168.0.0"),
                 ("172.16.0.0"),
                 ("10.0.0.0"),
-
             ],
         )
         def test_invalid_ip_exception(self, ip_addr):
