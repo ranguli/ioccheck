@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ioccheck"
-version = "0.2.0"
+version = "0.2.1"
 description = "A tool for simplifying the process of researching IOCs."
 authors = ["ranguli <hello@joshmurphy.ca>"]
 
