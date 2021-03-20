@@ -1,10 +1,10 @@
 #!/usr/bin/env python
-""" isort:skip_file """
+""" Services """
 
-from .service import Service
-from .malwarebazaar import MalwareBazaar
-from .shodan import Shodan
-from .virustotal import VirusTotal
+from .service import Service # isort:skip
+from .malwarebazaar import MalwareBazaar # isort:skip
+from .shodan import Shodan # isort:skip
+from .virustotal import VirusTotal # isort:skip
 
 hash_services = [VirusTotal, MalwareBazaar]
 ip_services = [Shodan]

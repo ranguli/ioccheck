@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-""" isort:skip_file """
-from .ioc import IOC, IOCReport
-from .hash import Hash, HashReport
-from .ip import IP, IPReport
+from .ioc import IOC, IOCReport # isort:skip
+from .hash import Hash, HashReport # isort:skip
+from .ip import IP, IPReport # isort:skip

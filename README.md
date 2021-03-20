@@ -1,4 +1,8 @@
 # iocheck
+[![Documentation Status](https://readthedocs.org/projects/ioccheck/badge/?version=latest)](https://ioccheck.readthedocs.io/en/latest/?badge=latest)
+[![CircleCI](https://circleci.com/gh/ranguli/ioccheck.svg?style=svg)](https://circleci.com/gh/ranguli/ioccheck)
+[![PyPi Status](https://img.shields.io/pypi/v/ioccheck.svg)](https://pypi.org/project/ioccheck/)
+
 
 A tool for simplifying the process of researching file hashes, IP addresses,
 and other indicators of compromise (IOCs).
@@ -9,6 +13,7 @@ and other indicators of compromise (IOCs).
 * Currenty supports the following services:
   * [VirusTotal](https://virustotal.com)
   * [MalwareBazaar](https://bazaar.abuse.ch/)
+  * [Shodan.io](https://shodan.io/)
 * Planned support:
   * [URLhaus](https://urlhaus.abuse.ch/)
   * [OTX](https://otx.alienvault.com/)

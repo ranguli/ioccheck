@@ -1,39 +1,37 @@
-import nox
+from nox_poetry import session
 
 
-@nox.session(python=["3.7", "3.8"])
-def testnosecret(session):
-    # Only run tests that don't require secrets
-    session.install("pytest", ".")
+@session(python=['3.7', '3.8', '3.9'])
+def test(session):
     session.run("pytest", "-m", "not secret")
 
-
-@nox.session(python=["3.7", "3.8"])
-def testsecret(session):
-    # Only run tests that require secrets
-    session.install("pytest", ".")
+@session(python=['3.7', '3.8', '3.9'])
+def test_secret(session):
     session.run("pytest", "-m", "secret")
 
 
-@nox.session(python=["3.8"])
-def format(session):
-    session.install("black")
-    session.run("black", ".")
+@session(python=['3.9'])
+def coverage(session):
+    session.run("pytest", "--cov-report=xml", "--cov=ioccheck", "-m", "not secret")
 
 
-@nox.session(python=["3.8"])
+@session(python=['3.9'])
 def lint(session):
-    session.install("flake8")
     session.run("flake8", "./ioccheck", "./test")
-
-
-@nox.session(python=["3.8"])
-def audit(session):
-    session.install("bandit")
     session.run("bandit", "-r", "./ioccheck")
-
-
-@nox.session(python=["3.8"])
-def typecheck(session):
-    session.install("mypy")
     session.run("mypy", "./ioccheck")
+    session.run("black", ".")
+    session.run("isort", ".")
+
+
+@session(python=['3.9'])
+def docs(session):
+    session.run(
+        "sphinx-build",
+        "-b",
+        "html",
+        "-b",
+        "coverage",
+        "./docs/source/",
+        "docs/build/html/",
+    )
