@@ -1,6 +1,6 @@
 # iocheck
 [![Documentation Status](https://readthedocs.org/projects/ioccheck/badge/?version=latest)](https://ioccheck.readthedocs.io/en/latest/?badge=latest)
-[![CircleCI](https://circleci.com/gh/ranguli/ioccheck.svg?style=svg)](https://circleci.com/gh/ranguli/ioccheck)
+[![Tests](https://github.com/ranguli/ioccheck/actions/workflows/main.yml/badge.svg)](https://github.com/ranguli/ioccheck/actions/workflows/main.yml)
 [![PyPi Status](https://img.shields.io/pypi/v/ioccheck.svg)](https://pypi.org/project/ioccheck/)
 [![codecov](https://codecov.io/gh/ranguli/citest/branch/main/graph/badge.svg?token=pjjBiTgJFC)](https://codecov.io/gh/ranguli/citest)
 
