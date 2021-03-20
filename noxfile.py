@@ -3,16 +3,16 @@ from nox_poetry import session
 
 @session(python=['3.7', '3.8', '3.9'])
 def test(session):
-    session.run("pytest", "-m", "not secret")
+    session.run("pytest", "-m", "not secret", external=True)
 
 @session(python=['3.7', '3.8', '3.9'])
 def test_secret(session):
-    session.run("pytest", "-m", "secret")
+    session.run("pytest", "-m", "secret", external=True)
 
 
 @session(python=['3.9'])
 def coverage(session):
-    session.run("pytest", "--cov-report=xml", "--cov=ioccheck", "-m", "not secret")
+    session.run("pytest", "--cov-report=xml", "--cov=ioccheck", "-m", "not secret", external=True)
 
 
 @session(python=['3.9'])

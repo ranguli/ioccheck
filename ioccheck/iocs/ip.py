@@ -27,7 +27,7 @@ class IPReport(IOCReport):
 class IP(IOC):
     def __init__(self, ip_addr: str):
         self.all_services = ip_services
-        self.ip = self._get_ip(ip_addr)
+        self.ioc = self._get_ip(ip_addr)
 
         # self.is_ipv4 = True if self.hash_type == SHA256 else False
         # self.is_ipv6 = True if self.hash_type == MD5 else False
