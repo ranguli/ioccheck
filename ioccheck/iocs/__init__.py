@@ -1,5 +1,5 @@
 #!/usr/bin/env python
 
-from .ioc import IOC, IOCReport # isort:skip
-from .hash import Hash, HashReport # isort:skip
-from .ip import IP, IPReport # isort:skip
+from .ioc import IOC, IOCReport  # isort:skip
+from .hash import Hash, HashReport  # isort:skip
+from .ip import IP, IPReport  # isort:skip

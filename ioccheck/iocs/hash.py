@@ -31,7 +31,7 @@ class HashReport(IOCReport):
 
 
 class Hash(IOC):
-    """ Type of IOC representing file hashes
+    """Type of IOC representing file hashes
 
     Attributes:
         hash_type (HashType): Indicates the hashing algorithm used by the hash.
@@ -39,6 +39,7 @@ class Hash(IOC):
         all_services (list): Supported services that can be used to investigate the IOC
 
     """
+
     def __init__(self, file_hash: str, hash_type: HashType = None):
         self.ioc = file_hash
         self.hash_type = hash_type
