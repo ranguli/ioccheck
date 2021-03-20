@@ -3,16 +3,22 @@
 import logging
 import random
 import sys
+import pkg_resources
 
 import click
 from pyfiglet import Figlet
 from termcolor import colored, cprint
 
-from ioccheck import __version__
-from ioccheck.cli.formatters import (MalwareBazaarFormatter, ShodanFormatter,
-                                     VirusTotalFormatter)
-from ioccheck.exceptions import (InvalidHashException, InvalidIPException,
-                                 NoConfiguredServicesException)
+from ioccheck.cli.formatters import (
+    MalwareBazaarFormatter,
+    ShodanFormatter,
+    VirusTotalFormatter,
+)
+from ioccheck.exceptions import (
+    InvalidHashException,
+    InvalidIPException,
+    NoConfiguredServicesException,
+)
 from ioccheck.iocs import IP, Hash
 
 asyncio_logger = logging.getLogger("asyncio")
@@ -41,8 +47,10 @@ fonts = [
 figlet = Figlet(font=random.choice(fonts))  # nosec
 heading_color = "blue"
 
+version = pkg_resources.get_distribution("ioccheck").version
+
 cprint(figlet.renderText("ioccheck"), heading_color)
-cprint(f"v{__version__} (https://github.com/ranguli/ioccheck)\n", heading_color)
+cprint(f"v{version} (https://github.com/ranguli/ioccheck)\n", heading_color)
 
 
 def ip_results(ip, heading_color):
@@ -97,6 +105,7 @@ def virustotal_results(_hash, heading_color):
     detections_heading = colored("[*] VirusTotal detections:", "blue")
 
     print(f"{detections_heading} {formatter.detection_count}")
+    print(formatter.detections)
 
     reputation_heading = colored("[*] VirusTotal reputation:", heading_color)
     print(f"{reputation_heading} {formatter.reputation}")
@@ -134,7 +143,7 @@ ioc_types = [
         "results": hash_results,
     },
     {
-        "name": "IP address",
+        "name": "public IPv4 or IPv6 address",
         "ioc": IP,
         "exception": InvalidIPException,
         "results": ip_results,
@@ -148,8 +157,8 @@ def run(ioc):
     printed_ioc = colored(ioc, heading_color)
     print(f"Checking IOC {printed_ioc}.\n")
 
-    check_message = "[*] Checking if IOC is a"
-    fail_message = "[!] IOC is not a"
+    check_message = "[*] Checking if IOC is a valid"
+    fail_message = "[!] IOC is not a valid"
 
     for ioc_type in ioc_types:
         try:
