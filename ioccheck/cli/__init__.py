@@ -3,11 +3,13 @@
 import logging
 import random
 import sys
+import pkg_resources
 
 import click
 import pkg_resources
 from pyfiglet import Figlet
 from termcolor import colored, cprint
+
 
 from ioccheck.cli.formatters import (MalwareBazaarFormatter, ShodanFormatter,
                                      VirusTotalFormatter)

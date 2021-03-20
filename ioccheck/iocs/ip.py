@@ -1,7 +1,7 @@
 import ipaddress
+from ipaddress import IPv4Address, IPv6Address
 import logging
 from dataclasses import dataclass
-from ipaddress import IPv4Address, IPv6Address
 from typing import List, Optional, Union
 
 from ioccheck.exceptions import InvalidIPException
