@@ -1,4 +1,4 @@
-name: Tests
+name: Lint
 
 on:
   push:
@@ -10,12 +10,9 @@ on:
       - '**'
 
 jobs:
-  test:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu, macos, windows]
-    runs-on: ${{ matrix.os }}-latest
+  lint:
+    name: Run linters
+    runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
         uses: actions/checkout@v2
@@ -27,5 +24,6 @@ jobs:
         uses: abatilo/actions-poetry@v2.0.0
       - name: Install dependencies
         run: poetry install
-      - name: "Run tests"
-        run: poetry run nox -e test lint
+      - name: "Run linters"
+        run: poetry run nox -e lint
+

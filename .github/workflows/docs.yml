@@ -1,31 +1,33 @@
-name: Tests
+name: Documentation
 
 on:
   push:
+    paths:
+      - 'docs/**'
+      - '.github/workflows/docs.yml'
     branches:
-      - main
-      - development
+      - master
   pull_request:
+    paths:
+      - 'docs/**'
+      - '.github/workflows/docs.yml'
     branches:
       - '**'
 
 jobs:
-  test:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu, macos, windows]
-    runs-on: ${{ matrix.os }}-latest
+  docs:
+    name: Documentation Build
+    runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
         uses: actions/checkout@v2
       - name: "Setup Python"
         uses: actions/setup-python@v2
         with:
-          python-version: 3.8
+            python-version: 3.8
       - name: "Run image"
         uses: abatilo/actions-poetry@v2.0.0
       - name: Install dependencies
         run: poetry install
-      - name: "Run tests"
-        run: poetry run nox -e test lint
+      - name: "Build docs"
+        run: poetry run nox -e docs

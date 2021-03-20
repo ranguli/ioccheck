@@ -29,7 +29,7 @@ class IOCReport:
 
 
 class IOC:
-    def __init__(self, ioc: str):
+    def __init__(self, ioc):
         self.ioc = ioc
         self.name: str
         self.reports: IOCReport
