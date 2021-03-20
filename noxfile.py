@@ -10,12 +10,12 @@ def test_secret(session):
     session.run("pytest", "-m", "secret", external=True)
 
 
-@session(python=['3.9'])
+@session(python=['3.8'])
 def coverage(session):
     session.run("pytest", "--cov-report=xml", "--cov=ioccheck", "-m", "not secret", external=True)
 
 
-@session(python=['3.9'])
+@session(python=['3.8'])
 def lint(session):
     session.run("flake8", "./ioccheck", "./test")
     session.run("bandit", "-r", "./ioccheck")
@@ -24,7 +24,7 @@ def lint(session):
     session.run("isort", ".")
 
 
-@session(python=['3.9'])
+@session(python=['3.8'])
 def docs(session):
     session.run(
         "sphinx-build",
