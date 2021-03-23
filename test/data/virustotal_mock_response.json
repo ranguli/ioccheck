@@ -1,0 +1,266 @@
+{
+    "type_description": "Win32 EXE",
+    "tlsh": "T1C5F30225ABD2CAF7F6C787B10571A779E3F487120101810787901FFA7D21ACB9E1B6A5",
+    "vhash": "015056655d1c0510a043z8003a7z47z62z3efz",
+    "trid": [
+        {
+            "file_type": "Win32 Executable MS Visual C++ (generic)",
+            "probability": 47.3
+        },
+        {
+            "file_type": "Win64 Executable (generic)",
+            "probability": 15.9
+        },
+        {
+            "file_type": "Win16 NE executable (generic)",
+            "probability": 10.6
+        },
+        {
+            "file_type": "Win32 Dynamic Link Library (generic)",
+            "probability": 9.9
+        },
+        {
+            "file_type": "Win32 Executable (generic)",
+            "probability": 6.8
+        }
+    ],
+    "creation_date": 1459567216,
+    "names": [
+        "vbc.exe",
+        "winlog.exe"
+    ],
+    "signature_info": {
+        "product": "multidrug resistance"
+    },
+    "last_modification_date": 1616050772,
+    "type_tag": "peexe",
+    "times_submitted": 1,
+    "total_votes": {
+        "harmless": 0,
+        "malicious": 0
+    },
+    "size": 157777,
+    "popular_threat_classification": {
+        "suggested_threat_label": "trojan.barys/androm",
+        "popular_threat_category": [
+            [
+                "trojan",
+                21
+            ]
+        ],
+        "popular_threat_name": [
+            [
+                "barys",
+                6
+            ],
+            [
+                "androm",
+                4
+            ]
+        ]
+    },
+    "authentihash": "178302974f9e1dcffccd025d64a4b62459c2f209924dedeebf3d2b088e3bb8d7",
+    "last_submission_date": 1615574836,
+    "meaningful_name": "vbc.exe",
+    "crowdsourced_ids_stats": {
+        "info": 0,
+        "high": 8,
+        "medium": 0,
+        "low": 1
+    },
+    "sandbox_verdicts": {
+        "Dr.Web vxCube": {
+            "category": "malicious",
+            "sandbox_name": "Dr.Web vxCube",
+            "malware_classification": [
+                "MALWARE"
+            ]
+        },
+        "Yomi Hunter": {
+            "category": "malicious",
+            "sandbox_name": "Yomi Hunter",
+            "malware_classification": [
+                "MALWARE"
+            ]
+        }
+    },
+    "sha256": "73bef2ac39be261ae9a06076302c1d0af982e0560e88ac168980fab6ea5dd9c4",
+    "type_extension": "exe",
+    "tags": [
+        "malware",
+        "overlay",
+        "runtime-modules",
+        "peexe",
+        "nsis",
+        "direct-cpu-clock-access"
+    ],
+    "crowdsourced_ids_results": [
+        {
+            "rule_category": "A Network Trojan was detected",
+            "alert_severity": "high",
+            "rule_msg": "ET MALWARE LokiBot User-Agent (Charon/Inferno)",
+            "rule_raw": "alert http $HOME_NET any -> $EXTERNAL_NET any (msg:\"ET MALWARE LokiBot User-Agent (Charon/Inferno)\"; flow:established,to_server; http.user_agent; content:\"(Charon|3b 20|Inferno)\"; fast_pattern; classtype:trojan-activity; sid:2021641; rev:9; metadata:created_at 2015_08_17, former_category TROJAN, updated_at 2020_11_19;)",
+            "alert_context": [
+                {
+                    "url": "http://becharnise.ir/fb3/fre.php",
+                    "hostname": "becharnise.ir",
+                    "dest_port": 80,
+                    "dest_ip": "185.208.180.121"
+                },
+                {
+                    "url": "http://becharnise.ir/fb3/fre.php",
+                    "hostname": "becharnise.ir",
+                    "dest_ip": "185.208.180.121",
+                    "dest_port": 80
+                }
+            ],
+            "rule_url": "https://rules.emergingthreats.net/",
+            "rule_source": "Proofpoint Emerging Threats Open",
+            "rule_id": "1:2021641"
+        },
+        {
+            "rule_category": "A Network Trojan was detected",
+            "alert_severity": "high",
+            "rule_msg": "ET MALWARE LokiBot Application/Credential Data Exfiltration Detected M1",
+            "rule_raw": "alert http $HOME_NET any -> $EXTERNAL_NET any (msg:\"ET MALWARE LokiBot Application/Credential Data Exfiltration Detected M1\"; flow:established,to_server; http.method; content:\"POST\"; http.user_agent; content:\"(Charon|3b 20|Inferno)\"; http.request_body; content:\"|00 27 00|\"; offset:1; depth:3; pcre:\"/^[\\x00-\\x01]\\x00.\\x00{3}/R\"; classtype:trojan-activity; sid:2024312; rev:4; metadata:affected_product Windows_XP_Vista_7_8_10_Server_32_64_Bit, attack_target Client_Endpoint, created_at 2017_05_17, deployment Perimeter, former_category TROJAN, malware_family lokibot, signature_severity Major, updated_at 2020_08_25;)",
+            "alert_context": [
+                {
+                    "url": "http://becharnise.ir/fb3/fre.php",
+                    "hostname": "becharnise.ir",
+                    "dest_port": 80,
+                    "dest_ip": "185.208.180.121"
+                },
+                {
+                    "url": "http://becharnise.ir/fb3/fre.php",
+                    "hostname": "becharnise.ir",
+                    "dest_ip": "185.208.180.121",
+                    "dest_port": 80
+                }
+            ],
+            "rule_url": "https://rules.emergingthreats.net/",
+            "rule_source": "Proofpoint Emerging Threats Open",
+            "rule_id": "1:2024312"
+        }
+    ],
+    "last_analysis_date": 1616043471,
+    "unique_sources": 1,
+    "first_submission_date": 1615574836,
+    "sha1": "5697a52060ff4d61d505c8c5c54576f5b3b66855",
+    "ssdeep": "3072:q3jqjLX1DLPc3MldLW6dCBmU2prYtw8qatVekaAv25QAR5BQPjK:qTqjFNldzpsmlRAv4BRP",
+    "packers": {
+        "Cyren": "NSIS"
+    },
+    "md5": "9afab28587926ce230e2e4430becc599",
+    "pe_info": {
+        "resource_details": [
+            {
+                "lang": "ENGLISH US",
+                "entropy": 2.6617395877838135,
+                "chi2": 26260.0,
+                "filetype": "Data",
+                "sha256": "fecdb955f8d7f1c219ff8167f90b64f3cb52e53337494577ff73c0ac1dafcd96",
+                "type": "RT_DIALOG"
+            },
+            {
+                "lang": "ENGLISH US",
+                "entropy": 2.88094425201416,
+                "chi2": 29554.447265625,
+                "filetype": "Data",
+                "sha256": "69897c784f1491eb3024b0d52c2897196a2e245974497fda1915db5fefcf8729",
+                "type": "RT_DIALOG"
+            }
+        ],
+        "rich_pe_header_hash": "b36e72aa3456afc28bc0201896d9ce9f",
+        "imphash": "b1a57b635b23ffd553b3fd1e0960b2bd",
+        "overlay": {
+            "entropy": 7.99822998046875,
+            "offset": 34304,
+            "chi2": 304.2843322753906,
+            "filetype": "font/x-snf",
+            "md5": "9195e60122d36372f9d49097d8529a36",
+            "size": 123473
+        },
+        "compiler_product_versions": [
+            "id: 95, version: 4035 count=2",
+            "[---] Unmarked objects count=152"
+        ],
+        "resource_langs": {
+            "ENGLISH US": 5
+        },
+        "machine_type": 332,
+        "timestamp": 1459567216,
+        "resource_types": {
+            "RT_MANIFEST": 1,
+            "RT_DIALOG": 3
+        },
+        "sections": [
+            {
+                "name": ".text",
+                "chi2": 172503.91,
+                "virtual_address": 4096,
+                "flags": "rx",
+                "raw_size": 24576,
+                "entropy": 6.5,
+                "virtual_size": 24546,
+                "md5": "ee179b8fc39a415c3eeb6309e05d1184"
+            },
+            {
+                "name": ".rdata",
+                "chi2": 149313.8,
+                "virtual_address": 28672,
+                "flags": "r",
+                "raw_size": 5120,
+                "entropy": 5.06,
+                "virtual_size": 4770,
+                "md5": "e9a68e33ada406490af30d694fdb72dd"
+            }
+        ],
+        "import_list": [
+            {
+                "library_name": "SHELL32.dll",
+                "imported_functions": [
+                    "ShellExecuteA",
+                    "SHFileOperationA"
+                ]
+            },
+            {
+                "library_name": "KERNEL32.dll",
+                "imported_functions": [
+                    "GetLastError",
+                    "ReadFile"
+                ]
+            }
+        ],
+        "entry_point": 12942
+    },
+    "magic": "PE32 executable for MS Windows (GUI) Intel 80386 32-bit",
+    "last_analysis_stats": {
+        "harmless": 0,
+        "type-unsupported": 5,
+        "suspicious": 0,
+        "confirmed-timeout": 0,
+        "timeout": 0,
+        "failure": 0,
+        "malicious": 50,
+        "undetected": 21
+    },
+    "last_analysis_results": {
+        "Bkav": {
+            "category": "undetected",
+            "engine_name": "Bkav",
+            "engine_version": "1.3.0.9899",
+            "result": null,
+            "method": "blacklist",
+            "engine_update": "20210317"
+        },
+        "Elastic": {
+            "category": "undetected",
+            "engine_name": "Elastic",
+            "engine_version": "4.0.17",
+            "result": null,
+            "method": "blacklist",
+            "engine_update": "20210217"
+        }
+    },
+    "reputation": 0
+}

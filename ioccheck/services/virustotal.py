@@ -1,8 +1,12 @@
-import logging
+#!/usr/bin/env python
+""" Represents response from the VirusTotal API """
 
-import vt
+import logging
+from typing import Optional, List
+
 from backoff import expo, on_exception
 from ratelimit import RateLimitException, limits
+import vt
 
 from ioccheck.services.service import Service
 
@@ -18,78 +22,114 @@ logger.addHandler(f_handler)
 
 
 class VirusTotal(Service):
-    name = "virustotal"
+    """ Represents response from the VirusTotal API """
 
-    def __init__(self, file_hash, api_key):
-        self.client = vt.Client(api_key)
-        self.url = "https://virustotal.com"
+    name = "virustotal"
+    url = "https://virustotal.com"
+
+    def __init__(self, ioc, api_key):
+        self.ioc = ioc
 
         try:
-            self.response = self._get_api_response(file_hash)
-        except vt.error.APIError:
+            self.response = self._get_api_response(self.ioc, api_key)
+        except (vt.error.APIError, AttributeError):
             return
 
-        self.investigation_url = self._make_investigation_url(self.url, file_hash)
-        self.is_malicious = self._is_malicious(self.response)
-
-        self.detections = self._get_detections(self.response)
-        self.detection_coverage = self._get_detection_coverage(self.detections)
-        self.detection_count = self._get_detection_count(self.detections)
-
-        self.reputation = self._get_reputation(self.response)
-        self.popular_threat_names = self._get_popular_threat_names(self.response)
-
-        self.relationships = self._get_relationships(self.response)
-        self.tags = self._get_tags(self.response)
-
-    @on_exception(expo, RateLimitException, max_tries=10, max_time=80)
+    @on_exception(expo, RateLimitException, max_tries=10, max_time=60)
     @limits(calls=4, period=60)
-    def _get_api_response(self, file_hash):
-        result = self.client.get_object(f"/files/{file_hash}")
-        return result
+    def _get_api_response(self, ioc: str, api_key: str) -> dict:
+        client = vt.Client(api_key)
+        result = client.get_object(f"/files/{ioc}")
+        return result.to_dict().get("attributes")
 
-    def _make_investigation_url(self, url, file_hash):
-        return f"{url}/gui/file/{file_hash}/"
+    @property
+    def investigation_url(self) -> Optional[str]:
+        return self._investigation_url
 
-    def _is_malicious(self, response):
-        return
+    @investigation_url.setter
+    def investigation_url(self):
+        self._investigation_url = f"{self.url}/gui/file/{self.ioc}/"
 
-    def _get_detection_count(self, detections):
-        return len(
-            [k for k, v in detections.items() if v.get("category") == "malicious"]
+    @property
+    def detections(self) -> Optional[dict]:
+        """The anti-virus providers that detected the hash"""
+        return self._detections
+
+    @detections.setter
+    def detections(self):
+        self._detections = self.response.get("last_analysis_results")
+
+    @property
+    def detection_coverage(self) -> float:
+        """The number of A.V providers detecting the sample divided by total providers."""
+
+        return self._detection_coverage
+
+    @detection_coverage.setter
+    def detection_coverage(self):
+        if len(self.detections.keys()) == 0:
+            self._detection_coverage = 0
+        else:
+            self._detection_coverage = self.detection_count(self.detections) / len(
+                self.detections.keys()
+            )
+
+    @property
+    def detection_count(self) -> int:
+        """The number of anti-virus providers available from VirusTotal"""
+        return self._detection_count
+
+    @detection_count.setter
+    def detection_count(self):
+        self._detection_count = len(
+            [k for k, v in self.detections.items() if v.get("category") == "malicious"]
         )
 
-    def _get_detection_coverage(self, detections):
-        if len(detections.keys()) == 0:
-            return 0
-        else:
-            return self._get_detection_count(detections) / len(detections.keys())
+    @property
+    def reputation(self) -> dict:
+        """VirusTotal community score for a given entry"""
+        return self._reputation
 
-    def _get_detections(self, response):
-        return response.last_analysis_results
+    @reputation.setter
+    def reputation(self):
+        self._reputation = self.response.get("reputation")
 
-    def _get_detections_coverage(self, response):
-        return response.last_analysis_results
+    @property
+    def popular_threat_names(self) -> Optional[List[str]]:
+        """Human-friendly names that classify a hash as belong to a particular threat"""
+        return self._popular_threat_names
 
-    def _get_reputation(self, response):
-        return response.reputation
-
-    def _get_relationships(self, response):
-        return response.relationships
-
-    def _get_popular_threat_names(self, response):
+    @popular_threat_names.setter
+    def popular_threat_names(self):
         try:
-            names = response.get("popular_threat_classification").get(
+            names = self.response.get(
+                "popular_threat_classification"
+            ).get(  # type: ignore
                 "popular_threat_name"
             )
         except AttributeError:
-            return None
+            return
 
-        return [name[0] for name in names] if names else None
+        self._popular_threat_names = [name[0] for name in names] if names else None
 
-    def _get_tags(self, response):
+    @property
+    def relationships(self) -> Optional[dict]:
+        """Describes how the hash interacts with IPs, domains, etc"""
+        return self._relationships
+
+    @relationships.setter
+    def relationships(self):
+        self._relationships = self.response.get("relationships")
+
+    @property
+    def tags(self):
+        """User-provided tags to classify samples"""
+        return self._tags
+
+    @tags.setter
+    def tags(self):
         try:
-            result = self.response.tags if self.response.tags else None
+            result = self.response.get("tags") if self.response.get("tags") else None
         except AttributeError:
-            pass
-        return result
+            return
+        self._tags = result

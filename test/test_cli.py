@@ -27,13 +27,3 @@ class TestBadIOC:
         runner = CliRunner()
         result = runner.invoke(run, [ioc])
         invalid_hash_message in result.output
-
-
-class TestBulkInputs:
-    @pytest.mark.secret
-    @pytest.mark.parametrize("file_hash", bulk_inputs)
-    def test_bad_hash_stdout(self, file_hash):
-        logger.info(f"Testing input {file_hash}")
-        runner = CliRunner()
-        result = runner.invoke(run, [file_hash])
-        assert result.exit_code == 0

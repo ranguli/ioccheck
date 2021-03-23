@@ -3,24 +3,7 @@ from nox_poetry import session
 
 @session(python=["3.7", "3.8", "3.9"])
 def test(session):
-    session.run("pytest", "-m", "not secret", external=True)
-
-
-@session(python=["3.7", "3.8", "3.9"])
-def test_secret(session):
-    session.run("pytest", "-m", "secret", external=True)
-
-
-@session(python=["3.8"])
-def coverage(session):
-    session.run(
-        "pytest",
-        "--cov-report=xml",
-        "--cov=ioccheck",
-        "-m",
-        "not secret",
-        external=True,
-    )
+    session.run("pytest", "--cov-report=xml", "--cov=ioccheck", external=True)
 
 
 @session(python=["3.8"])
@@ -35,12 +18,5 @@ def lint(session):
 @session(python=["3.8"])
 def docs(session):
     session.run(
-        "sphinx-build",
-        "-b",
-        "html",
-        "-b",
-        "coverage",
-        "./docs/source/",
-        "docs/build/html/",
-        external=True,
+        "sphinx-build", "-b", "html", "docs/source", "docs/build", external=True
     )

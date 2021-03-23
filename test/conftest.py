@@ -1,107 +1,47 @@
+import json
+from unittest.mock import patch
+
 import pytest
 
 from ioccheck.iocs import Hash
 from ioccheck.services import MalwareBazaar, VirusTotal
-from ioccheck.types import MD5, SHA256
+from ioccheck.ioc_types import MD5, SHA256
 
 
 @pytest.fixture
-def sha256_test_hash_clean():
-    """ Known good SHA-256 hash (of /bin/bash) to test against """
-    return "04a484f27a4b485b28451923605d9b528453d6c098a5a5112bec859fb5f2eea9"
+def hash_1():
+    """ Test hash 1"""
+    return "73bef2ac39be261ae9a06076302c1d0af982e0560e88ac168980fab6ea5dd9c4"
 
 
 @pytest.fixture
-def md5_test_hash_clean():
-    """ Known good SHA-256 hash (of /bin/bash) to test against """
-    return "7063c3930affe123baecd3b340f1ad2c"
-
-
-@pytest.fixture(scope="module")
-def sha256_test_hash_eicar():
-    """ EICAR SHA256 hash """
-    return "275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f"
-
-
-@pytest.fixture(scope="module")
-def sha256_test_hash_emotet():
-    """ Emotet sample """
-    return "526866190c8081698169b4be19a6b987d494604343fe874475126527841c83a7"
+def hash_2():
+    """ Test hash 2 """
+    return "9afab28587926ce230e2e4430becc599"
 
 
 @pytest.fixture
-def md5_test_hash_eicar():
-    """ EICAR MD5 hash """
-    return "44d88612fea8a8f36de82e1278abb02f"
+def virustotal_mocked_response_1():
+    """ Mock VirusTotal API response for hash_1 """
+    with open("test/data/virustotal_mock_response.json", "r") as f:
+        return json.load(f)
 
 
 @pytest.fixture
-def ioccheck_eicar_sha256_implicit(sha256_test_hash_eicar):
-    _hash = Hash(sha256_test_hash_eicar)
-    return _hash
+def malwarebazaar_mocked_response_1():
+    with open("test/data/malwarebazaar_mock_response.json", "r") as f:
+        return json.load(f)
 
 
 @pytest.fixture
-def ioccheck_eicar_sha256_explicit(sha256_test_hash_eicar):
-    _hash = Hash(sha256_test_hash_eicar, SHA256)
-    return _hash
+def virustotal_report_1(virustotal_mocked_response_1, hash_1):
+    """ VirusTotal report generated from virustotal_mocked_response_1 """
+    with patch.object(
+        VirusTotal, "_get_api_response", return_value=virustotal_mocked_response_1
+    ) as mock_method:
+        mock_api_response = virustotal_mocked_response_1
+        sample = Hash(hash_1)
 
+        sample.check(services=[VirusTotal])
 
-@pytest.fixture
-def ioccheck_eicar_md5_implicit(md5_test_hash_eicar):
-    _hash = Hash(md5_test_hash_eicar)
-    return _hash
-
-
-@pytest.fixture
-def ioccheck_eicar_md5_explicit(md5_test_hash_eicar):
-    _hash = Hash(md5_test_hash_eicar, MD5)
-    return _hash
-
-
-@pytest.fixture
-def ioccheck_clean_sha256_implicit(sha256_test_hash_clean):
-    _hash = Hash(sha256_test_hash_clean)
-    return _hash
-
-
-@pytest.fixture
-def ioccheck_clean_sha256_explicit(sha256_test_hash_clean):
-    _hash = Hash(sha256_test_hash_clean, SHA256)
-    return _hash
-
-
-@pytest.fixture
-def ioccheck_clean_md5_implicit(md5_test_hash_clean):
-    _hash = Hash(md5_test_hash_clean)
-    return _hash
-
-
-@pytest.fixture
-def ioccheck_clean_md5_explicit(md5_test_hash_clean):
-    _hash = Hash(md5_test_hash_clean, MD5)
-    return _hash
-
-
-@pytest.fixture
-def ioccheck_eicar_report_all(sha256_test_hash_eicar):
-    _hash = Hash(sha256_test_hash_eicar, SHA256)
-    _hash.check()
-
-    return _hash
-
-
-@pytest.fixture
-def ioccheck_eicar_report_virus_total(sha256_test_hash_eicar):
-    _hash = Hash(sha256_test_hash_eicar, SHA256)
-    _hash.check(services=VirusTotal)
-
-    return _hash
-
-
-@pytest.fixture
-def ioccheck_emotet_report_malwarebazaar(sha256_test_hash_emotet):
-    _hash = Hash(sha256_test_hash_emotet, SHA256)
-    _hash.check(services=MalwareBazaar)
-
-    return _hash
+        return sample

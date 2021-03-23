@@ -8,3 +8,7 @@ class InvalidIPException(Exception):
 
 class NoConfiguredServicesException(Exception):
     pass
+
+
+class InvalidCredentialsException(Exception):
+    pass

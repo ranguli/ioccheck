@@ -21,20 +21,18 @@ logger.addHandler(f_handler)
 
 class Shodan(Service):
     name = "shodan"
+    url = "https://shodan.io/host/"
 
     def __init__(self, ip: Union[IPv4Address, IPv6Address], api_key: str):
 
         self.ip = ip
         self.response = self._get_api_response(ip, api_key)
 
-        self.__url = "https://shodan.io/host/"
-        self.investigation_url = f"{self.__url}/{ip}"
+        self.investigation_url = f"{self.url}/{ip}"
 
         self.location = self._get_location_data(self.response)
         self.hostnames = self._get_hostnames(self.response)
-
         self.tags = self._get_tags(self.response)
-
         self.vulns = self._get_vulns(self.response)
 
     @on_exception(expo, RateLimitException, max_tries=10)

@@ -21,9 +21,7 @@ class VirusTotalFormatter(Formatter):
     def __init__(self, service: VirusTotal):
         self.reputation = self._format_reputation(service.reputation)
         self.detections = self._format_detections(
-            service.detections,
-            service.detection_coverage,
-            service.detection_count,
+            service.detections, service.detection_coverage, service.detection_count
         )
         self.detection_count = self._format_detection_count(
             service.detection_coverage, service.detection_count
