@@ -3,7 +3,14 @@ from nox_poetry import session
 
 @session(python=["3.7", "3.8", "3.9"])
 def test(session):
-    session.run("pytest", "--cov-report=xml", "--cov=ioccheck", external=True)
+    session.run(
+        "pytest",
+        "--cov-report=xml",
+        "--cov-report",
+        "term-missing",
+        "--cov=ioccheck",
+        external=True,
+    )
 
 
 @session(python=["3.8"])
