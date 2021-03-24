@@ -8,12 +8,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import List, Optional, Union
 
-from ioccheck.exceptions import (
-    InvalidCredentialsException,
-    NoConfiguredServicesException,
-)
+from ioccheck.exceptions import (InvalidCredentialsException,
+                                 NoConfiguredServicesException)
 from ioccheck.services import Service
-
 
 asyncio_logger = logging.getLogger("asyncio")
 asyncio_logger.propagate = False

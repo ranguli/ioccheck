@@ -1,9 +1,9 @@
 import pytest
 
 from ioccheck.exceptions import InvalidHashException
+from ioccheck.ioc_types import MD5, SHA256
 from ioccheck.iocs import Hash
 from ioccheck.services import MalwareBazaar, VirusTotal
-from ioccheck.ioc_types import MD5, SHA256
 
 
 class TestHashCreation:

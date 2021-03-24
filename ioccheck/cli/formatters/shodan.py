@@ -19,15 +19,16 @@ logger.addHandler(f_handler)
 
 class ShodanFormatter(Formatter):
     def __init__(self, service: Shodan):
-        self.tags = self._format_tags(service)
-        self.location = self._format_location_data(service)
+        self.service = service
 
-    def _format_tags(self, service):
-        return ", ".join(service.tags) if service.tags else None
+    @property
+    def tags(self):
+        return ", ".join(self.service.tags) if self.service.tags else None
 
-    def _format_location_data(self, service):
+    @property
+    def location_data(self):
 
-        location = service.location
+        location = self.service.location
         table = []
 
         headings = {
@@ -35,7 +36,7 @@ class ShodanFormatter(Formatter):
             "Country": location.get("country_name"),
             "Organization": location.get("org"),
             "ISP": location.get("isp"),
-            "Hostnames": ", ".join(service.hostnames),
+            "Hostnames": ", ".join(self.service.hostnames),
             "ASN": location.get("asn"),
         }
 

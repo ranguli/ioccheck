@@ -10,7 +10,7 @@ class Service(ABC):
 
     name: str
 
-    def __new__(cls):
+    def __new__(cls, *args):
         if not hasattr(cls, "name"):
             raise NotImplementedError(
                 "'Service' subclasses should have a 'name' attribute"
@@ -21,17 +21,15 @@ class Service(ABC):
             )
         return object.__new__(cls)
 
-    @property
-    @abstractmethod
-    def investigation_url(self) -> Optional[str]:
-        pass
-
-    @investigation_url.setter
-    def investigation_url(self):
+    def __init__(self):
         pass
 
     @abstractmethod
     def _get_api_response(self, ioc, api_key: str) -> dict:
+        pass
+
+    @property
+    def reputation(self) -> Optional[int]:
         pass
 
     def __str__(self):

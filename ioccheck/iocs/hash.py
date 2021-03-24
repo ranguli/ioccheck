@@ -8,13 +8,14 @@ from dataclasses import dataclass
 from typing import List, Optional
 
 from ioccheck.exceptions import InvalidHashException
+from ioccheck.ioc_types import MD5, SHA256, HashType, hash_types
 from ioccheck.iocs import IOC, IOCReport
 from ioccheck.services import MalwareBazaar, Service, VirusTotal, hash_services
-from ioccheck.ioc_types import MD5, SHA256, HashType, hash_types
 
 invalid_hash_message = f"Hash is not a supported hash type. Supported types are {', '.join([str(hash_type) for hash_type in hash_types])}."
 
 logger = logging.getLogger(__name__)
+
 logger.setLevel(logging.INFO)
 
 asyncio_logger = logging.getLogger("asyncio")

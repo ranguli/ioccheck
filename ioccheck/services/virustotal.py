@@ -2,11 +2,11 @@
 """ Represents response from the VirusTotal API """
 
 import logging
-from typing import Optional, List
+from typing import List, Optional
 
+import vt
 from backoff import expo, on_exception
 from ratelimit import RateLimitException, limits
-import vt
 
 from ioccheck.services.service import Service
 
@@ -44,63 +44,46 @@ class VirusTotal(Service):
 
     @property
     def investigation_url(self) -> Optional[str]:
-        return self._investigation_url
-
-    @investigation_url.setter
-    def investigation_url(self):
-        self._investigation_url = f"{self.url}/gui/file/{self.ioc}/"
+        return f"{self.url}/gui/file/{self.ioc}/"
 
     @property
     def detections(self) -> Optional[dict]:
         """The anti-virus providers that detected the hash"""
-        return self._detections
-
-    @detections.setter
-    def detections(self):
-        self._detections = self.response.get("last_analysis_results")
+        return self.response.get("last_analysis_results")
 
     @property
-    def detection_coverage(self) -> float:
+    def detection_coverage(self) -> Optional[float]:
         """The number of A.V providers detecting the sample divided by total providers."""
+        if (
+            not isinstance(self.detections, dict)
+            or self.detections is None
+            or not isinstance(self.detection_count, int)
+        ):
+            return None
 
-        return self._detection_coverage
-
-    @detection_coverage.setter
-    def detection_coverage(self):
         if len(self.detections.keys()) == 0:
-            self._detection_coverage = 0
+            return 0
         else:
-            self._detection_coverage = self.detection_count(self.detections) / len(
-                self.detections.keys()
-            )
+            return self.detection_count / len(self.detections.keys())
 
     @property
-    def detection_count(self) -> int:
+    def detection_count(self) -> Optional[int]:
         """The number of anti-virus providers available from VirusTotal"""
-        return self._detection_count
+        if not isinstance(self.detections, dict) or self.detections is None:
+            return None
 
-    @detection_count.setter
-    def detection_count(self):
-        self._detection_count = len(
+        return len(
             [k for k, v in self.detections.items() if v.get("category") == "malicious"]
         )
 
     @property
-    def reputation(self) -> dict:
+    def reputation(self) -> Optional[int]:
         """VirusTotal community score for a given entry"""
-        return self._reputation
-
-    @reputation.setter
-    def reputation(self):
-        self._reputation = self.response.get("reputation")
+        return self.response.get("reputation")
 
     @property
     def popular_threat_names(self) -> Optional[List[str]]:
         """Human-friendly names that classify a hash as belong to a particular threat"""
-        return self._popular_threat_names
-
-    @popular_threat_names.setter
-    def popular_threat_names(self):
         try:
             names = self.response.get(
                 "popular_threat_classification"
@@ -108,28 +91,20 @@ class VirusTotal(Service):
                 "popular_threat_name"
             )
         except AttributeError:
-            return
+            return None
 
-        self._popular_threat_names = [name[0] for name in names] if names else None
+        return [name[0] for name in names] if names else None
 
     @property
     def relationships(self) -> Optional[dict]:
         """Describes how the hash interacts with IPs, domains, etc"""
-        return self._relationships
-
-    @relationships.setter
-    def relationships(self):
-        self._relationships = self.response.get("relationships")
+        return self.response.get("relationships")
 
     @property
-    def tags(self):
+    def tags(self) -> Optional[dict]:
         """User-provided tags to classify samples"""
-        return self._tags
-
-    @tags.setter
-    def tags(self):
         try:
             result = self.response.get("tags") if self.response.get("tags") else None
         except AttributeError:
-            return
-        self._tags = result
+            return None
+        return result

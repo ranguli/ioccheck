@@ -3,9 +3,9 @@ from unittest.mock import patch
 
 import pytest
 
+from ioccheck.ioc_types import MD5, SHA256
 from ioccheck.iocs import Hash
 from ioccheck.services import MalwareBazaar, VirusTotal
-from ioccheck.ioc_types import MD5, SHA256
 
 
 @pytest.fixture
