@@ -17,13 +17,13 @@ with open("./test/testdata.txt", "r") as f:
 
 class TestBadIOC:
     @pytest.mark.parametrize("ioc", bad_ioc_inputs)
-    def test_bad_ioc_exit_code(self, ioc):
+    def test_bad_ioc_exit_code(self, ioc, config_file):
         runner = CliRunner()
-        result = runner.invoke(run, [ioc])
+        result = runner.invoke(run, [ioc, "--config", config_file])
         assert result.exit_code == 0
 
     @pytest.mark.parametrize("ioc", bad_ioc_inputs)
-    def test_bad_ioc_stdout(self, ioc):
+    def test_bad_ioc_stdout(self, ioc, config_file):
         runner = CliRunner()
-        result = runner.invoke(run, [ioc])
+        result = runner.invoke(run, [ioc, "--config", config_file])
         invalid_hash_message in result.output

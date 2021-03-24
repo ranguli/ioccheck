@@ -147,7 +147,8 @@ ioc_types = [
 
 @click.command()
 @click.argument("ioc")
-def run(ioc):
+@click.option("--config", required=False, type=str)
+def run(ioc, config):
     printed_ioc = colored(ioc, heading_color)
     print(f"Checking IOC {printed_ioc}.\n")
 
@@ -157,7 +158,7 @@ def run(ioc):
     for ioc_type in ioc_types:
         try:
             cprint(f"{check_message} {ioc_type.get('name')}.", heading_color)
-            ioc = ioc_type.get("ioc")(ioc)
+            ioc = ioc_type.get("ioc")(ioc, config_path=config)
             ioc.check()
             ioc_type.get("results")(ioc, heading_color)
             break
@@ -169,3 +170,5 @@ def run(ioc):
                     "[!] No configured services available to search that IOC.", "red"
                 )
             )
+        except FileNotFoundError as e:
+            sys.exit(colored(f"[!] {e}", "red"))

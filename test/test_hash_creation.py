@@ -10,25 +10,28 @@ class TestHashCreation:
     """ Instantiating Hash() objects """
 
     class TestHashGuesses:
-        def test_sha256_guess(self, hash_1):
-            assert Hash(hash_1).hash_type == SHA256
+        def test_sha256_guess(self, hash_1, config_file):
+            assert Hash(hash_1, config_path=config_file).hash_type == SHA256
 
-        def test_sha256_guess_2(self, hash_1):
-            assert Hash(hash_1, hash_type=SHA256).hash_type == SHA256
+        def test_sha256_guess_2(self, hash_1, config_file):
+            assert (
+                Hash(hash_1, hash_type=SHA256, config_path=config_file).hash_type
+                == SHA256
+            )
 
-        def test_sha256_guess_3(self, hash_2):
+        def test_sha256_guess_3(self, hash_2, config_file):
             with pytest.raises(InvalidHashException):
-                assert Hash(hash_2, hash_type=SHA256)
+                assert Hash(hash_2, hash_type=SHA256, config_path=config_file)
 
-        def test_md5_guess(self, hash_2):
-            assert Hash(hash_2).hash_type == MD5
+        def test_md5_guess(self, hash_2, config_file):
+            assert Hash(hash_2, config_path=config_file).hash_type == MD5
 
-        def test_md5_guess_2(self, hash_2):
-            assert Hash(hash_2, hash_type=MD5).hash_type == MD5
+        def test_md5_guess_2(self, hash_2, config_file):
+            assert Hash(hash_2, hash_type=MD5, config_path=config_file).hash_type == MD5
 
-        def test_md5_guess_3(self, hash_1):
+        def test_md5_guess_3(self, hash_1, config_file):
             with pytest.raises(InvalidHashException):
-                assert Hash(hash_1, hash_type=MD5)
+                assert Hash(hash_1, hash_type=MD5, config_path=config_file)
 
     class TestInvalidHashExceptions:
         @pytest.mark.parametrize(
@@ -55,6 +58,6 @@ class TestHashCreation:
                 ("abc", SHA256),
             ],
         )
-        def test_invalid_hash_exception(self, file_hash, hash_type):
+        def test_invalid_hash_exception(self, file_hash, hash_type, config_file):
             with pytest.raises(InvalidHashException):
-                Hash(file_hash, hash_type)
+                Hash(file_hash, hash_type, config_path=config_file)

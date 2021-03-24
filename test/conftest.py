@@ -34,14 +34,19 @@ def malwarebazaar_mocked_response_1():
 
 
 @pytest.fixture
-def virustotal_report_1(virustotal_mocked_response_1, hash_1):
+def virustotal_report_1(virustotal_mocked_response_1, hash_1, config_file):
     """ VirusTotal report generated from virustotal_mocked_response_1 """
     with patch.object(
         VirusTotal, "_get_api_response", return_value=virustotal_mocked_response_1
     ) as mock_method:
         mock_api_response = virustotal_mocked_response_1
-        sample = Hash(hash_1)
+        sample = Hash(hash_1, config_path=config_file)
 
         sample.check(services=[VirusTotal])
 
         return sample
+
+
+@pytest.fixture
+def config_file():
+    return ".ioccheck"
