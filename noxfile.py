@@ -19,6 +19,7 @@ def lint(session):
     session.run("flake8", "./ioccheck", "./test", external=True)
     session.run("bandit", "-r", "./ioccheck", external=True)
     session.run("mypy", "./ioccheck", external=True)
+    session.run("pylint", "./ioccheck", external=True)
     session.run("isort", ".", external=True)
 
 

@@ -12,28 +12,13 @@ from ioccheck.exceptions import (InvalidCredentialsException,
                                  NoConfiguredServicesException)
 from ioccheck.services import Service
 
-asyncio_logger = logging.getLogger("asyncio")
-asyncio_logger.propagate = False
-asyncio_logger.setLevel(logging.CRITICAL)
-
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-
-f_handler = logging.FileHandler("ioccheck.log")
-f_handler.setLevel(logging.INFO)
-
-f_format = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-f_handler.setFormatter(f_format)
-
-logger.addHandler(f_handler)
-
 
 @dataclass
 class IOCReport:
     """Base dataclass for creating indicators of compromise reports """
 
 
-class IOC:
+class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attributes
     """Base class for creating indicators of compromise classes
 
     Attributes:
@@ -49,73 +34,83 @@ class IOC:
         self.ioc = ioc
         self._default_config_path = os.path.join(Path.home(), ".ioccheck")
 
+        self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.INFO)
+        self.services: list
+
+        f_handler = logging.FileHandler("ioccheck.log")
+        f_handler.setLevel(logging.INFO)
+
+        f_format = logging.Formatter(
+            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        )
+        f_handler.setFormatter(f_format)
+
+        self.logger.addHandler(f_handler)
+
         if config_path is None:
             self.config_path = self._default_config_path
         else:
             self.config_path = config_path
 
-        logger.info(
+        if not Path(self.config_path).is_file():
+            message = f"File {self.config_path} does not exist."
+            self.logger.error(message)
+            raise FileNotFoundError(message)
+
+        self.logger.info(
             f"Default config path is {self._default_config_path}, supplied path is {self.config_path}"
         )
 
         self.reports: IOCReport
-        self.services: list
 
-        self.configured_services: list = self._get_configured_services(self.config_path)
-        self._credentials: dict = self._get_credentials(self.config_path)
-
-    def _get_credentials(self, config_path: str) -> dict:
-        self._configured_services = self._get_configured_services(config_path)
-
-        if not Path(config_path).is_file():
-            message = f"File {config_path} does not exist."
-            logger.error(message)
-            raise FileNotFoundError(message)
+    @property
+    def credentials(self) -> dict:
+        """Credentials for use with API services"""
 
         config = configparser.ConfigParser()
-        config.read(config_path)
+        config.read(self.config_path)
 
         credentials: dict = {}
 
         for section in config.sections():
-
-            logger.info(
-                f"Got values {','.join(config[section].keys())} for {section} from {config_path}"
+            values = ",".join(config[section].keys())
+            self.logger.info(
+                f"Got values {values} for {section} from {self.config_path}."
             )
 
             credentials.update({section: config[section]["api_key"]})
 
         return credentials
 
-    def _get_configured_services(self, config_path: str) -> list:
+    @property
+    def configured_services(self) -> list:
+        """Services in the config file with keys"""
+        if self.config_path is None:
+            self.config_path = self._default_config_path
 
-        if config_path is None:
-            config_path = self._default_config_path
-
-        if not Path(config_path).is_file():
-            message = f"File {config_path} does not exist"
-            logger.error(message)
+        if not Path(self.config_path).is_file():
+            message = f"File {self.config_path} does not exist"
+            self.logger.error(message)
             raise FileNotFoundError(message)
 
         config = configparser.ConfigParser()
-        config.read(config_path)
+        config.read(self.config_path)
 
         result = [
             service for service in self.services if service.name in config.sections()
         ]
 
         if not result:
-            logger.error("No configured services were found.")
+            self.logger.error("No configured services were found.")
             raise NoConfiguredServicesException
 
         return result
 
-    def _get_reports(
-        self, config_path: str, services: Optional[Union[List, List[Service]]] = None
-    ):
+    def _get_reports(self, services: Optional[Union[List, List[Service]]] = None):
 
         reports = {}
-        config_path = self._default_config_path if config_path is None else config_path
+        # config_path = self._default_config_path if config_path is None else config_path
         report_services = []
 
         if services is None:
@@ -136,10 +131,10 @@ class IOC:
 
     def _single_check(self, ioc, service) -> Service:
 
-        api_key = self._credentials.get(service.name)  # type: ignore
+        api_key = self.credentials.get(service.name)  # type: ignore
 
         if not api_key:
-            logger.error(f"No API keys for {service}")
+            self.logger.error(f"No API keys for {service}")
             raise InvalidCredentialsException
 
         return service(ioc, api_key)

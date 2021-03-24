@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 """ Represents response from the VirusTotal API """
 
-import logging
 from typing import List, Optional
 
 import vt
@@ -9,16 +8,6 @@ from backoff import expo, on_exception
 from ratelimit import RateLimitException, limits
 
 from ioccheck.services.service import Service
-
-logger = logging.getLogger(__name__)
-
-f_handler = logging.FileHandler("ioccheck.log")
-f_handler.setLevel(logging.INFO)
-
-f_format = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-f_handler.setFormatter(f_format)
-
-logger.addHandler(f_handler)
 
 
 class VirusTotal(Service):
@@ -28,7 +17,7 @@ class VirusTotal(Service):
     url = "https://virustotal.com"
 
     def __init__(self, ioc, api_key):
-        self.ioc = ioc
+        Service.__init__(self, ioc, api_key)
 
         try:
             self.response = self._get_api_response(self.ioc, api_key)
@@ -44,6 +33,7 @@ class VirusTotal(Service):
 
     @property
     def investigation_url(self) -> Optional[str]:
+        """ The URL a human can use to follow up for more information """
         return f"{self.url}/gui/file/{self.ioc}/"
 
     @property
@@ -63,8 +53,8 @@ class VirusTotal(Service):
 
         if len(self.detections.keys()) == 0:
             return 0
-        else:
-            return self.detection_count / len(self.detections.keys())
+
+        return self.detection_count / len(self.detections.keys())
 
     @property
     def detection_count(self) -> Optional[int]:

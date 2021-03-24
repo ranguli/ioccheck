@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+"""Command-line interface for the ioccheck library"""
 
 import logging
 import random
@@ -38,24 +39,9 @@ fonts = [
 ]
 
 
-figlet = Figlet(font=random.choice(fonts))  # nosec
-heading_color = "blue"
-
-version = pkg_resources.get_distribution("ioccheck").version
-
-cprint(figlet.renderText("ioccheck"), heading_color)
-cprint(f"v{version} (https://github.com/ranguli/ioccheck)\n", heading_color)
-
-
-def ip_results(ip, heading_color):
-    try:
-        shodan_results(ip, heading_color)
-    except AttributeError:
-        cprint("[!] There was an error displaying the Shodan report.", "red")
-
-
-def shodan_results(ip, heading_color):
-    shodan = ip.reports.shodan
+def shodan_results(ip_addr, heading_color):
+    """ Use the ShodanFormatter to print pre-formatted output """
+    shodan = ip_addr.reports.shodan
 
     formatter = ShodanFormatter(shodan)
 
@@ -66,19 +52,12 @@ def shodan_results(ip, heading_color):
     print(f"{tags_header} {formatter.tags}")
 
 
-def hash_results(_hash, heading_color):
-    hash_algorithm_heading = colored("[*] Hashing algorithm:", heading_color)
-    print(f"{hash_algorithm_heading} {_hash.hash_type}")
-
+def ip_results(ip_addr, heading_color):
+    """Print results for an IP address"""
     try:
-        virustotal_results(_hash, heading_color)
+        shodan_results(ip_addr, heading_color)
     except AttributeError:
-        cprint("[!] There was an error displaying the VirusTotal report.", "red")
-
-    try:
-        malwarebazaar_results(_hash, heading_color)
-    except AttributeError:
-        cprint("[!] There was an error diplaying the MalwareBazaar report.", "red")
+        cprint("[!] There was an error displaying the Shodan report.", "red")
 
 
 def virustotal_results(_hash, heading_color):
@@ -129,26 +108,53 @@ def malwarebazaar_results(_hash, heading_color):
     print(formatter.hashes)
 
 
-ioc_types = [
-    {
-        "name": "file hash",
-        "ioc": Hash,
-        "exception": InvalidHashException,
-        "results": hash_results,
-    },
-    {
-        "name": "public IPv4 or IPv6 address",
-        "ioc": IP,
-        "exception": InvalidIPException,
-        "results": ip_results,
-    },
-]
+def hash_results(_hash, heading_color):
+    """Print results a file hash"""
+    hash_algorithm_heading = colored("[*] Hashing algorithm:", heading_color)
+    print(f"{hash_algorithm_heading} {_hash.hash_type}")
+
+    try:
+        virustotal_results(_hash, heading_color)
+    except AttributeError:
+        cprint("[!] There was an error displaying the VirusTotal report.", "red")
+
+    try:
+        malwarebazaar_results(_hash, heading_color)
+    except AttributeError:
+        cprint("[!] There was an error diplaying the MalwareBazaar report.", "red")
 
 
 @click.command()
 @click.argument("ioc")
 @click.option("--config", required=False, type=str)
 def run(ioc, config):
+    """Entrypoint for the ioccheck CLI"""
+
+    ioc_types = [
+        {
+            "name": "file hash",
+            "ioc": Hash,
+            "exception": InvalidHashException,
+            "results": hash_results,
+        },
+        {
+            "name": "public IPv4 or IPv6 address",
+            "ioc": IP,
+            "exception": InvalidIPException,
+            "results": ip_results,
+        },
+    ]
+
+    figlet = Figlet(font=random.choice(fonts))  # nosec
+    heading_color = "blue"
+
+    version = pkg_resources.get_distribution("ioccheck").version
+
+    cprint(
+        figlet.renderText("ioccheck"),
+    )
+    cprint(f"v{version} (https://github.com/ranguli/ioccheck)\n", heading_color)
+
     printed_ioc = colored(ioc, heading_color)
     print(f"Checking IOC {printed_ioc}.\n")
 
@@ -170,5 +176,5 @@ def run(ioc, config):
                     "[!] No configured services available to search that IOC.", "red"
                 )
             )
-        except FileNotFoundError as e:
-            sys.exit(colored(f"[!] {e}", "red"))
+        except FileNotFoundError as error:
+            sys.exit(colored(f"[!] {error}", "red"))

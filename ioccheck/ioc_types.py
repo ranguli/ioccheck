@@ -1,13 +1,17 @@
 #!/usr/bin/env python
+"""Module providing custom types for ioccheck"""
+
 from dataclasses import dataclass
 
 
-class IOCType:
-    pass
+class IOCType:  # pylint: disable=too-few-public-methods
+    """Base class for representing a type of IOC"""
 
 
 @dataclass
 class HashType(IOCType):
+    """Representation of file hash"""
+
     name: str
     regex: str
 
@@ -17,6 +21,8 @@ class HashType(IOCType):
 
 @dataclass
 class IPType(IOCType):
+    """Representation of an IP address"""
+
     name: str
 
     def __str__(self) -> str:

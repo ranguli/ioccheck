@@ -1,9 +1,12 @@
+#!/usr/bin/env python
+"""Module provides human-friendly output from the Shodan.io Service"""
+
 import logging
 
 from tabulate import tabulate
 from termcolor import colored
 
-from ioccheck.cli.formatters import Formatter
+from ioccheck.cli.formatters.formatter import Formatter
 from ioccheck.services import Shodan
 
 logger = logging.getLogger(__name__)
@@ -18,15 +21,19 @@ logger.addHandler(f_handler)
 
 
 class ShodanFormatter(Formatter):
+    """Provide pre-formatted output from the Shodan.io Service"""
+
     def __init__(self, service: Shodan):
-        self.service = service
+        Formatter.__init__(self, service)
 
     @property
     def tags(self):
+        """Pre-formatted output for user-submitted tags"""
         return ", ".join(self.service.tags) if self.service.tags else None
 
     @property
-    def location_data(self):
+    def location(self):
+        """Pre-formatted output for geolocation data"""
 
         location = self.service.location
         table = []
