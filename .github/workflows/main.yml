@@ -27,7 +27,7 @@ jobs:
       - name: Install dependencies
         run: poetry install
       - name: "Run tests"
-        run: poetry run nox -e test lint
+        run: poetry run nox -e test
       - name: "Upload coverage to Codecov"
         uses: codecov/codecov-action@v1
         with:

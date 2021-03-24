@@ -1,46 +1,37 @@
 import pytest
 
 from ioccheck.exceptions import InvalidHashException
+from ioccheck.ioc_types import MD5, SHA256
 from ioccheck.iocs import Hash
-from ioccheck.types import MD5, SHA256
+from ioccheck.services import MalwareBazaar, VirusTotal
 
 
 class TestHashCreation:
     """ Instantiating Hash() objects """
 
-    class TestHashCreationEICAR:
-        def test_ioccheck_eicar_sha256_implicit(self, ioccheck_eicar_sha256_implicit):
-            """ Hashcheck correctly guesses a SHA256"""
-            assert ioccheck_eicar_sha256_implicit.hash_type == SHA256
+    class TestHashGuesses:
+        def test_sha256_guess(self, hash_1, config_file):
+            assert Hash(hash_1, config_path=config_file).hash_type == SHA256
 
-        def test_ioccheck_eicar_sha256_explicit(self, ioccheck_eicar_sha256_explicit):
-            """ Hashcheck explicitly accepts a SHA256"""
-            assert ioccheck_eicar_sha256_explicit.hash_type == SHA256
+        def test_sha256_guess_2(self, hash_1, config_file):
+            assert (
+                Hash(hash_1, hash_type=SHA256, config_path=config_file).hash_type
+                == SHA256
+            )
 
-        def test_ioccheck_eicar_md5_implicit(self, ioccheck_eicar_md5_implicit):
-            """ Hashcheck correctly guesses an MD5"""
-            assert ioccheck_eicar_md5_implicit.hash_type == MD5
+        def test_sha256_guess_3(self, hash_2, config_file):
+            with pytest.raises(InvalidHashException):
+                assert Hash(hash_2, hash_type=SHA256, config_path=config_file)
 
-        def test_ioccheck_eicar_md5_explicit(self, ioccheck_eicar_md5_explicit):
-            """ Hashcheck correctly guesses an MD5"""
-            assert ioccheck_eicar_md5_explicit.hash_type == MD5
+        def test_md5_guess(self, hash_2, config_file):
+            assert Hash(hash_2, config_path=config_file).hash_type == MD5
 
-    class TestHashCreationClean:
-        def test_ioccheck_clean_sha256_implicit(self, ioccheck_clean_sha256_implicit):
-            """ Hashcheck correctly guesses a SHA256"""
-            assert ioccheck_clean_sha256_implicit.hash_type == SHA256
+        def test_md5_guess_2(self, hash_2, config_file):
+            assert Hash(hash_2, hash_type=MD5, config_path=config_file).hash_type == MD5
 
-        def test_ioccheck_clean_sha256_explicit(self, ioccheck_clean_sha256_explicit):
-            """ Hashcheck explicitly accepts a SHA256"""
-            assert ioccheck_clean_sha256_explicit.hash_type == SHA256
-
-        def test_ioccheck_clean_md5_implicit(self, ioccheck_clean_md5_implicit):
-            """ Hashcheck correctly guesses an MD5"""
-            assert ioccheck_clean_md5_implicit.hash_type == MD5
-
-        def test_ioccheck_clean_md5_explicit(self, ioccheck_clean_md5_explicit):
-            """ Hashcheck correctly guesses an MD5"""
-            assert ioccheck_clean_md5_explicit.hash_type == MD5
+        def test_md5_guess_3(self, hash_1, config_file):
+            with pytest.raises(InvalidHashException):
+                assert Hash(hash_1, hash_type=MD5, config_path=config_file)
 
     class TestInvalidHashExceptions:
         @pytest.mark.parametrize(
@@ -67,6 +58,6 @@ class TestHashCreation:
                 ("abc", SHA256),
             ],
         )
-        def test_invalid_hash_exception(self, file_hash, hash_type):
+        def test_invalid_hash_exception(self, file_hash, hash_type, config_file):
             with pytest.raises(InvalidHashException):
-                Hash(file_hash, hash_type)
+                Hash(file_hash, hash_type, config_path=config_file)
