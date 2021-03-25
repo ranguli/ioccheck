@@ -2,10 +2,11 @@ import json
 from unittest.mock import patch
 
 import pytest
+import vt
 
 from ioccheck.ioc_types import MD5, SHA256
-from ioccheck.iocs import Hash
-from ioccheck.services import MalwareBazaar, VirusTotal
+from ioccheck.iocs import IP, Hash
+from ioccheck.services import MalwareBazaar, Shodan, VirusTotal
 
 
 @pytest.fixture
@@ -37,6 +38,28 @@ def malwarebazaar_mocked_response_1():
 def malwarebazaar_mocked_response_2():
     with open("test/data/malwarebazaar_mock_response_2.json", "r") as f:
         return json.load(f)
+
+
+@pytest.fixture
+def shodan_mocked_response_1():
+    with open("test/data/shodan_mock_response_1.json", "r") as f:
+        return json.load(f)
+
+
+@pytest.fixture
+def virustotal_bad_response_1(virustotal_mocked_response_1, hash_1, config_file):
+    def side_effect(*args):
+        raise vt.error.APIError("WrongCredentialsError", "")
+
+    with patch.object(
+        VirusTotal, "_get_api_response", return_value=None, side_effect=side_effect
+    ) as mock_method:
+
+        mock_api_response = virustotal_mocked_response_1
+        sample = Hash(hash_1, config_path=config_file)
+
+        sample.check(services=[VirusTotal])
+        return sample
 
 
 @pytest.fixture
@@ -77,6 +100,20 @@ def malwarebazaar_report_2(malwarebazaar_mocked_response_2, hash_1, config_file)
         sample = Hash(hash_1, config_path=config_file)
 
         sample.check(services=[MalwareBazaar])
+
+        return sample
+
+
+@pytest.fixture
+def shodan_report_1(shodan_mocked_response_1, config_file):
+    """ MalwareBazaar report generated from malware_mocked_response_2 """
+    with patch.object(
+        Shodan, "_get_api_response", return_value=shodan_mocked_response_1
+    ) as mock_method:
+        mock_api_response = shodan_mocked_response_1
+        sample = IP("45.33.49.119", config_path=config_file)
+
+        sample.check(services=[Shodan])
 
         return sample
 

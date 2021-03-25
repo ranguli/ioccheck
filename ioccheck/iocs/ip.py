@@ -8,7 +8,7 @@ from ipaddress import IPv4Address, IPv6Address
 from typing import List, Optional, Union
 
 from ioccheck.exceptions import InvalidIPException
-from ioccheck.iocs import IOC, IOCReport
+from ioccheck.iocs.ioc import IOC, IOCReport
 from ioccheck.services import Service, Shodan, ip_services
 
 logger = logging.getLogger(__name__)
@@ -29,13 +29,9 @@ logger.addHandler(f_handler)
 
 @dataclass
 class IPReport(IOCReport):
-    """Report representing threat intelligence results for a Hash object
+    """Report representing threat intelligence results for an IP object"""
 
-    Attributes:
-        shodan : Results from the Shodan.io API
-    """
-
-    shodan: Shodan = None  # type: ignore
+    shodan: Shodan
 
 
 class IP(IOC):
@@ -61,7 +57,7 @@ class IP(IOC):
         Args:
             services: The threat intelligence services to be checked
         """
-        reports = self._get_reports(self.config_path, services)
+        reports = self._get_reports(services)
         self.reports = IPReport(**reports)
 
     @staticmethod
@@ -78,17 +74,17 @@ class IP(IOC):
             InvalidIPException: If the IP address string can't be converted.
         """
         if not isinstance(ip_addr, str):
-            logger.error(f"{ip_addr} is not of type string.")
+            logger.error("%(ip_addr)s is not of type string.")
             raise InvalidIPException
 
         try:
             ip = ipaddress.ip_address(ip_addr)  # pylint: disable=C0103
         except ValueError as value_error:
-            logger.error(f"{ip_addr} could not be converted to IPAddress object.")
+            logger.error("%(ip_addr)s could not be converted to IPAddress object.")
             raise InvalidIPException from value_error
 
         if not ip.is_global:
-            logger.error(f"{ip_addr} is not a public IP.")
+            logger.error("%(ip_addr)s is not a public IP.")
             raise InvalidIPException
 
         return ip

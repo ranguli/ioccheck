@@ -2,31 +2,14 @@
 """Module representing file hashes"""
 
 
-import logging
 import re
 from dataclasses import dataclass
 from typing import List, Optional
 
 from ioccheck.exceptions import InvalidHashException
 from ioccheck.ioc_types import MD5, SHA256, HashType, hash_types
-from ioccheck.iocs import IOC, IOCReport
+from ioccheck.iocs.ioc import IOC, IOCReport
 from ioccheck.services import MalwareBazaar, Service, VirusTotal, hash_services
-
-invalid_hash_message = f"Hash is not a supported hash type. Supported types are {', '.join([str(hash_type) for hash_type in hash_types])}."
-
-logger = logging.getLogger(__name__)
-
-logger.setLevel(logging.INFO)
-
-asyncio_logger = logging.getLogger("asyncio")
-asyncio_logger.propagate = False
-asyncio_logger.setLevel(logging.CRITICAL)
-
-f_handler = logging.FileHandler("ioccheck.log")
-f_handler.setLevel(logging.INFO)
-
-f_format = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-f_handler.setFormatter(f_format)
 
 
 @dataclass
@@ -42,7 +25,7 @@ class HashReport(IOCReport):
     malwarebazaar: MalwareBazaar = None  # type: ignore
 
 
-class Hash(IOC):
+class Hash(IOC):  # pylint: disable=too-few-public-methods,too-many-instance-attributes
     """Type of IOC representing file hashes
 
     Attributes:
@@ -61,22 +44,23 @@ class Hash(IOC):
         config_path: Optional[str] = None,
     ):
 
-        self.ioc = ioc
-        self.hash_type = hash_type
-        self.services = hash_services
-
         IOC.__init__(self, ioc, config_path)
 
+        self.hash_type = hash_type
+        self._supported_types = ", ".join([str(hash_type) for hash_type in hash_types])
+        self.invalid_hash_msg = f"Hash is not a supported hash type. Supported types are {self._supported_types}"
+        self.services = hash_services
+
         if not isinstance(self.ioc, str):
-            logger.error("%(self.ioc)s is not of type str")
+            self.logger.error(f"{self.ioc} is not of type str")
             raise InvalidHashException
 
         if hash_type:
             if not self._check_hash_type(hash_type.regex, ioc):
-                logger.error(
-                    "%(ioc)s is not a valid hash because it doesn't match regex %(hash_type.regex)s "
+                self.logger.error(
+                    f"{ioc} is not a valid hash because it doesn't match regex {hash_type.regex}"
                 )
-                raise InvalidHashException(invalid_hash_message)
+                raise InvalidHashException(self.invalid_hash_msg)
         else:
             self.hash_type = self._guess_hash_type(self.ioc)
 
@@ -97,13 +81,13 @@ class Hash(IOC):
         """
 
         for hash_type in hash_types:
-            logger.info("Trying hash %(hash_type)s")
+            self.logger.info(f"Trying hash {hash_type}")
             if self._check_hash_type(hash_type.regex, file_hash):
-                logger.info("Hash %(file_hash)s is of type %(hash_type)s")
+                self.logger.info(f"Hash {file_hash} is of type {hash_type}")
                 return hash_type
 
-        logger.error("The type of hash %(file_hash)s could not be guessed!")
-        raise InvalidHashException(invalid_hash_message)
+        self.logger.error(f"The type of hash {file_hash} could not be guessed!")
+        raise InvalidHashException(self.invalid_hash_msg)
 
     @staticmethod
     def _check_hash_type(hash_regex: str, file_hash: str) -> bool:
@@ -126,5 +110,5 @@ class Hash(IOC):
             services: The threat intelligence services to be checked
         """
 
-        reports = self._get_reports(self.config_path, services)
+        reports = self._get_reports(services)
         self.reports = HashReport(**reports)

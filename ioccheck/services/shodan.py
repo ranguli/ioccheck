@@ -1,6 +1,8 @@
-import logging
+#!/usr/bin/env python
+"""Provides support for the Shodan.io service"""
+
 from ipaddress import IPv4Address, IPv6Address
-from typing import Union
+from typing import Optional, Union
 
 import shodan
 from backoff import expo, on_exception
@@ -8,46 +10,37 @@ from ratelimit import RateLimitException, limits
 
 from ioccheck.services.service import Service
 
-logger = logging.getLogger(__name__)
-
-f_handler = logging.FileHandler("ioccheck.log")
-f_handler.setLevel(logging.INFO)
-
-f_format = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-f_handler.setFormatter(f_format)
-
-logger.addHandler(f_handler)
-
 
 class Shodan(Service):
+    """Represents a response from the Shodan.io API"""
+
     name = "shodan"
     url = "https://shodan.io/host/"
+    ioc: Union[IPv4Address, IPv6Address]
 
-    def __init__(self, ip: Union[IPv4Address, IPv6Address], api_key: str):
+    def __init__(self, ioc: Union[IPv4Address, IPv6Address], api_key: str):
+        Service.__init__(self, ioc, api_key)
 
-        self.ip = ip
-        self.response = self._get_api_response(ip, api_key)
-
-        self.investigation_url = f"{self.url}/{ip}"
-
-        self.location = self._get_location_data(self.response)
-        self.hostnames = self._get_hostnames(self.response)
-        self.tags = self._get_tags(self.response)
-        self.vulns = self._get_vulns(self.response)
+        self.response = self._get_api_response(ioc, api_key)
+        self._response_data = self.response.get("data")[0]
 
     @on_exception(expo, RateLimitException, max_tries=10)
     @limits(calls=15, period=60)
     def _get_api_response(
-        self, ip: Union[IPv4Address, IPv6Address], api_key: str
+        self, ioc: Union[IPv4Address, IPv6Address], api_key: str
     ) -> dict:
         client = shodan.Shodan(api_key)
-        result = client.host(str(ip))
+        result = client.host(str(ioc))
         return result
 
-    def _get_tags(self, response) -> list:
-        return response.get("data")[0].get("tags")
+    @property
+    def investigation_url(self) -> Optional[str]:
+        """The URL a human can use to follow up for more information"""
+        return f"{self.url}/{self.ioc}/"
 
-    def _get_location_data(self, response) -> dict:
+    @property
+    def location(self) -> dict:
+        """Geolocation data for the IP address"""
         keys = [
             "region_code",
             "postal_code",
@@ -59,10 +52,19 @@ class Shodan(Service):
             "isp",
             "asn",
         ]
-        return {k: response.get(k) for k in keys}
+        return {k: self.response.get(k) for k in keys}
 
-    def _get_hostnames(self, response) -> list:
-        return response.get("hostnames")
+    @property
+    def tags(self) -> list:
+        """User-submitted tags for the sample from the MalwareBazaar website"""
+        return self._response_data.get("tags")
 
-    def _get_vulns(self, response) -> list:
-        return response.get("vulns")
+    @property
+    def hostnames(self) -> list:
+        """Hostnames found for the given IP address"""
+        return self.response.get("hostnames")
+
+    @property
+    def vulns(self) -> list:
+        """CVEs found by the Shodan scanners for the given IP address"""
+        return self.response.get("vulns")

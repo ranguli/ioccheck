@@ -1,10 +1,13 @@
+#!/usr/bin/env python
+"""Module provides human-friendly output from the VirusTotal Service"""
+
 import logging
 from typing import Optional
 
 from tabulate import tabulate
 from termcolor import colored
 
-from ioccheck.cli.formatters import Formatter
+from ioccheck.cli.formatters.formatter import Formatter
 from ioccheck.services import VirusTotal
 
 logger = logging.getLogger(__name__)
@@ -19,11 +22,14 @@ logger.addHandler(f_handler)
 
 
 class VirusTotalFormatter(Formatter):
+    """Provide pre-formatted output from the VirusTotal Service"""
+
     def __init__(self, service: VirusTotal):
         Formatter.__init__(self, service)
 
     @property
     def reputation(self) -> Optional[str]:
+        """Provide pre-formatted output of the community score"""
         if not isinstance(self.service.reputation, int):
             return None
 
@@ -38,7 +44,8 @@ class VirusTotalFormatter(Formatter):
 
     @property
     def detection_count(self):
-        detection_percent = self.detection_coverage * 100
+        """Provide pre-formatted output for the number of detections"""
+        detection_percent = self.service.detection_coverage * 100
 
         detection_count_string = f"{self.service.detection_count} engines ({detection_percent:.2g}%) detected this file.\n"
         if self.service.detection_count == 0:
@@ -50,6 +57,7 @@ class VirusTotalFormatter(Formatter):
 
     @property
     def detections(self):
+        """Provide pre-formatted output of the detecting A.V engines"""
 
         table = [["Antivirus", "Detection"]]
 
@@ -61,6 +69,7 @@ class VirusTotalFormatter(Formatter):
 
     @property
     def sandbox_verdicts(self):
+        """Provide pre-formatted output of the results from sandbox analysis"""
         result = None
         try:
             result = self.service.response.sandbox_verdicts
@@ -71,10 +80,12 @@ class VirusTotalFormatter(Formatter):
 
     @property
     def tags(self):
+        """Provide pre-formatted output of user-submitted tags for the sample"""
         return ", ".join(self.service.tags) if self.service.tags else None
 
     @property
     def popular_threat_names(self):
+        """Provide pre-formatted output of popular humand-friendly names"""
         return (
             ", ".join(self.service.popular_threat_names)
             if self.service.popular_threat_names
