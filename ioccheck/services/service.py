@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 
-class Service(ABC): # pylint: disable=too-few-public-methods
+class Service(ABC):  # pylint: disable=too-few-public-methods
     """Service base class for adding new threat intelligence services"""
 
     name: str

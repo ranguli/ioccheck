@@ -26,7 +26,6 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
         config_path: The filepath of the configuration file
         reports: The Indicator of Compromise
         services: All potential services avilable for the IOC type
-        configured_services: All configured services available for the IOC type
     """
 
     def __init__(self, ioc, config_path: Optional[str] = None):
@@ -85,7 +84,7 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
 
     @property
     def configured_services(self) -> list:
-        """Services in the config file with keys"""
+        """IOC services in the config file with keys"""
         if self.config_path is None:
             self.config_path = self._default_config_path
 

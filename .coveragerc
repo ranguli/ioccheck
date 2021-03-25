@@ -1,2 +1,3 @@
 [report]
 show_missing = true
+omit = ioccheck/cli/__init__.py

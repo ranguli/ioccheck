@@ -1,0 +1,1535 @@
+{
+    "region_code": "CA",
+    "ip": 757150071,
+    "postal_code": null,
+    "country_code": "US",
+    "city": "Fremont",
+    "dma_code": null,
+    "last_update": "2021-03-24T17:33:49.864623",
+    "vulns": [
+        "CVE-2014-0117",
+        "CVE-2014-0118",
+        "CVE-2016-0736",
+        "CVE-2015-3185",
+        "CVE-2015-3184",
+        "CVE-2018-1312",
+        "CVE-2016-4975",
+        "CVE-2016-8612",
+        "CVE-2014-0226",
+        "CVE-2014-3523",
+        "CVE-2017-15710",
+        "CVE-2017-15715",
+        "CVE-2013-6438",
+        "CVE-2017-7679",
+        "CVE-2018-17199",
+        "CVE-2017-9788",
+        "CVE-2014-8109",
+        "CVE-2017-9798",
+        "CVE-2016-2161",
+        "CVE-2014-0231",
+        "CVE-2013-4352",
+        "CVE-2019-0220",
+        "CVE-2014-0098",
+        "CVE-2018-1283",
+        "CVE-2016-8743"
+    ],
+    "country_name": "United States",
+    "tags": [
+        "cloud"
+    ],
+    "area_code": null,
+    "latitude": 37.54827,
+    "hostnames": [
+        "ack.nmap.org"
+    ],
+    "org": "Linode",
+    "data": [
+        {
+            "ip": 757150071,
+            "http": {
+                "html_hash": -1247096395,
+                "robots_hash": null,
+                "redirects": [],
+                "securitytxt": null,
+                "title": "301 Moved Permanently",
+                "sitemap_hash": null,
+                "robots": null,
+                "favicon": {
+                    "hash": 536238901,
+                    "data": "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAActJREFUOMvV\nk01IFAEYhp+Z0d2ddpxiVjeTwXL/aMEKXWopQsFIzOokdIjAk1EXb+XRPQQGXSKiiI5RVofcwlOC\n2w8RQUSxhDKEgWVRjq3pbrO7zs50iA5bndxTz/Hj/d7D+72fABBXelzWwUx+WhDWu/wbkRqp2aDu\nz0G9IpM82kWyfy96WMfj82J+NnmVecnTe4/4NrdQpa/KILx/F6cuDBPRg5y/PVklPHOsn4JV4kH6\nMfdHr2OXytUGg1dG6Ovdw8WJhwBEd3TwwcwB0Ko1YLzNAnD6SA9LywXGBlOYxjxSm96ZOnt3jERn\njEzWYOhQN17Zj1Mu8/zODXIzr2luDZGIxzjetZvprEGjqnD4RB8fP5kI1yZfuKtiBUkSGdjXgQu8\neTePVbZJj99C9npIHuiluamRnaEWREEkk51lwVwhEWtDEgtNqWB7HC2goW6Q8dVLFO0KhaKNti3K\nxqCOqjYQUP0EVIUfaw45q4JVckhfGv+VgVAn4VMVDp4bJtIeJdGi8iWX5+v3PACaXya8RePJ3CKL\ny6tMjV5mafY9zprNX03ctD1E98hJNke24pFEcF0qQNEq8ezqTYyJKXDcf5/x/6yyUOs7/wQ4uKBj\nWXYJDwAAAABJRU5ErkJggg==\n",
+                    "location": "https://www.insecure.org:443/favicon.ico"
+                },
+                "host": "www.insecure.org",
+                "html": "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>301 Moved Permanently</title>\n</head><body>\n<h1>Moved Permanently</h1>\n<p>The document has moved <a href=\"http://insecure.org/\">here</a>.</p>\n<hr>\n<address>Apache/2.4.6 (CentOS) Server at www.insecure.org Port 443</address>\n</body></html>\n",
+                "location": "/",
+                "components": {},
+                "server": "Apache/2.4.6 (CentOS)",
+                "sitemap": null,
+                "securitytxt_hash": null
+            },
+            "port": 443,
+            "transport": "tcp",
+            "version": "2.4.6",
+            "cloud": {
+                "region": null,
+                "service": null,
+                "provider": "Linode"
+            },
+            "vulns": {
+                "CVE-2014-0117": {
+                    "references": [
+                        "http://advisories.mageia.org/MGASA-2014-0305.html",
+                        "http://httpd.apache.org/security/vulnerabilities_24.html",
+                        "http://lists.apple.com/archives/security-announce/2015/Apr/msg00001.html",
+                        "http://seclists.org/fulldisclosure/2014/Jul/117",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/proxy/mod_proxy_http.c",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/proxy/mod_proxy_http.c?r1=1599486&r2=1610674&diff_format=h",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/proxy/proxy_util.c",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/proxy/proxy_util.c?r1=1609680&r2=1610674&diff_format=h",
+                        "http://www.oracle.com/technetwork/topics/security/cpujan2015-1972971.html",
+                        "http://zerodayinitiative.com/advisories/ZDI-14-239/",
+                        "https://bugzilla.redhat.com/show_bug.cgi?id=1120599",
+                        "https://lists.apache.org/thread.html/56c2e7cc9deb1c12a843d0dc251ea7fd3e7e80293cde02fcd65286ba@%3Ccvs.httpd.apache.org%3E",
+                        "https://support.apple.com/HT204659"
+                    ],
+                    "verified": false,
+                    "cvss": "4.3",
+                    "summary": "The mod_proxy module in the Apache HTTP Server 2.4.x before 2.4.10, when a reverse proxy is enabled, allows remote attackers to cause a denial of service (child-process crash) via a crafted HTTP Connection header."
+                },
+                "CVE-2014-0118": {
+                    "references": [
+                        "http://advisories.mageia.org/MGASA-2014-0304.html",
+                        "http://advisories.mageia.org/MGASA-2014-0305.html",
+                        "http://httpd.apache.org/security/vulnerabilities_24.html",
+                        "http://lists.apple.com/archives/security-announce/2015/Apr/msg00001.html",
+                        "http://marc.info/?l=bugtraq&m=143403519711434&w=2",
+                        "http://marc.info/?l=bugtraq&m=143748090628601&w=2",
+                        "http://marc.info/?l=bugtraq&m=144050155601375&w=2",
+                        "http://marc.info/?l=bugtraq&m=144493176821532&w=2",
+                        "http://rhn.redhat.com/errata/RHSA-2014-1019.html",
+                        "http://rhn.redhat.com/errata/RHSA-2014-1020.html",
+                        "http://rhn.redhat.com/errata/RHSA-2014-1021.html",
+                        "http://svn.apache.org/repos/asf/httpd/httpd/branches/2.2.x/CHANGES",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/filters/mod_deflate.c",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/filters/mod_deflate.c?r1=1604353&r2=1610501&diff_format=h",
+                        "http://www.debian.org/security/2014/dsa-2989",
+                        "http://www.mandriva.com/security/advisories?name=MDVSA-2014:142",
+                        "http://www.oracle.com/technetwork/topics/security/cpujan2015-1972971.html",
+                        "http://www.securityfocus.com/bid/68745",
+                        "https://bugzilla.redhat.com/show_bug.cgi?id=1120601",
+                        "https://h20564.www2.hpe.com/portal/site/hpsc/public/kb/docDisplay?docId=emr_na-c04832246",
+                        "https://puppet.com/security/cve/cve-2014-0118",
+                        "https://security.gentoo.org/glsa/201504-03",
+                        "https://support.apple.com/HT204659"
+                    ],
+                    "verified": false,
+                    "cvss": 4.3,
+                    "summary": "The deflate_in_filter function in mod_deflate.c in the mod_deflate module in the Apache HTTP Server before 2.4.10, when request body decompression is enabled, allows remote attackers to cause a denial of service (resource consumption) via crafted request data that decompresses to a much larger size."
+                },
+                "CVE-2016-0736": {
+                    "references": [
+                        "http://rhn.redhat.com/errata/RHSA-2017-1415.html",
+                        "http://www.debian.org/security/2017/dsa-3796",
+                        "http://www.securityfocus.com/bid/95078",
+                        "http://www.securitytracker.com/id/1037508",
+                        "https://access.redhat.com/errata/RHSA-2017:0906",
+                        "https://access.redhat.com/errata/RHSA-2017:1161",
+                        "https://access.redhat.com/errata/RHSA-2017:1413",
+                        "https://access.redhat.com/errata/RHSA-2017:1414",
+                        "https://h20566.www2.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbux03725en_us",
+                        "https://httpd.apache.org/security/vulnerabilities_24.html#CVE-2016-0736",
+                        "https://security.gentoo.org/glsa/201701-36",
+                        "https://security.netapp.com/advisory/ntap-20180423-0001/",
+                        "https://support.apple.com/HT208221",
+                        "https://www.exploit-db.com/exploits/40961/",
+                        "https://www.tenable.com/security/tns-2017-04"
+                    ],
+                    "verified": false,
+                    "cvss": 5.0,
+                    "summary": "In Apache HTTP Server versions 2.4.0 to 2.4.23, mod_session_crypto was encrypting its data/cookie using the configured ciphers with possibly either CBC or ECB modes of operation (AES256-CBC by default), hence no selectable or builtin authenticated encryption. This made it vulnerable to padding oracle attacks, particularly with CBC."
+                },
+                "CVE-2015-3185": {
+                    "references": [
+                        "http://httpd.apache.org/security/vulnerabilities_24.html",
+                        "http://lists.apple.com/archives/security-announce/2015/Aug/msg00001.html",
+                        "http://lists.apple.com/archives/security-announce/2015/Sep/msg00002.html",
+                        "http://lists.apple.com/archives/security-announce/2015/Sep/msg00004.html",
+                        "http://lists.opensuse.org/opensuse-updates/2015-10/msg00011.html",
+                        "http://rhn.redhat.com/errata/RHSA-2015-1666.html",
+                        "http://rhn.redhat.com/errata/RHSA-2015-1667.html",
+                        "http://rhn.redhat.com/errata/RHSA-2016-2957.html",
+                        "http://www.apache.org/dist/httpd/CHANGES_2.4",
+                        "http://www.debian.org/security/2015/dsa-3325",
+                        "http://www.securityfocus.com/bid/75965",
+                        "http://www.securitytracker.com/id/1032967",
+                        "http://www.ubuntu.com/usn/USN-2686-1",
+                        "https://access.redhat.com/errata/RHSA-2017:2708",
+                        "https://access.redhat.com/errata/RHSA-2017:2709",
+                        "https://access.redhat.com/errata/RHSA-2017:2710",
+                        "https://github.com/apache/httpd/commit/cd2b7a26c776b0754fb98426a67804fd48118708",
+                        "https://support.apple.com/HT205217",
+                        "https://support.apple.com/HT205219",
+                        "https://support.apple.com/kb/HT205031"
+                    ],
+                    "verified": false,
+                    "cvss": 4.3,
+                    "summary": "The ap_some_auth_required function in server/request.c in the Apache HTTP Server 2.4.x before 2.4.14 does not consider that a Require directive may be associated with an authorization setting rather than an authentication setting, which allows remote attackers to bypass intended access restrictions in opportunistic circumstances by leveraging the presence of a module that relies on the 2.2 API behavior."
+                },
+                "CVE-2015-3184": {
+                    "references": [
+                        "http://lists.apple.com/archives/security-announce/2016/Mar/msg00003.html",
+                        "http://lists.opensuse.org/opensuse-updates/2015-08/msg00022.html",
+                        "http://rhn.redhat.com/errata/RHSA-2015-1742.html",
+                        "http://subversion.apache.org/security/CVE-2015-3184-advisory.txt",
+                        "http://www.debian.org/security/2015/dsa-3331",
+                        "http://www.securityfocus.com/bid/76274",
+                        "http://www.securitytracker.com/id/1033215",
+                        "http://www.ubuntu.com/usn/USN-2721-1",
+                        "https://security.gentoo.org/glsa/201610-05",
+                        "https://support.apple.com/HT206172"
+                    ],
+                    "verified": false,
+                    "cvss": 5.0,
+                    "summary": "mod_authz_svn in Apache Subversion 1.7.x before 1.7.21 and 1.8.x before 1.8.14, when using Apache httpd 2.4.x, does not properly restrict anonymous access, which allows remote anonymous users to read hidden files via the path name."
+                },
+                "CVE-2018-1312": {
+                    "references": [
+                        "http://www.openwall.com/lists/oss-security/2018/03/24/7",
+                        "http://www.securityfocus.com/bid/103524",
+                        "http://www.securitytracker.com/id/1040571",
+                        "https://access.redhat.com/errata/RHSA-2018:3558",
+                        "https://access.redhat.com/errata/RHSA-2019:0366",
+                        "https://access.redhat.com/errata/RHSA-2019:0367",
+                        "https://access.redhat.com/errata/RHSA-2019:1898",
+                        "https://httpd.apache.org/security/vulnerabilities_24.html",
+                        "https://lists.debian.org/debian-lts-announce/2018/05/msg00020.html",
+                        "https://security.netapp.com/advisory/ntap-20180601-0004/",
+                        "https://support.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbux03909en_us",
+                        "https://usn.ubuntu.com/3627-1/",
+                        "https://usn.ubuntu.com/3627-2/",
+                        "https://usn.ubuntu.com/3937-2/",
+                        "https://www.debian.org/security/2018/dsa-4164"
+                    ],
+                    "verified": false,
+                    "cvss": "6.8",
+                    "summary": "In Apache httpd 2.2.0 to 2.4.29, when generating an HTTP Digest authentication challenge, the nonce sent to prevent reply attacks was not correctly generated using a pseudo-random seed. In a cluster of servers using a common Digest authentication configuration, HTTP requests could be replayed across servers by an attacker without detection."
+                },
+                "CVE-2016-4975": {
+                    "references": [
+                        "http://www.securityfocus.com/bid/105093",
+                        "https://httpd.apache.org/security/vulnerabilities_22.html#CVE-2016-4975",
+                        "https://httpd.apache.org/security/vulnerabilities_24.html#CVE-2016-4975",
+                        "https://security.netapp.com/advisory/ntap-20180926-0006/",
+                        "https://support.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbux03908en_us"
+                    ],
+                    "verified": false,
+                    "cvss": "4.3",
+                    "summary": "Possible CRLF injection allowing HTTP response splitting attacks for sites which use mod_userdir. This issue was mitigated by changes made in 2.4.25 and 2.2.32 which prohibit CR or LF injection into the \"Location\" or other outbound header key or value. Fixed in Apache HTTP Server 2.4.25 (Affected 2.4.1-2.4.23). Fixed in Apache HTTP Server 2.2.32 (Affected 2.2.0-2.2.31)."
+                },
+                "CVE-2016-8612": {
+                    "references": [
+                        "http://rhn.redhat.com/errata/RHSA-2016-2957.html",
+                        "http://www.securityfocus.com/bid/94939",
+                        "https://access.redhat.com/errata/RHSA-2017:0193",
+                        "https://access.redhat.com/errata/RHSA-2017:0194",
+                        "https://bugzilla.redhat.com/show_bug.cgi?id=1387605",
+                        "https://security.netapp.com/advisory/ntap-20180601-0005/"
+                    ],
+                    "verified": false,
+                    "cvss": "3.3",
+                    "summary": "Apache HTTP Server mod_cluster before version httpd 2.4.23 is vulnerable to an Improper Input Validation in the protocol parsing logic in the load balancer resulting in a Segmentation Fault in the serving httpd process."
+                },
+                "CVE-2014-0226": {
+                    "references": [
+                        "http://advisories.mageia.org/MGASA-2014-0304.html",
+                        "http://advisories.mageia.org/MGASA-2014-0305.html",
+                        "http://httpd.apache.org/security/vulnerabilities_24.html",
+                        "http://lists.apple.com/archives/security-announce/2015/Apr/msg00001.html",
+                        "http://marc.info/?l=bugtraq&m=143403519711434&w=2",
+                        "http://marc.info/?l=bugtraq&m=143748090628601&w=2",
+                        "http://marc.info/?l=bugtraq&m=144050155601375&w=2",
+                        "http://marc.info/?l=bugtraq&m=144493176821532&w=2",
+                        "http://rhn.redhat.com/errata/RHSA-2014-1019.html",
+                        "http://rhn.redhat.com/errata/RHSA-2014-1020.html",
+                        "http://rhn.redhat.com/errata/RHSA-2014-1021.html",
+                        "http://seclists.org/fulldisclosure/2014/Jul/114",
+                        "http://security.gentoo.org/glsa/glsa-201408-12.xml",
+                        "http://svn.apache.org/repos/asf/httpd/httpd/branches/2.2.x/CHANGES",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/generators/mod_status.c",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/generators/mod_status.c?r1=1450998&r2=1610491&diff_format=h",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/lua/lua_request.c",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/lua/lua_request.c?r1=1588989&r2=1610491&diff_format=h",
+                        "http://www.debian.org/security/2014/dsa-2989",
+                        "http://www.exploit-db.com/exploits/34133",
+                        "http://www.mandriva.com/security/advisories?name=MDVSA-2014:142",
+                        "http://www.oracle.com/technetwork/topics/security/cpujan2015-1972971.html",
+                        "http://www.securityfocus.com/bid/68678",
+                        "http://zerodayinitiative.com/advisories/ZDI-14-236/",
+                        "https://bugzilla.redhat.com/show_bug.cgi?id=1120603",
+                        "https://h20564.www2.hpe.com/portal/site/hpsc/public/kb/docDisplay?docId=emr_na-c04832246",
+                        "https://puppet.com/security/cve/cve-2014-0226",
+                        "https://security.gentoo.org/glsa/201504-03",
+                        "https://support.apple.com/HT204659"
+                    ],
+                    "verified": false,
+                    "cvss": 6.8,
+                    "summary": "Race condition in the mod_status module in the Apache HTTP Server before 2.4.10 allows remote attackers to cause a denial of service (heap-based buffer overflow), or possibly obtain sensitive credential information or execute arbitrary code, via a crafted request that triggers improper scoreboard handling within the status_handler function in modules/generators/mod_status.c and the lua_ap_scoreboard_worker function in modules/lua/lua_request.c."
+                },
+                "CVE-2014-3523": {
+                    "references": [
+                        "http://httpd.apache.org/security/vulnerabilities_24.html",
+                        "http://marc.info/?l=bugtraq&m=143748090628601&w=2",
+                        "http://marc.info/?l=bugtraq&m=144050155601375&w=2",
+                        "http://rhn.redhat.com/errata/RHSA-2016-2957.html",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/server/mpm/winnt/child.c",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/server/mpm/winnt/child.c?r1=1608785&r2=1610652&diff_format=h",
+                        "http://www.securityfocus.com/bid/68747"
+                    ],
+                    "verified": false,
+                    "cvss": 5.0,
+                    "summary": "Memory leak in the winnt_accept function in server/mpm/winnt/child.c in the WinNT MPM in the Apache HTTP Server 2.4.x before 2.4.10 on Windows, when the default AcceptFilter is enabled, allows remote attackers to cause a denial of service (memory consumption) via crafted requests."
+                },
+                "CVE-2017-15710": {
+                    "references": [
+                        "http://www.openwall.com/lists/oss-security/2018/03/24/8",
+                        "http://www.securityfocus.com/bid/103512",
+                        "http://www.securitytracker.com/id/1040569",
+                        "https://access.redhat.com/errata/RHSA-2018:3558",
+                        "https://access.redhat.com/errata/RHSA-2019:0366",
+                        "https://access.redhat.com/errata/RHSA-2019:0367",
+                        "https://httpd.apache.org/security/vulnerabilities_24.html",
+                        "https://lists.apache.org/thread.html/56c2e7cc9deb1c12a843d0dc251ea7fd3e7e80293cde02fcd65286ba@%3Ccvs.httpd.apache.org%3E",
+                        "https://lists.debian.org/debian-lts-announce/2018/05/msg00020.html",
+                        "https://security.netapp.com/advisory/ntap-20180601-0004/",
+                        "https://support.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbux03909en_us",
+                        "https://usn.ubuntu.com/3627-1/",
+                        "https://usn.ubuntu.com/3627-2/",
+                        "https://usn.ubuntu.com/3937-2/",
+                        "https://www.debian.org/security/2018/dsa-4164"
+                    ],
+                    "verified": false,
+                    "cvss": "5.0",
+                    "summary": "In Apache httpd 2.0.23 to 2.0.65, 2.2.0 to 2.2.34, and 2.4.0 to 2.4.29, mod_authnz_ldap, if configured with AuthLDAPCharsetConfig, uses the Accept-Language header value to lookup the right charset encoding when verifying the user's credentials. If the header value is not present in the charset conversion table, a fallback mechanism is used to truncate it to a two characters value to allow a quick retry (for example, 'en-US' is truncated to 'en'). A header value of less than two characters forces an out of bound write of one NUL byte to a memory location that is not part of the string. In the worst case, quite unlikely, the process would crash which could be used as a Denial of Service attack. In the more likely case, this memory is already reserved for future use and the issue has no effect at all."
+                },
+                "CVE-2017-15715": {
+                    "references": [
+                        "http://www.openwall.com/lists/oss-security/2018/03/24/6",
+                        "http://www.securityfocus.com/bid/103525",
+                        "http://www.securitytracker.com/id/1040570",
+                        "https://access.redhat.com/errata/RHSA-2018:3558",
+                        "https://access.redhat.com/errata/RHSA-2019:0366",
+                        "https://access.redhat.com/errata/RHSA-2019:0367",
+                        "https://httpd.apache.org/security/vulnerabilities_24.html",
+                        "https://lists.apache.org/thread.html/56c2e7cc9deb1c12a843d0dc251ea7fd3e7e80293cde02fcd65286ba@%3Ccvs.httpd.apache.org%3E",
+                        "https://security.netapp.com/advisory/ntap-20180601-0004/",
+                        "https://support.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbux03909en_us",
+                        "https://usn.ubuntu.com/3627-1/",
+                        "https://usn.ubuntu.com/3627-2/",
+                        "https://www.debian.org/security/2018/dsa-4164"
+                    ],
+                    "verified": false,
+                    "cvss": "6.8",
+                    "summary": "In Apache httpd 2.4.0 to 2.4.29, the expression specified in <FilesMatch> could match '$' to a newline character in a malicious filename, rather than matching only the end of the filename. This could be exploited in environments where uploads of some files are are externally blocked, but only by matching the trailing portion of the filename."
+                },
+                "CVE-2013-6438": {
+                    "references": [
+                        "http://advisories.mageia.org/MGASA-2014-0135.html",
+                        "http://archives.neohapsis.com/archives/bugtraq/2014-10/0101.html",
+                        "http://kb.juniper.net/InfoCenter/index?page=content&id=JSA10698",
+                        "http://lists.apple.com/archives/security-announce/2015/Apr/msg00001.html",
+                        "http://marc.info/?l=bugtraq&m=141017844705317&w=2",
+                        "http://marc.info/?l=bugtraq&m=141390017113542&w=2",
+                        "http://seclists.org/fulldisclosure/2014/Dec/23",
+                        "http://security.gentoo.org/glsa/glsa-201408-12.xml",
+                        "http://svn.apache.org/repos/asf/httpd/httpd/branches/2.2.x/CHANGES",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/dav/main/util.c",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/dav/main/util.c?r1=1528718&r2=1556428&diff_format=h",
+                        "http://www-01.ibm.com/support/docview.wss?uid=swg21669554",
+                        "http://www-01.ibm.com/support/docview.wss?uid=swg21676091",
+                        "http://www-01.ibm.com/support/docview.wss?uid=swg21676092",
+                        "http://www.apache.org/dist/httpd/CHANGES_2.4.9",
+                        "http://www.oracle.com/technetwork/topics/security/cpujan2015-1972971.html",
+                        "http://www.oracle.com/technetwork/topics/security/cpujul2014-1972956.html",
+                        "http://www.securityfocus.com/archive/1/534161/100/0/threaded",
+                        "http://www.securityfocus.com/bid/66303",
+                        "http://www.ubuntu.com/usn/USN-2152-1",
+                        "http://www.vmware.com/security/advisories/VMSA-2014-0012.html",
+                        "https://blogs.oracle.com/sunsecurity/entry/multiple_input_validation_vulnerabilities_in1",
+                        "https://httpd.apache.org/security/vulnerabilities_24.html",
+                        "https://puppet.com/security/cve/cve-2013-6438",
+                        "https://support.apple.com/HT204659",
+                        "https://support.apple.com/kb/HT6535"
+                    ],
+                    "verified": false,
+                    "cvss": "5.0",
+                    "summary": "The dav_xml_get_cdata function in main/util.c in the mod_dav module in the Apache HTTP Server before 2.4.8 does not properly remove whitespace characters from CDATA sections, which allows remote attackers to cause a denial of service (daemon crash) via a crafted DAV WRITE request."
+                },
+                "CVE-2017-7679": {
+                    "references": [
+                        "http://www.debian.org/security/2017/dsa-3896",
+                        "http://www.oracle.com/technetwork/security-advisory/cpuoct2017-3236626.html",
+                        "http://www.securityfocus.com/bid/99170",
+                        "http://www.securitytracker.com/id/1038711",
+                        "https://access.redhat.com/errata/RHSA-2017:2478",
+                        "https://access.redhat.com/errata/RHSA-2017:2479",
+                        "https://access.redhat.com/errata/RHSA-2017:2483",
+                        "https://access.redhat.com/errata/RHSA-2017:3193",
+                        "https://access.redhat.com/errata/RHSA-2017:3194",
+                        "https://access.redhat.com/errata/RHSA-2017:3195",
+                        "https://access.redhat.com/errata/RHSA-2017:3475",
+                        "https://access.redhat.com/errata/RHSA-2017:3476",
+                        "https://access.redhat.com/errata/RHSA-2017:3477",
+                        "https://github.com/gottburgm/Exploits/tree/master/CVE-2017-7679",
+                        "https://lists.apache.org/thread.html/f4515e580dfb6eeca589a5cdebd4c4c709ce632b12924f343c3b7751@%3Cdev.httpd.apache.org%3E",
+                        "https://security.gentoo.org/glsa/201710-32",
+                        "https://security.netapp.com/advisory/ntap-20180601-0002/",
+                        "https://support.apple.com/HT208221",
+                        "https://support.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbhf03821en_us",
+                        "https://support.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbux03908en_us",
+                        "https://www.nomachine.com/SU08O00185"
+                    ],
+                    "verified": false,
+                    "cvss": "7.5",
+                    "summary": "In Apache httpd 2.2.x before 2.2.33 and 2.4.x before 2.4.26, mod_mime can read one byte past the end of a buffer when sending a malicious Content-Type response header."
+                },
+                "CVE-2018-17199": {
+                    "references": [
+                        "http://www.securityfocus.com/bid/106742",
+                        "https://httpd.apache.org/security/vulnerabilities_24.html",
+                        "https://lists.debian.org/debian-lts-announce/2019/01/msg00024.html",
+                        "https://seclists.org/bugtraq/2019/Apr/5",
+                        "https://security.gentoo.org/glsa/201903-21",
+                        "https://security.netapp.com/advisory/ntap-20190125-0001/",
+                        "https://usn.ubuntu.com/3937-1/",
+                        "https://www.debian.org/security/2019/dsa-4422",
+                        "https://www.oracle.com/technetwork/security-advisory/cpuapr2019-5072813.html",
+                        "https://www.oracle.com/technetwork/security-advisory/cpujul2019-5072835.html"
+                    ],
+                    "verified": false,
+                    "cvss": "5.0",
+                    "summary": "In Apache HTTP Server 2.4 release 2.4.37 and prior, mod_session checks the session expiry time before decoding the session. This causes session expiry time to be ignored for mod_session_cookie sessions since the expiry time is loaded when the session is decoded."
+                },
+                "CVE-2017-9788": {
+                    "references": [
+                        "http://www.debian.org/security/2017/dsa-3913",
+                        "http://www.oracle.com/technetwork/security-advisory/cpuoct2017-3236626.html",
+                        "http://www.securityfocus.com/bid/99569",
+                        "http://www.securitytracker.com/id/1038906",
+                        "https://access.redhat.com/errata/RHSA-2017:2478",
+                        "https://access.redhat.com/errata/RHSA-2017:2479",
+                        "https://access.redhat.com/errata/RHSA-2017:2483",
+                        "https://access.redhat.com/errata/RHSA-2017:2708",
+                        "https://access.redhat.com/errata/RHSA-2017:2709",
+                        "https://access.redhat.com/errata/RHSA-2017:2710",
+                        "https://access.redhat.com/errata/RHSA-2017:3113",
+                        "https://access.redhat.com/errata/RHSA-2017:3114",
+                        "https://access.redhat.com/errata/RHSA-2017:3193",
+                        "https://access.redhat.com/errata/RHSA-2017:3194",
+                        "https://access.redhat.com/errata/RHSA-2017:3195",
+                        "https://access.redhat.com/errata/RHSA-2017:3239",
+                        "https://access.redhat.com/errata/RHSA-2017:3240",
+                        "https://httpd.apache.org/security/vulnerabilities_22.html",
+                        "https://httpd.apache.org/security/vulnerabilities_24.html",
+                        "https://lists.apache.org/thread.html/0dd69204a6bd643cc4e9ccd008f07a9375525d977c6ebeb07a881afb@%3Cannounce.httpd.apache.org%3E",
+                        "https://lists.apache.org/thread.html/56c2e7cc9deb1c12a843d0dc251ea7fd3e7e80293cde02fcd65286ba@%3Ccvs.httpd.apache.org%3E",
+                        "https://security.gentoo.org/glsa/201710-32",
+                        "https://security.netapp.com/advisory/ntap-20170911-0002/",
+                        "https://support.apple.com/HT208221",
+                        "https://support.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbux03908en_us"
+                    ],
+                    "verified": false,
+                    "cvss": "6.4",
+                    "summary": "In Apache httpd before 2.2.34 and 2.4.x before 2.4.27, the value placeholder in [Proxy-]Authorization headers of type 'Digest' was not initialized or reset before or between successive key=value assignments by mod_auth_digest. Providing an initial key with no '=' assignment could reflect the stale value of uninitialized pool memory used by the prior request, leading to leakage of potentially confidential information, and a segfault in other cases resulting in denial of service."
+                },
+                "CVE-2014-8109": {
+                    "references": [
+                        "http://advisories.mageia.org/MGASA-2015-0011.html",
+                        "http://lists.apple.com/archives/security-announce/2015/Aug/msg00001.html",
+                        "http://lists.apple.com/archives/security-announce/2015/Sep/msg00004.html",
+                        "http://lists.fedoraproject.org/pipermail/package-announce/2015-June/159352.html",
+                        "http://www.openwall.com/lists/oss-security/2014/11/28/5",
+                        "http://www.oracle.com/technetwork/topics/security/cpujan2016-2367955.html",
+                        "http://www.securityfocus.com/bid/73040",
+                        "http://www.ubuntu.com/usn/USN-2523-1",
+                        "https://bugzilla.redhat.com/show_bug.cgi?id=1174077",
+                        "https://github.com/apache/httpd/commit/3f1693d558d0758f829c8b53993f1749ddf6ffcb",
+                        "https://issues.apache.org/bugzilla/show_bug.cgi?id=57204",
+                        "https://support.apple.com/HT205219",
+                        "https://support.apple.com/kb/HT205031"
+                    ],
+                    "verified": false,
+                    "cvss": 4.3,
+                    "summary": "mod_lua.c in the mod_lua module in the Apache HTTP Server 2.3.x and 2.4.x through 2.4.10 does not support an httpd configuration in which the same Lua authorization provider is used with different arguments within different contexts, which allows remote attackers to bypass intended access restrictions in opportunistic circumstances by leveraging multiple Require directives, as demonstrated by a configuration that specifies authorization for one group to access a certain directory, and authorization for a second group to access a second directory."
+                },
+                "CVE-2017-9798": {
+                    "references": [
+                        "http://openwall.com/lists/oss-security/2017/09/18/2",
+                        "http://www.debian.org/security/2017/dsa-3980",
+                        "http://www.oracle.com/technetwork/security-advisory/cpuapr2018-3678067.html",
+                        "http://www.oracle.com/technetwork/security-advisory/cpujan2018-3236628.html",
+                        "http://www.oracle.com/technetwork/security-advisory/cpujul2018-4258247.html",
+                        "http://www.oracle.com/technetwork/security-advisory/cpuoct2018-4428296.html",
+                        "http://www.securityfocus.com/bid/100872",
+                        "http://www.securityfocus.com/bid/105598",
+                        "http://www.securitytracker.com/id/1039387",
+                        "https://access.redhat.com/errata/RHSA-2017:2882",
+                        "https://access.redhat.com/errata/RHSA-2017:2972",
+                        "https://access.redhat.com/errata/RHSA-2017:3018",
+                        "https://access.redhat.com/errata/RHSA-2017:3113",
+                        "https://access.redhat.com/errata/RHSA-2017:3114",
+                        "https://access.redhat.com/errata/RHSA-2017:3193",
+                        "https://access.redhat.com/errata/RHSA-2017:3194",
+                        "https://access.redhat.com/errata/RHSA-2017:3195",
+                        "https://access.redhat.com/errata/RHSA-2017:3239",
+                        "https://access.redhat.com/errata/RHSA-2017:3240",
+                        "https://access.redhat.com/errata/RHSA-2017:3475",
+                        "https://access.redhat.com/errata/RHSA-2017:3476",
+                        "https://access.redhat.com/errata/RHSA-2017:3477",
+                        "https://blog.fuzzing-project.org/60-Optionsbleed-HTTP-OPTIONS-method-can-leak-Apaches-server-memory.html",
+                        "https://blog.fuzzing-project.org/uploads/apache-2.2-optionsbleed-backport.patch",
+                        "https://github.com/apache/httpd/commit/29afdd2550b3d30a8defece2b95ae81edcf66ac9",
+                        "https://github.com/hannob/optionsbleed",
+                        "https://httpd.apache.org/security/vulnerabilities_24.html#CVE-2017-9798",
+                        "https://security-tracker.debian.org/tracker/CVE-2017-9798",
+                        "https://security.gentoo.org/glsa/201710-32",
+                        "https://security.netapp.com/advisory/ntap-20180601-0003/",
+                        "https://support.apple.com/HT208331",
+                        "https://support.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbux03909en_us",
+                        "https://svn.apache.org/viewvc/httpd/httpd/branches/2.4.x/server/core.c?r1=1805223&r2=1807754&pathrev=1807754&view=patch",
+                        "https://www.exploit-db.com/exploits/42745/",
+                        "https://www.oracle.com/technetwork/security-advisory/cpuapr2019-5072813.html",
+                        "https://www.oracle.com/technetwork/security-advisory/cpujan2019-5072801.html"
+                    ],
+                    "verified": false,
+                    "cvss": "5.0",
+                    "summary": "Apache httpd allows remote attackers to read secret data from process memory if the Limit directive can be set in a user's .htaccess file, or if httpd.conf has certain misconfigurations, aka Optionsbleed. This affects the Apache HTTP Server through 2.2.34 and 2.4.x through 2.4.27. The attacker sends an unauthenticated OPTIONS HTTP request when attempting to read secret data. This is a use-after-free issue and thus secret data is not always sent, and the specific data depends on many factors including configuration. Exploitation with .htaccess can be blocked with a patch to the ap_limit_section function in server/core.c."
+                },
+                "CVE-2016-2161": {
+                    "references": [
+                        "http://rhn.redhat.com/errata/RHSA-2017-1415.html",
+                        "http://www.debian.org/security/2017/dsa-3796",
+                        "http://www.securityfocus.com/bid/95076",
+                        "http://www.securitytracker.com/id/1037508",
+                        "https://access.redhat.com/errata/RHSA-2017:0906",
+                        "https://access.redhat.com/errata/RHSA-2017:1161",
+                        "https://access.redhat.com/errata/RHSA-2017:1413",
+                        "https://access.redhat.com/errata/RHSA-2017:1414",
+                        "https://h20566.www2.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbux03725en_us",
+                        "https://httpd.apache.org/security/vulnerabilities_24.html#CVE-2016-2161",
+                        "https://security.gentoo.org/glsa/201701-36",
+                        "https://security.netapp.com/advisory/ntap-20180423-0001/",
+                        "https://support.apple.com/HT208221",
+                        "https://www.tenable.com/security/tns-2017-04"
+                    ],
+                    "verified": false,
+                    "cvss": 5.0,
+                    "summary": "In Apache HTTP Server versions 2.4.0 to 2.4.23, malicious input to mod_auth_digest can cause the server to crash, and each instance continues to crash even for subsequently valid requests."
+                },
+                "CVE-2014-0231": {
+                    "references": [
+                        "http://advisories.mageia.org/MGASA-2014-0304.html",
+                        "http://advisories.mageia.org/MGASA-2014-0305.html",
+                        "http://httpd.apache.org/security/vulnerabilities_24.html",
+                        "http://lists.apple.com/archives/security-announce/2015/Apr/msg00001.html",
+                        "http://marc.info/?l=bugtraq&m=143403519711434&w=2",
+                        "http://marc.info/?l=bugtraq&m=143748090628601&w=2",
+                        "http://marc.info/?l=bugtraq&m=144050155601375&w=2",
+                        "http://marc.info/?l=bugtraq&m=144493176821532&w=2",
+                        "http://packetstormsecurity.com/files/130769/RSA-Digital-Certificate-Solution-XSS-Denial-Of-Service.html",
+                        "http://rhn.redhat.com/errata/RHSA-2014-1019.html",
+                        "http://rhn.redhat.com/errata/RHSA-2014-1020.html",
+                        "http://rhn.redhat.com/errata/RHSA-2014-1021.html",
+                        "http://svn.apache.org/repos/asf/httpd/httpd/branches/2.2.x/CHANGES",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/generators/mod_cgid.c",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/generators/mod_cgid.c?r1=1482522&r2=1535125&diff_format=h",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/generators/mod_cgid.c?r1=1565711&r2=1610509&diff_format=h",
+                        "http://www.debian.org/security/2014/dsa-2989",
+                        "http://www.mandriva.com/security/advisories?name=MDVSA-2014:142",
+                        "http://www.oracle.com/technetwork/topics/security/cpujan2015-1972971.html",
+                        "http://www.securityfocus.com/bid/68742",
+                        "https://bugzilla.redhat.com/show_bug.cgi?id=1120596",
+                        "https://h20564.www2.hpe.com/portal/site/hpsc/public/kb/docDisplay?docId=emr_na-c04832246",
+                        "https://puppet.com/security/cve/cve-2014-0231",
+                        "https://security.gentoo.org/glsa/201504-03",
+                        "https://support.apple.com/HT204659"
+                    ],
+                    "verified": false,
+                    "cvss": "5.0",
+                    "summary": "The mod_cgid module in the Apache HTTP Server before 2.4.10 does not have a timeout mechanism, which allows remote attackers to cause a denial of service (process hang) via a request to a CGI script that does not read from its stdin file descriptor."
+                },
+                "CVE-2013-4352": {
+                    "references": [
+                        "http://httpd.apache.org/security/vulnerabilities_24.html",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/cache/cache_storage.c",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/cache/cache_storage.c?r1=1491564&r2=1523235&diff_format=h",
+                        "https://bugzilla.redhat.com/show_bug.cgi?id=1120604",
+                        "https://lists.apache.org/thread.html/56c2e7cc9deb1c12a843d0dc251ea7fd3e7e80293cde02fcd65286ba@%3Ccvs.httpd.apache.org%3E"
+                    ],
+                    "verified": false,
+                    "cvss": "4.3",
+                    "summary": "The cache_invalidate function in modules/cache/cache_storage.c in the mod_cache module in the Apache HTTP Server 2.4.6, when a caching forward proxy is enabled, allows remote HTTP servers to cause a denial of service (NULL pointer dereference and daemon crash) via vectors that trigger a missing hostname value."
+                },
+                "CVE-2019-0220": {
+                    "references": [
+                        "http://lists.opensuse.org/opensuse-security-announce/2019-04/msg00051.html",
+                        "http://lists.opensuse.org/opensuse-security-announce/2019-04/msg00061.html",
+                        "http://lists.opensuse.org/opensuse-security-announce/2019-04/msg00084.html",
+                        "http://www.openwall.com/lists/oss-security/2019/04/02/6",
+                        "http://www.securityfocus.com/bid/107670",
+                        "https://httpd.apache.org/security/vulnerabilities_24.html",
+                        "https://lists.debian.org/debian-lts-announce/2019/04/msg00008.html",
+                        "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/ALIR5S3O7NRHEGFMIDMUSYQIZOE4TJJN/",
+                        "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/EZRMTEIGZKYFNGIDOTXN3GNEJTLVCYU7/",
+                        "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/WETXNQWNQLWHV6XNW6YTO5UGDTIWAQGT/",
+                        "https://seclists.org/bugtraq/2019/Apr/5",
+                        "https://security.netapp.com/advisory/ntap-20190625-0007/",
+                        "https://support.f5.com/csp/article/K44591505",
+                        "https://usn.ubuntu.com/3937-1/",
+                        "https://www.debian.org/security/2019/dsa-4422"
+                    ],
+                    "verified": false,
+                    "cvss": "5.0",
+                    "summary": "A vulnerability was found in Apache HTTP Server 2.4.0 to 2.4.38. When the path component of a request URL contains multiple consecutive slashes ('/'), directives such as LocationMatch and RewriteRule must account for duplicates in regular expressions while other aspects of the servers processing will implicitly collapse them."
+                },
+                "CVE-2014-0098": {
+                    "references": [
+                        "http://advisories.mageia.org/MGASA-2014-0135.html",
+                        "http://archives.neohapsis.com/archives/bugtraq/2014-10/0101.html",
+                        "http://kb.juniper.net/InfoCenter/index?page=content&id=JSA10698",
+                        "http://lists.apple.com/archives/security-announce/2015/Apr/msg00001.html",
+                        "http://marc.info/?l=bugtraq&m=141017844705317&w=2",
+                        "http://marc.info/?l=bugtraq&m=141390017113542&w=2",
+                        "http://seclists.org/fulldisclosure/2014/Dec/23",
+                        "http://secunia.com/advisories/59219",
+                        "http://security.gentoo.org/glsa/glsa-201408-12.xml",
+                        "http://support.f5.com/kb/en-us/solutions/public/15000/300/sol15320.html",
+                        "http://svn.apache.org/repos/asf/httpd/httpd/branches/2.2.x/CHANGES",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/loggers/mod_log_config.c",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/loggers/mod_log_config.c?r1=1575394&r2=1575400&diff_format=h",
+                        "http://www-01.ibm.com/support/docview.wss?uid=swg21668973",
+                        "http://www-01.ibm.com/support/docview.wss?uid=swg21676091",
+                        "http://www-01.ibm.com/support/docview.wss?uid=swg21676092",
+                        "http://www.apache.org/dist/httpd/CHANGES_2.4.9",
+                        "http://www.oracle.com/technetwork/topics/security/cpujan2015-1972971.html",
+                        "http://www.oracle.com/technetwork/topics/security/cpujul2014-1972956.html",
+                        "http://www.securityfocus.com/archive/1/534161/100/0/threaded",
+                        "http://www.securityfocus.com/bid/66303",
+                        "http://www.ubuntu.com/usn/USN-2152-1",
+                        "http://www.vmware.com/security/advisories/VMSA-2014-0012.html",
+                        "https://blogs.oracle.com/sunsecurity/entry/multiple_input_validation_vulnerabilities_in1",
+                        "https://httpd.apache.org/security/vulnerabilities_24.html",
+                        "https://puppet.com/security/cve/cve-2014-0098",
+                        "https://support.apple.com/HT204659",
+                        "https://support.apple.com/kb/HT6535"
+                    ],
+                    "verified": false,
+                    "cvss": "5.0",
+                    "summary": "The log_cookie function in mod_log_config.c in the mod_log_config module in the Apache HTTP Server before 2.4.8 allows remote attackers to cause a denial of service (segmentation fault and daemon crash) via a crafted cookie that is not properly handled during truncation."
+                },
+                "CVE-2018-1283": {
+                    "references": [
+                        "http://www.openwall.com/lists/oss-security/2018/03/24/4",
+                        "http://www.securityfocus.com/bid/103520",
+                        "http://www.securitytracker.com/id/1040568",
+                        "https://access.redhat.com/errata/RHSA-2018:3558",
+                        "https://access.redhat.com/errata/RHSA-2019:0366",
+                        "https://access.redhat.com/errata/RHSA-2019:0367",
+                        "https://httpd.apache.org/security/vulnerabilities_24.html",
+                        "https://lists.apache.org/thread.html/56c2e7cc9deb1c12a843d0dc251ea7fd3e7e80293cde02fcd65286ba@%3Ccvs.httpd.apache.org%3E",
+                        "https://security.netapp.com/advisory/ntap-20180601-0004/",
+                        "https://support.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbux03909en_us",
+                        "https://usn.ubuntu.com/3627-1/",
+                        "https://usn.ubuntu.com/3627-2/",
+                        "https://www.debian.org/security/2018/dsa-4164"
+                    ],
+                    "verified": false,
+                    "cvss": "3.5",
+                    "summary": "In Apache httpd 2.4.0 to 2.4.29, when mod_session is configured to forward its session data to CGI applications (SessionEnv on, not the default), a remote user may influence their content by using a \"Session\" header. This comes from the \"HTTP_SESSION\" variable name used by mod_session to forward its data to CGIs, since the prefix \"HTTP_\" is also used by the Apache HTTP Server to pass HTTP header fields, per CGI specifications."
+                },
+                "CVE-2016-8743": {
+                    "references": [
+                        "http://rhn.redhat.com/errata/RHSA-2017-1415.html",
+                        "http://www.debian.org/security/2017/dsa-3796",
+                        "http://www.securityfocus.com/bid/95077",
+                        "http://www.securitytracker.com/id/1037508",
+                        "https://access.redhat.com/errata/RHSA-2017:0906",
+                        "https://access.redhat.com/errata/RHSA-2017:1161",
+                        "https://access.redhat.com/errata/RHSA-2017:1413",
+                        "https://access.redhat.com/errata/RHSA-2017:1414",
+                        "https://access.redhat.com/errata/RHSA-2017:1721",
+                        "https://h20566.www2.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbmu03753en_us",
+                        "https://h20566.www2.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbux03725en_us",
+                        "https://httpd.apache.org/security/vulnerabilities_24.html#CVE-2016-8743",
+                        "https://security.gentoo.org/glsa/201701-36",
+                        "https://security.netapp.com/advisory/ntap-20180423-0001/",
+                        "https://support.apple.com/HT208221",
+                        "https://www.tenable.com/security/tns-2017-04"
+                    ],
+                    "verified": false,
+                    "cvss": 5.0,
+                    "summary": "Apache HTTP Server, in all releases prior to 2.2.32 and 2.4.25, was liberal in the whitespace accepted from requests and sent in response lines and headers. Accepting these different behaviors represented a security concern when httpd participates in any chain of proxies or interacts with back-end application servers, either through mod_proxy or using conventional CGI mechanisms, and may result in request smuggling, response splitting and cache pollution."
+                }
+            },
+            "location": {
+                "city": "Fremont",
+                "region_code": "CA",
+                "area_code": null,
+                "longitude": -121.98857,
+                "country_code3": null,
+                "country_name": "United States",
+                "postal_code": null,
+                "dma_code": null,
+                "country_code": "US",
+                "latitude": 37.54827
+            },
+            "product": "Apache httpd",
+            "hash": 1656169328,
+            "tags": [
+                "cloud"
+            ],
+            "timestamp": "2021-03-24T17:33:49.864623",
+            "ssl": {
+                "chain_sha256": [
+                    "0d52c5f033e2ac22219d83a4898e2a8a5d4d89fe1cd89ee7a062a62e2414e7ae",
+                    "730c1bdcd85f57ce5dc0bba733e5f1ba5a925b2a771d640a26f7a454224dad3b",
+                    "0687260331a72403d909f105e69bcf0d32e1bd2493ffc6d9206d11bcd6770739"
+                ],
+                "jarm": "29d29d15d29d29d21c29d29d29d29dc80334825071f8ff93376ac14c5a331f",
+                "chain": [
+                    "-----BEGIN CERTIFICATE-----\nMIIGATCCBOmgAwIBAgISBB7NQ72Dkbe3/HqNQe0HqcXLMA0GCSqGSIb3DQEBCwUA\nMDIxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MQswCQYDVQQD\nEwJSMzAeFw0yMTAzMDIxMDAzMDlaFw0yMTA1MzExMDAzMDlaMBcxFTATBgNVBAMT\nDGluc2VjdXJlLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANF5\nWqCh8RlHFQeGmykmfK8P6pxYJ1tfwphtWMgLk3Dl3Uw2u8EGkXVUHNDBeoS4pTKk\nmVLj5o5vb4gdJmulr2A0nux6E87JH+2iBaURhgzFxRx/9uJENgrv5lrELSWedwYW\net43IrXQ+aaqVC5ilGU0iQNm/GQIeJnL0DC22kkEtuZFl80LqH00tYv73+Hxgz6j\ncc96wFyu0uBXBHg5C2beOFWpZ6PYSEGOlyNjcm5XpW48Ff0fNrIEu/bNV4msBrSM\nMBc98fcGE/dTGeFWT3jBXoQR5g9ZsWLrl8LrWahsZRFjg/GdFbvAX9t6zd53uaPk\nef0GiXumrBU3uBeGTnUCAwEAAaOCAyowggMmMA4GA1UdDwEB/wQEAwIFoDAdBgNV\nHSUEFjAUBggrBgEFBQcDAQYIKwYBBQUHAwIwDAYDVR0TAQH/BAIwADAdBgNVHQ4E\nFgQUTIz6R5u4gVTyXIywIJRqHy9S9FkwHwYDVR0jBBgwFoAUFC6zF7dYVsuuUAlA\n5h+vnYsUwsYwVQYIKwYBBQUHAQEESTBHMCEGCCsGAQUFBzABhhVodHRwOi8vcjMu\nby5sZW5jci5vcmcwIgYIKwYBBQUHMAKGFmh0dHA6Ly9yMy5pLmxlbmNyLm9yZy8w\ngfgGA1UdEQSB8DCB7YIMaW5zZWN1cmUuY29tggxpbnNlY3VyZS5vcmeCD2lzc3Vl\ncy5ubWFwLm9yZ4IIbm1hcC5jb22CCG5tYXAubmV0gghubWFwLm9yZ4IJbnBjYXAu\nb3JnggxzZWNsaXN0cy5jb22CDHNlY2xpc3RzLm5ldIIMc2VjbGlzdHMub3Jnggxz\nZWN0b29scy5jb22CDHNlY3Rvb2xzLm5ldIIMc2VjdG9vbHMub3JnggtzZWN3aWtp\nLmNvbYILc2Vjd2lraS5uZXSCC3NlY3dpa2kub3Jnggxzdm4ubm1hcC5vcmeCDHd3\ndy5ubWFwLm9yZzBMBgNVHSAERTBDMAgGBmeBDAECATA3BgsrBgEEAYLfEwEBATAo\nMCYGCCsGAQUFBwIBFhpodHRwOi8vY3BzLmxldHNlbmNyeXB0Lm9yZzCCAQUGCisG\nAQQB1nkCBAIEgfYEgfMA8QB3APZclC/RdzAiFFQYCDCUVo7jTRMZM7/fDC8gC8xO\n8WTjAAABd/KbJRMAAAQDAEgwRgIhANZqnxnJZEmIanpMLf1j0OvHqOvJirzG+BZP\n5qzdxmz2AiEAsuwAZeN8FQqxa6vbDLFykGbyPq5MWwalqSgz5l/lX10AdgBvU3as\nMfAxGdiZAKRRFf93FRwR2QLBACkGjbIImjfZEwAAAXfymyYjAAAEAwBHMEUCIQC8\nFS+0HDYUOwg6VOUKru2FXJqhAg7ZS29uQrAsYhdnVwIgZ+KUZanRh7M7woeaQysK\nzmBfcfqnd6RpVrXoJoERsQEwDQYJKoZIhvcNAQELBQADggEBAELkeWyaVxyV8PKw\n3xg9Fl+oU4dMycQLXoOxyaH+uiwVsTQik2ptXHTkJnUDewYDQgJdwGXq8KdmoES6\nb0L5E/GShBmiL9rxk6tuylzoLark31HT5OP7hLPpSMvMRYNKsiOjWqDRAIjMiWfA\n8NP4oKaaVLUpAs6OfVxvzPpIRmY26UBC9UW86cXKnroSIWdDuDNp3jUAnvH2rBdw\n1zUbCPWSjwWKaWwrs0NE58EOGCQeEvJnSI+PYI68zwkY3CSl2AqIcdKQIUkKaD19\nIMfLUOMve+yOMivHX1tWTyEi+Ps2yTYGx+fEqNtnVZQAP+cOs4TkFBDNRHILtA7o\necn+ucE=\n-----END CERTIFICATE-----\n",
+                    "-----BEGIN CERTIFICATE-----\nMIIEZTCCA02gAwIBAgIQQAF1BIMUpMghjISpDBbN3zANBgkqhkiG9w0BAQsFADA/\nMSQwIgYDVQQKExtEaWdpdGFsIFNpZ25hdHVyZSBUcnVzdCBDby4xFzAVBgNVBAMT\nDkRTVCBSb290IENBIFgzMB4XDTIwMTAwNzE5MjE0MFoXDTIxMDkyOTE5MjE0MFow\nMjELMAkGA1UEBhMCVVMxFjAUBgNVBAoTDUxldCdzIEVuY3J5cHQxCzAJBgNVBAMT\nAlIzMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuwIVKMz2oJTTDxLs\njVWSw/iC8ZmmekKIp10mqrUrucVMsa+Oa/l1yKPXD0eUFFU1V4yeqKI5GfWCPEKp\nTm71O8Mu243AsFzzWTjn7c9p8FoLG77AlCQlh/o3cbMT5xys4Zvv2+Q7RVJFlqnB\nU840yFLuta7tj95gcOKlVKu2bQ6XpUA0ayvTvGbrZjR8+muLj1cpmfgwF126cm/7\ngcWt0oZYPRfH5wm78Sv3htzB2nFd1EbjzK0lwYi8YGd1ZrPxGPeiXOZT/zqItkel\n/xMY6pgJdz+dU/nPAeX1pnAXFK9jpP+Zs5Od3FOnBv5IhR2haa4ldbsTzFID9e1R\noYvbFQIDAQABo4IBaDCCAWQwEgYDVR0TAQH/BAgwBgEB/wIBADAOBgNVHQ8BAf8E\nBAMCAYYwSwYIKwYBBQUHAQEEPzA9MDsGCCsGAQUFBzAChi9odHRwOi8vYXBwcy5p\nZGVudHJ1c3QuY29tL3Jvb3RzL2RzdHJvb3RjYXgzLnA3YzAfBgNVHSMEGDAWgBTE\np7Gkeyxx+tvhS5B1/8QVYIWJEDBUBgNVHSAETTBLMAgGBmeBDAECATA/BgsrBgEE\nAYLfEwEBATAwMC4GCCsGAQUFBwIBFiJodHRwOi8vY3BzLnJvb3QteDEubGV0c2Vu\nY3J5cHQub3JnMDwGA1UdHwQ1MDMwMaAvoC2GK2h0dHA6Ly9jcmwuaWRlbnRydXN0\nLmNvbS9EU1RST09UQ0FYM0NSTC5jcmwwHQYDVR0OBBYEFBQusxe3WFbLrlAJQOYf\nr52LFMLGMB0GA1UdJQQWMBQGCCsGAQUFBwMBBggrBgEFBQcDAjANBgkqhkiG9w0B\nAQsFAAOCAQEA2UzgyfWEiDcx27sT4rP8i2tiEmxYt0l+PAK3qB8oYevO4C5z70kH\nejWEHx2taPDY/laBL21/WKZuNTYQHHPD5b1tXgHXbnL7KqC401dk5VvCadTQsvd8\nS8MXjohyc9z9/G2948kLjmE6Flh9dDYrVYA9x2O+hEPGOaEOa1eePynBgPayvUfL\nqjBstzLhWVQLGAkXXmNs+5ZnPBxzDJOLxhF2JIbeQAcH5H0tZrUlo5ZYyOqA7s9p\nO5b85o3AM/OJ+CktFBQtfvBhcJVd9wvlwPsk+uyOy2HI7mNxKKgsBTt375teA2Tw\nUdHkhVNcsAKX1H7GNNLOEADksd86wuoXvg==\n-----END CERTIFICATE-----\n",
+                    "-----BEGIN CERTIFICATE-----\nMIIDSjCCAjKgAwIBAgIQRK+wgNajJ7qJMDmGLvhAazANBgkqhkiG9w0BAQUFADA/\nMSQwIgYDVQQKExtEaWdpdGFsIFNpZ25hdHVyZSBUcnVzdCBDby4xFzAVBgNVBAMT\nDkRTVCBSb290IENBIFgzMB4XDTAwMDkzMDIxMTIxOVoXDTIxMDkzMDE0MDExNVow\nPzEkMCIGA1UEChMbRGlnaXRhbCBTaWduYXR1cmUgVHJ1c3QgQ28uMRcwFQYDVQQD\nEw5EU1QgUm9vdCBDQSBYMzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB\nAN+v6ZdQCINXtMxiZfaQguzH0yxrMMpb7NnDfcdAwRgUi+DoM3ZJKuM/IUmTrE4O\nrz5Iy2Xu/NMhD2XSKtkyj4zl93ewEnu1lcCJo6m67XMuegwGMoOifooUMM0RoOEq\nOLl5CjH9UL2AZd+3UWODyOKIYepLYYHsUmu5ouJLGiifSKOeDNoJjj4XLh7dIN9b\nxiqKqy69cK3FCxolkHRyxXtqqzTWMIn/5WgTe1QLyNau7Fqckh49ZLOMxt+/yUFw\n7BZy1SbsOFU5Q9D8/RhcQPGX69Wam40dutolucbY38EVAjqr2m7xPi71XAicPNaD\naeQQmxkqtilX4+U9m5/wAl0CAwEAAaNCMEAwDwYDVR0TAQH/BAUwAwEB/zAOBgNV\nHQ8BAf8EBAMCAQYwHQYDVR0OBBYEFMSnsaR7LHH62+FLkHX/xBVghYkQMA0GCSqG\nSIb3DQEBBQUAA4IBAQCjGiybFwBcqR7uKGY3Or+Dxz9LwwmglSBd49lZRNI+DT69\nikugdB/OEIKcdBodfpga3csTS7MgROSR6cz8faXbauX+5v3gTt23ADq1cEmv8uXr\nAvHRAosZy5Q6XkjEGB5YGV8eAlrwDPGxrancWYaLbumR9YbK+rlmM6pZW87ipxZz\nR8srzJmwN0jP41ZL9c8PDHIyh8bwRLtTcm1D9SZImlJnt1ir/md2cXjbDaJWFBM5\nJDGFoqgCWjBH4d1QB7wCCZAA62RjYJsWvIjJEubSfZGL+T0yjWW06XyxV3bqxbYo\nOb8VZRzI9neWagqNdwvYkQsEjgfbKbYK7p2CNTUQ\n-----END CERTIFICATE-----\n"
+                ],
+                "dhparams": {
+                    "prime": "ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a637ed6b0bff5cb6f406b7edee386bfb5a899fa5ae9f24117c4b1fe649286651ece45b3dc2007cb8a163bf0598da48361c55d39a69163fa8fd24cf5f83655d23dca3ad961c62f356208552bb9ed529077096966d670c354e4abc9804f1746c08ca18217c32905e462e36ce3be39e772c180e86039b2783a2ec07a28fb5c55df06f4c52c9de2bcbf6955817183995497cea956ae515d2261898fa051015728e5a8aacaa68ffffffffffffffff",
+                    "public_key": "ebcbfd7781eef1a238e76b0ba7123f2ef93b857ce5bc162f2381dea978dd8c2bc2d693347dd662a618c6312b0acff1f55af20ecb189aa2b5b2b440789a634ee5a15ad042e9ed4bd3cd392c95997c3fba18a4617ce37680c021a3f2288f355d7d78e77585406757ec74e5a3c0b349639e03d805b1a97df0ec5a18f1a7f030f503411835f1d6455c993dbb5c7d3cfe892fd0fe119e650ebde7794e78b2e326227112db2fd09da63bad82291f58f14f0607769fe29ea8ea7b17c596aa2be44db7e087b99c512da54e56043ab8fe180a959373efbacd2747d8c16f407e59a676e14f9f2b6d199b51d9b2f71255193474a87b25fb2115982a0984cda388fa79461951",
+                    "bits": 2048,
+                    "generator": 2,
+                    "fingerprint": "RFC3526/Oakley Group 14"
+                },
+                "versions": [
+                    "TLSv1",
+                    "-SSLv2",
+                    "-SSLv3",
+                    "TLSv1.1",
+                    "TLSv1.2",
+                    "-TLSv1.3"
+                ],
+                "acceptable_cas": [],
+                "tlsext": [
+                    {
+                        "id": 65281,
+                        "name": "renegotiation_info"
+                    },
+                    {
+                        "id": 11,
+                        "name": "ec_point_formats"
+                    },
+                    {
+                        "id": 35,
+                        "name": "session_ticket"
+                    },
+                    {
+                        "id": 15,
+                        "name": "heartbeat"
+                    }
+                ],
+                "ja3s": "ada793d0f02b028a6c840504edccb652",
+                "cert": {
+                    "sig_alg": "sha256WithRSAEncryption",
+                    "issued": "20210302100309Z",
+                    "expires": "20210531100309Z",
+                    "expired": false,
+                    "version": 2,
+                    "extensions": [
+                        {
+                            "critical": true,
+                            "data": "\\x03\\x02\\x05\\xa0",
+                            "name": "keyUsage"
+                        },
+                        {
+                            "data": "0\\x14\\x06\\x08+\\x06\\x01\\x05\\x05\\x07\\x03\\x01\\x06\\x08+\\x06\\x01\\x05\\x05\\x07\\x03\\x02",
+                            "name": "extendedKeyUsage"
+                        },
+                        {
+                            "critical": true,
+                            "data": "0\\x00",
+                            "name": "basicConstraints"
+                        },
+                        {
+                            "data": "\\x04\\x14L\\x8c\\xfaG\\x9b\\xb8\\x81T\\xf2\\\\\\x8c\\xb0 \\x94j\\x1f/R\\xf4Y",
+                            "name": "subjectKeyIdentifier"
+                        },
+                        {
+                            "data": "0\\x16\\x80\\x14\\x14.\\xb3\\x17\\xb7XV\\xcb\\xaeP\\t@\\xe6\\x1f\\xaf\\x9d\\x8b\\x14\\xc2\\xc6",
+                            "name": "authorityKeyIdentifier"
+                        },
+                        {
+                            "data": "0G0!\\x06\\x08+\\x06\\x01\\x05\\x05\\x070\\x01\\x86\\x15http://r3.o.lencr.org0\"\\x06\\x08+\\x06\\x01\\x05\\x05\\x070\\x02\\x86\\x16http://r3.i.lencr.org/",
+                            "name": "authorityInfoAccess"
+                        },
+                        {
+                            "data": "0\\x81\\xed\\x82\\x0cinsecure.com\\x82\\x0cinsecure.org\\x82\\x0fissues.nmap.org\\x82\\x08nmap.com\\x82\\x08nmap.net\\x82\\x08nmap.org\\x82\\tnpcap.org\\x82\\x0cseclists.com\\x82\\x0cseclists.net\\x82\\x0cseclists.org\\x82\\x0csectools.com\\x82\\x0csectools.net\\x82\\x0csectools.org\\x82\\x0bsecwiki.com\\x82\\x0bsecwiki.net\\x82\\x0bsecwiki.org\\x82\\x0csvn.nmap.org\\x82\\x0cwww.nmap.org",
+                            "name": "subjectAltName"
+                        },
+                        {
+                            "data": "0C0\\x08\\x06\\x06g\\x81\\x0c\\x01\\x02\\x0107\\x06\\x0b+\\x06\\x01\\x04\\x01\\x82\\xdf\\x13\\x01\\x01\\x010(0&\\x06\\x08+\\x06\\x01\\x05\\x05\\x07\\x02\\x01\\x16\\x1ahttp://cps.letsencrypt.org",
+                            "name": "certificatePolicies"
+                        },
+                        {
+                            "data": "\\x04\\x81\\xf3\\x00\\xf1\\x00w\\x00\\xf6\\\\\\x94/\\xd1w0\"\\x14T\\x18\\x080\\x94V\\x8e\\xe3M\\x13\\x193\\xbf\\xdf\\x0c/ \\x0b\\xccN\\xf1d\\xe3\\x00\\x00\\x01w\\xf2\\x9b%\\x13\\x00\\x00\\x04\\x03\\x00H0F\\x02!\\x00\\xd6j\\x9f\\x19\\xc9dI\\x88jzL-\\xfdc\\xd0\\xeb\\xc7\\xa8\\xeb\\xc9\\x8a\\xbc\\xc6\\xf8\\x16O\\xe6\\xac\\xdd\\xc6l\\xf6\\x02!\\x00\\xb2\\xec\\x00e\\xe3|\\x15\\n\\xb1k\\xab\\xdb\\x0c\\xb1r\\x90f\\xf2>\\xaeL[\\x06\\xa5\\xa9(3\\xe6_\\xe5_]\\x00v\\x00oSv\\xac1\\xf01\\x19\\xd8\\x99\\x00\\xa4Q\\x15\\xffw\\x15\\x1c\\x11\\xd9\\x02\\xc1\\x00)\\x06\\x8d\\xb2\\x08\\x9a7\\xd9\\x13\\x00\\x00\\x01w\\xf2\\x9b&#\\x00\\x00\\x04\\x03\\x00G0E\\x02!\\x00\\xbc\\x15/\\xb4\\x1c6\\x14;\\x08:T\\xe5\\n\\xae\\xed\\x85\\\\\\x9a\\xa1\\x02\\x0e\\xd9KonB\\xb0,b\\x17gW\\x02 g\\xe2\\x94e\\xa9\\xd1\\x87\\xb3;\\xc2\\x87\\x9aC+\\n\\xce`_q\\xfa\\xa7w\\xa4iV\\xb5\\xe8&\\x81\\x11\\xb1\\x01",
+                            "name": "ct_precert_scts"
+                        }
+                    ],
+                    "fingerprint": {
+                        "sha256": "0d52c5f033e2ac22219d83a4898e2a8a5d4d89fe1cd89ee7a062a62e2414e7ae",
+                        "sha1": "d4d2ee626d86bf3a0ec49ef9f10cda5e07f82596"
+                    },
+                    "serial": 358930458201493971886027127745234554439115,
+                    "subject": {
+                        "CN": "insecure.com"
+                    },
+                    "pubkey": {
+                        "type": "rsa",
+                        "bits": 2048
+                    },
+                    "issuer": {
+                        "C": "US",
+                        "CN": "R3",
+                        "O": "Let's Encrypt"
+                    }
+                },
+                "cipher": {
+                    "version": "TLSv1/SSLv3",
+                    "bits": 128,
+                    "name": "ECDHE-RSA-AES128-GCM-SHA256"
+                },
+                "trust": {
+                    "revoked": false,
+                    "browser": {
+                        "mozilla": true,
+                        "apple": true,
+                        "microsoft": true
+                    }
+                },
+                "alpn": [],
+                "ocsp": {}
+            },
+            "hostnames": [
+                "ack.nmap.org"
+            ],
+            "org": "Linode",
+            "data": "HTTP/1.1 301 Moved Permanently\r\nDate: Wed, 24 Mar 2021 17:33:45 GMT\r\nServer: Apache/2.4.6 (CentOS)\r\nLocation: http://insecure.org/\r\nContent-Length: 310\r\nContent-Type: text/html; charset=iso-8859-1\r\n\r\n",
+            "asn": "AS63949",
+            "info": "(CentOS)",
+            "isp": "Linode, LLC",
+            "cpe": [
+                "cpe:/a:apache:http_server:2.4.6"
+            ],
+            "domains": [
+                "nmap.org"
+            ],
+            "ip_str": "45.33.49.119",
+            "os": null,
+            "_shodan": {
+                "id": "3025b8f0-ae5b-4b88-aacf-ee4dd0b0baf0",
+                "options": {
+                    "hostname": "www.insecure.org",
+                    "scan": "taNqRCQ1Msa6xU4j"
+                },
+                "ptr": true,
+                "module": "https",
+                "crawler": "e46b6d9c8d17cd9172fe4aaf69fd9eaca728c619"
+            },
+            "opts": {
+                "vulns": [],
+                "heartbleed": "2021/03/24 17:34:03 45.33.49.119:443 - SAFE\n"
+            }
+        },
+        {
+            "ip": 757150071,
+            "http": {
+                "html_hash": -809795112,
+                "robots_hash": null,
+                "redirects": [],
+                "securitytxt": null,
+                "title": "301 Moved Permanently",
+                "sitemap_hash": null,
+                "robots": null,
+                "favicon": {
+                    "hash": 536238901,
+                    "data": "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAActJREFUOMvV\nk01IFAEYhp+Z0d2ddpxiVjeTwXL/aMEKXWopQsFIzOokdIjAk1EXb+XRPQQGXSKiiI5RVofcwlOC\n2w8RQUSxhDKEgWVRjq3pbrO7zs50iA5bndxTz/Hj/d7D+72fABBXelzWwUx+WhDWu/wbkRqp2aDu\nz0G9IpM82kWyfy96WMfj82J+NnmVecnTe4/4NrdQpa/KILx/F6cuDBPRg5y/PVklPHOsn4JV4kH6\nMfdHr2OXytUGg1dG6Ovdw8WJhwBEd3TwwcwB0Ko1YLzNAnD6SA9LywXGBlOYxjxSm96ZOnt3jERn\njEzWYOhQN17Zj1Mu8/zODXIzr2luDZGIxzjetZvprEGjqnD4RB8fP5kI1yZfuKtiBUkSGdjXgQu8\neTePVbZJj99C9npIHuiluamRnaEWREEkk51lwVwhEWtDEgtNqWB7HC2goW6Q8dVLFO0KhaKNti3K\nxqCOqjYQUP0EVIUfaw45q4JVckhfGv+VgVAn4VMVDp4bJtIeJdGi8iWX5+v3PACaXya8RePJ3CKL\ny6tMjV5mafY9zprNX03ctD1E98hJNke24pFEcF0qQNEq8ezqTYyJKXDcf5/x/6yyUOs7/wQ4uKBj\nWXYJDwAAAABJRU5ErkJggg==\n",
+                    "location": "http://www.insecure.org:80/favicon.ico"
+                },
+                "host": "www.insecure.org",
+                "html": "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>301 Moved Permanently</title>\n</head><body>\n<h1>Moved Permanently</h1>\n<p>The document has moved <a href=\"https://insecure.org/\">here</a>.</p>\n<hr>\n<address>Apache/2.4.6 (CentOS) Server at www.insecure.org Port 80</address>\n</body></html>\n",
+                "location": "/",
+                "components": {},
+                "server": "Apache/2.4.6 (CentOS)",
+                "sitemap": null,
+                "securitytxt_hash": null
+            },
+            "port": 80,
+            "transport": "tcp",
+            "version": "2.4.6",
+            "cloud": {
+                "region": null,
+                "service": null,
+                "provider": "Linode"
+            },
+            "vulns": {
+                "CVE-2014-0117": {
+                    "references": [
+                        "http://advisories.mageia.org/MGASA-2014-0305.html",
+                        "http://httpd.apache.org/security/vulnerabilities_24.html",
+                        "http://lists.apple.com/archives/security-announce/2015/Apr/msg00001.html",
+                        "http://seclists.org/fulldisclosure/2014/Jul/117",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/proxy/mod_proxy_http.c",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/proxy/mod_proxy_http.c?r1=1599486&r2=1610674&diff_format=h",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/proxy/proxy_util.c",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/proxy/proxy_util.c?r1=1609680&r2=1610674&diff_format=h",
+                        "http://www.oracle.com/technetwork/topics/security/cpujan2015-1972971.html",
+                        "http://zerodayinitiative.com/advisories/ZDI-14-239/",
+                        "https://bugzilla.redhat.com/show_bug.cgi?id=1120599",
+                        "https://lists.apache.org/thread.html/56c2e7cc9deb1c12a843d0dc251ea7fd3e7e80293cde02fcd65286ba@%3Ccvs.httpd.apache.org%3E",
+                        "https://support.apple.com/HT204659"
+                    ],
+                    "verified": false,
+                    "cvss": "4.3",
+                    "summary": "The mod_proxy module in the Apache HTTP Server 2.4.x before 2.4.10, when a reverse proxy is enabled, allows remote attackers to cause a denial of service (child-process crash) via a crafted HTTP Connection header."
+                },
+                "CVE-2014-0118": {
+                    "references": [
+                        "http://advisories.mageia.org/MGASA-2014-0304.html",
+                        "http://advisories.mageia.org/MGASA-2014-0305.html",
+                        "http://httpd.apache.org/security/vulnerabilities_24.html",
+                        "http://lists.apple.com/archives/security-announce/2015/Apr/msg00001.html",
+                        "http://marc.info/?l=bugtraq&m=143403519711434&w=2",
+                        "http://marc.info/?l=bugtraq&m=143748090628601&w=2",
+                        "http://marc.info/?l=bugtraq&m=144050155601375&w=2",
+                        "http://marc.info/?l=bugtraq&m=144493176821532&w=2",
+                        "http://rhn.redhat.com/errata/RHSA-2014-1019.html",
+                        "http://rhn.redhat.com/errata/RHSA-2014-1020.html",
+                        "http://rhn.redhat.com/errata/RHSA-2014-1021.html",
+                        "http://svn.apache.org/repos/asf/httpd/httpd/branches/2.2.x/CHANGES",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/filters/mod_deflate.c",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/filters/mod_deflate.c?r1=1604353&r2=1610501&diff_format=h",
+                        "http://www.debian.org/security/2014/dsa-2989",
+                        "http://www.mandriva.com/security/advisories?name=MDVSA-2014:142",
+                        "http://www.oracle.com/technetwork/topics/security/cpujan2015-1972971.html",
+                        "http://www.securityfocus.com/bid/68745",
+                        "https://bugzilla.redhat.com/show_bug.cgi?id=1120601",
+                        "https://h20564.www2.hpe.com/portal/site/hpsc/public/kb/docDisplay?docId=emr_na-c04832246",
+                        "https://puppet.com/security/cve/cve-2014-0118",
+                        "https://security.gentoo.org/glsa/201504-03",
+                        "https://support.apple.com/HT204659"
+                    ],
+                    "verified": false,
+                    "cvss": 4.3,
+                    "summary": "The deflate_in_filter function in mod_deflate.c in the mod_deflate module in the Apache HTTP Server before 2.4.10, when request body decompression is enabled, allows remote attackers to cause a denial of service (resource consumption) via crafted request data that decompresses to a much larger size."
+                },
+                "CVE-2016-0736": {
+                    "references": [
+                        "http://rhn.redhat.com/errata/RHSA-2017-1415.html",
+                        "http://www.debian.org/security/2017/dsa-3796",
+                        "http://www.securityfocus.com/bid/95078",
+                        "http://www.securitytracker.com/id/1037508",
+                        "https://access.redhat.com/errata/RHSA-2017:0906",
+                        "https://access.redhat.com/errata/RHSA-2017:1161",
+                        "https://access.redhat.com/errata/RHSA-2017:1413",
+                        "https://access.redhat.com/errata/RHSA-2017:1414",
+                        "https://h20566.www2.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbux03725en_us",
+                        "https://httpd.apache.org/security/vulnerabilities_24.html#CVE-2016-0736",
+                        "https://security.gentoo.org/glsa/201701-36",
+                        "https://security.netapp.com/advisory/ntap-20180423-0001/",
+                        "https://support.apple.com/HT208221",
+                        "https://www.exploit-db.com/exploits/40961/",
+                        "https://www.tenable.com/security/tns-2017-04"
+                    ],
+                    "verified": false,
+                    "cvss": 5.0,
+                    "summary": "In Apache HTTP Server versions 2.4.0 to 2.4.23, mod_session_crypto was encrypting its data/cookie using the configured ciphers with possibly either CBC or ECB modes of operation (AES256-CBC by default), hence no selectable or builtin authenticated encryption. This made it vulnerable to padding oracle attacks, particularly with CBC."
+                },
+                "CVE-2015-3185": {
+                    "references": [
+                        "http://httpd.apache.org/security/vulnerabilities_24.html",
+                        "http://lists.apple.com/archives/security-announce/2015/Aug/msg00001.html",
+                        "http://lists.apple.com/archives/security-announce/2015/Sep/msg00002.html",
+                        "http://lists.apple.com/archives/security-announce/2015/Sep/msg00004.html",
+                        "http://lists.opensuse.org/opensuse-updates/2015-10/msg00011.html",
+                        "http://rhn.redhat.com/errata/RHSA-2015-1666.html",
+                        "http://rhn.redhat.com/errata/RHSA-2015-1667.html",
+                        "http://rhn.redhat.com/errata/RHSA-2016-2957.html",
+                        "http://www.apache.org/dist/httpd/CHANGES_2.4",
+                        "http://www.debian.org/security/2015/dsa-3325",
+                        "http://www.securityfocus.com/bid/75965",
+                        "http://www.securitytracker.com/id/1032967",
+                        "http://www.ubuntu.com/usn/USN-2686-1",
+                        "https://access.redhat.com/errata/RHSA-2017:2708",
+                        "https://access.redhat.com/errata/RHSA-2017:2709",
+                        "https://access.redhat.com/errata/RHSA-2017:2710",
+                        "https://github.com/apache/httpd/commit/cd2b7a26c776b0754fb98426a67804fd48118708",
+                        "https://support.apple.com/HT205217",
+                        "https://support.apple.com/HT205219",
+                        "https://support.apple.com/kb/HT205031"
+                    ],
+                    "verified": false,
+                    "cvss": 4.3,
+                    "summary": "The ap_some_auth_required function in server/request.c in the Apache HTTP Server 2.4.x before 2.4.14 does not consider that a Require directive may be associated with an authorization setting rather than an authentication setting, which allows remote attackers to bypass intended access restrictions in opportunistic circumstances by leveraging the presence of a module that relies on the 2.2 API behavior."
+                },
+                "CVE-2015-3184": {
+                    "references": [
+                        "http://lists.apple.com/archives/security-announce/2016/Mar/msg00003.html",
+                        "http://lists.opensuse.org/opensuse-updates/2015-08/msg00022.html",
+                        "http://rhn.redhat.com/errata/RHSA-2015-1742.html",
+                        "http://subversion.apache.org/security/CVE-2015-3184-advisory.txt",
+                        "http://www.debian.org/security/2015/dsa-3331",
+                        "http://www.securityfocus.com/bid/76274",
+                        "http://www.securitytracker.com/id/1033215",
+                        "http://www.ubuntu.com/usn/USN-2721-1",
+                        "https://security.gentoo.org/glsa/201610-05",
+                        "https://support.apple.com/HT206172"
+                    ],
+                    "verified": false,
+                    "cvss": 5.0,
+                    "summary": "mod_authz_svn in Apache Subversion 1.7.x before 1.7.21 and 1.8.x before 1.8.14, when using Apache httpd 2.4.x, does not properly restrict anonymous access, which allows remote anonymous users to read hidden files via the path name."
+                },
+                "CVE-2018-1312": {
+                    "references": [
+                        "http://www.openwall.com/lists/oss-security/2018/03/24/7",
+                        "http://www.securityfocus.com/bid/103524",
+                        "http://www.securitytracker.com/id/1040571",
+                        "https://access.redhat.com/errata/RHSA-2018:3558",
+                        "https://access.redhat.com/errata/RHSA-2019:0366",
+                        "https://access.redhat.com/errata/RHSA-2019:0367",
+                        "https://access.redhat.com/errata/RHSA-2019:1898",
+                        "https://httpd.apache.org/security/vulnerabilities_24.html",
+                        "https://lists.debian.org/debian-lts-announce/2018/05/msg00020.html",
+                        "https://security.netapp.com/advisory/ntap-20180601-0004/",
+                        "https://support.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbux03909en_us",
+                        "https://usn.ubuntu.com/3627-1/",
+                        "https://usn.ubuntu.com/3627-2/",
+                        "https://usn.ubuntu.com/3937-2/",
+                        "https://www.debian.org/security/2018/dsa-4164"
+                    ],
+                    "verified": false,
+                    "cvss": "6.8",
+                    "summary": "In Apache httpd 2.2.0 to 2.4.29, when generating an HTTP Digest authentication challenge, the nonce sent to prevent reply attacks was not correctly generated using a pseudo-random seed. In a cluster of servers using a common Digest authentication configuration, HTTP requests could be replayed across servers by an attacker without detection."
+                },
+                "CVE-2016-4975": {
+                    "references": [
+                        "http://www.securityfocus.com/bid/105093",
+                        "https://httpd.apache.org/security/vulnerabilities_22.html#CVE-2016-4975",
+                        "https://httpd.apache.org/security/vulnerabilities_24.html#CVE-2016-4975",
+                        "https://security.netapp.com/advisory/ntap-20180926-0006/",
+                        "https://support.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbux03908en_us"
+                    ],
+                    "verified": false,
+                    "cvss": "4.3",
+                    "summary": "Possible CRLF injection allowing HTTP response splitting attacks for sites which use mod_userdir. This issue was mitigated by changes made in 2.4.25 and 2.2.32 which prohibit CR or LF injection into the \"Location\" or other outbound header key or value. Fixed in Apache HTTP Server 2.4.25 (Affected 2.4.1-2.4.23). Fixed in Apache HTTP Server 2.2.32 (Affected 2.2.0-2.2.31)."
+                },
+                "CVE-2016-8612": {
+                    "references": [
+                        "http://rhn.redhat.com/errata/RHSA-2016-2957.html",
+                        "http://www.securityfocus.com/bid/94939",
+                        "https://access.redhat.com/errata/RHSA-2017:0193",
+                        "https://access.redhat.com/errata/RHSA-2017:0194",
+                        "https://bugzilla.redhat.com/show_bug.cgi?id=1387605",
+                        "https://security.netapp.com/advisory/ntap-20180601-0005/"
+                    ],
+                    "verified": false,
+                    "cvss": "3.3",
+                    "summary": "Apache HTTP Server mod_cluster before version httpd 2.4.23 is vulnerable to an Improper Input Validation in the protocol parsing logic in the load balancer resulting in a Segmentation Fault in the serving httpd process."
+                },
+                "CVE-2014-0226": {
+                    "references": [
+                        "http://advisories.mageia.org/MGASA-2014-0304.html",
+                        "http://advisories.mageia.org/MGASA-2014-0305.html",
+                        "http://httpd.apache.org/security/vulnerabilities_24.html",
+                        "http://lists.apple.com/archives/security-announce/2015/Apr/msg00001.html",
+                        "http://marc.info/?l=bugtraq&m=143403519711434&w=2",
+                        "http://marc.info/?l=bugtraq&m=143748090628601&w=2",
+                        "http://marc.info/?l=bugtraq&m=144050155601375&w=2",
+                        "http://marc.info/?l=bugtraq&m=144493176821532&w=2",
+                        "http://rhn.redhat.com/errata/RHSA-2014-1019.html",
+                        "http://rhn.redhat.com/errata/RHSA-2014-1020.html",
+                        "http://rhn.redhat.com/errata/RHSA-2014-1021.html",
+                        "http://seclists.org/fulldisclosure/2014/Jul/114",
+                        "http://security.gentoo.org/glsa/glsa-201408-12.xml",
+                        "http://svn.apache.org/repos/asf/httpd/httpd/branches/2.2.x/CHANGES",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/generators/mod_status.c",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/generators/mod_status.c?r1=1450998&r2=1610491&diff_format=h",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/lua/lua_request.c",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/lua/lua_request.c?r1=1588989&r2=1610491&diff_format=h",
+                        "http://www.debian.org/security/2014/dsa-2989",
+                        "http://www.exploit-db.com/exploits/34133",
+                        "http://www.mandriva.com/security/advisories?name=MDVSA-2014:142",
+                        "http://www.oracle.com/technetwork/topics/security/cpujan2015-1972971.html",
+                        "http://www.securityfocus.com/bid/68678",
+                        "http://zerodayinitiative.com/advisories/ZDI-14-236/",
+                        "https://bugzilla.redhat.com/show_bug.cgi?id=1120603",
+                        "https://h20564.www2.hpe.com/portal/site/hpsc/public/kb/docDisplay?docId=emr_na-c04832246",
+                        "https://puppet.com/security/cve/cve-2014-0226",
+                        "https://security.gentoo.org/glsa/201504-03",
+                        "https://support.apple.com/HT204659"
+                    ],
+                    "verified": false,
+                    "cvss": 6.8,
+                    "summary": "Race condition in the mod_status module in the Apache HTTP Server before 2.4.10 allows remote attackers to cause a denial of service (heap-based buffer overflow), or possibly obtain sensitive credential information or execute arbitrary code, via a crafted request that triggers improper scoreboard handling within the status_handler function in modules/generators/mod_status.c and the lua_ap_scoreboard_worker function in modules/lua/lua_request.c."
+                },
+                "CVE-2014-3523": {
+                    "references": [
+                        "http://httpd.apache.org/security/vulnerabilities_24.html",
+                        "http://marc.info/?l=bugtraq&m=143748090628601&w=2",
+                        "http://marc.info/?l=bugtraq&m=144050155601375&w=2",
+                        "http://rhn.redhat.com/errata/RHSA-2016-2957.html",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/server/mpm/winnt/child.c",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/server/mpm/winnt/child.c?r1=1608785&r2=1610652&diff_format=h",
+                        "http://www.securityfocus.com/bid/68747"
+                    ],
+                    "verified": false,
+                    "cvss": 5.0,
+                    "summary": "Memory leak in the winnt_accept function in server/mpm/winnt/child.c in the WinNT MPM in the Apache HTTP Server 2.4.x before 2.4.10 on Windows, when the default AcceptFilter is enabled, allows remote attackers to cause a denial of service (memory consumption) via crafted requests."
+                },
+                "CVE-2017-15710": {
+                    "references": [
+                        "http://www.openwall.com/lists/oss-security/2018/03/24/8",
+                        "http://www.securityfocus.com/bid/103512",
+                        "http://www.securitytracker.com/id/1040569",
+                        "https://access.redhat.com/errata/RHSA-2018:3558",
+                        "https://access.redhat.com/errata/RHSA-2019:0366",
+                        "https://access.redhat.com/errata/RHSA-2019:0367",
+                        "https://httpd.apache.org/security/vulnerabilities_24.html",
+                        "https://lists.apache.org/thread.html/56c2e7cc9deb1c12a843d0dc251ea7fd3e7e80293cde02fcd65286ba@%3Ccvs.httpd.apache.org%3E",
+                        "https://lists.debian.org/debian-lts-announce/2018/05/msg00020.html",
+                        "https://security.netapp.com/advisory/ntap-20180601-0004/",
+                        "https://support.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbux03909en_us",
+                        "https://usn.ubuntu.com/3627-1/",
+                        "https://usn.ubuntu.com/3627-2/",
+                        "https://usn.ubuntu.com/3937-2/",
+                        "https://www.debian.org/security/2018/dsa-4164"
+                    ],
+                    "verified": false,
+                    "cvss": "5.0",
+                    "summary": "In Apache httpd 2.0.23 to 2.0.65, 2.2.0 to 2.2.34, and 2.4.0 to 2.4.29, mod_authnz_ldap, if configured with AuthLDAPCharsetConfig, uses the Accept-Language header value to lookup the right charset encoding when verifying the user's credentials. If the header value is not present in the charset conversion table, a fallback mechanism is used to truncate it to a two characters value to allow a quick retry (for example, 'en-US' is truncated to 'en'). A header value of less than two characters forces an out of bound write of one NUL byte to a memory location that is not part of the string. In the worst case, quite unlikely, the process would crash which could be used as a Denial of Service attack. In the more likely case, this memory is already reserved for future use and the issue has no effect at all."
+                },
+                "CVE-2017-15715": {
+                    "references": [
+                        "http://www.openwall.com/lists/oss-security/2018/03/24/6",
+                        "http://www.securityfocus.com/bid/103525",
+                        "http://www.securitytracker.com/id/1040570",
+                        "https://access.redhat.com/errata/RHSA-2018:3558",
+                        "https://access.redhat.com/errata/RHSA-2019:0366",
+                        "https://access.redhat.com/errata/RHSA-2019:0367",
+                        "https://httpd.apache.org/security/vulnerabilities_24.html",
+                        "https://lists.apache.org/thread.html/56c2e7cc9deb1c12a843d0dc251ea7fd3e7e80293cde02fcd65286ba@%3Ccvs.httpd.apache.org%3E",
+                        "https://security.netapp.com/advisory/ntap-20180601-0004/",
+                        "https://support.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbux03909en_us",
+                        "https://usn.ubuntu.com/3627-1/",
+                        "https://usn.ubuntu.com/3627-2/",
+                        "https://www.debian.org/security/2018/dsa-4164"
+                    ],
+                    "verified": false,
+                    "cvss": "6.8",
+                    "summary": "In Apache httpd 2.4.0 to 2.4.29, the expression specified in <FilesMatch> could match '$' to a newline character in a malicious filename, rather than matching only the end of the filename. This could be exploited in environments where uploads of some files are are externally blocked, but only by matching the trailing portion of the filename."
+                },
+                "CVE-2013-6438": {
+                    "references": [
+                        "http://advisories.mageia.org/MGASA-2014-0135.html",
+                        "http://archives.neohapsis.com/archives/bugtraq/2014-10/0101.html",
+                        "http://kb.juniper.net/InfoCenter/index?page=content&id=JSA10698",
+                        "http://lists.apple.com/archives/security-announce/2015/Apr/msg00001.html",
+                        "http://marc.info/?l=bugtraq&m=141017844705317&w=2",
+                        "http://marc.info/?l=bugtraq&m=141390017113542&w=2",
+                        "http://seclists.org/fulldisclosure/2014/Dec/23",
+                        "http://security.gentoo.org/glsa/glsa-201408-12.xml",
+                        "http://svn.apache.org/repos/asf/httpd/httpd/branches/2.2.x/CHANGES",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/dav/main/util.c",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/dav/main/util.c?r1=1528718&r2=1556428&diff_format=h",
+                        "http://www-01.ibm.com/support/docview.wss?uid=swg21669554",
+                        "http://www-01.ibm.com/support/docview.wss?uid=swg21676091",
+                        "http://www-01.ibm.com/support/docview.wss?uid=swg21676092",
+                        "http://www.apache.org/dist/httpd/CHANGES_2.4.9",
+                        "http://www.oracle.com/technetwork/topics/security/cpujan2015-1972971.html",
+                        "http://www.oracle.com/technetwork/topics/security/cpujul2014-1972956.html",
+                        "http://www.securityfocus.com/archive/1/534161/100/0/threaded",
+                        "http://www.securityfocus.com/bid/66303",
+                        "http://www.ubuntu.com/usn/USN-2152-1",
+                        "http://www.vmware.com/security/advisories/VMSA-2014-0012.html",
+                        "https://blogs.oracle.com/sunsecurity/entry/multiple_input_validation_vulnerabilities_in1",
+                        "https://httpd.apache.org/security/vulnerabilities_24.html",
+                        "https://puppet.com/security/cve/cve-2013-6438",
+                        "https://support.apple.com/HT204659",
+                        "https://support.apple.com/kb/HT6535"
+                    ],
+                    "verified": false,
+                    "cvss": "5.0",
+                    "summary": "The dav_xml_get_cdata function in main/util.c in the mod_dav module in the Apache HTTP Server before 2.4.8 does not properly remove whitespace characters from CDATA sections, which allows remote attackers to cause a denial of service (daemon crash) via a crafted DAV WRITE request."
+                },
+                "CVE-2017-7679": {
+                    "references": [
+                        "http://www.debian.org/security/2017/dsa-3896",
+                        "http://www.oracle.com/technetwork/security-advisory/cpuoct2017-3236626.html",
+                        "http://www.securityfocus.com/bid/99170",
+                        "http://www.securitytracker.com/id/1038711",
+                        "https://access.redhat.com/errata/RHSA-2017:2478",
+                        "https://access.redhat.com/errata/RHSA-2017:2479",
+                        "https://access.redhat.com/errata/RHSA-2017:2483",
+                        "https://access.redhat.com/errata/RHSA-2017:3193",
+                        "https://access.redhat.com/errata/RHSA-2017:3194",
+                        "https://access.redhat.com/errata/RHSA-2017:3195",
+                        "https://access.redhat.com/errata/RHSA-2017:3475",
+                        "https://access.redhat.com/errata/RHSA-2017:3476",
+                        "https://access.redhat.com/errata/RHSA-2017:3477",
+                        "https://github.com/gottburgm/Exploits/tree/master/CVE-2017-7679",
+                        "https://lists.apache.org/thread.html/f4515e580dfb6eeca589a5cdebd4c4c709ce632b12924f343c3b7751@%3Cdev.httpd.apache.org%3E",
+                        "https://security.gentoo.org/glsa/201710-32",
+                        "https://security.netapp.com/advisory/ntap-20180601-0002/",
+                        "https://support.apple.com/HT208221",
+                        "https://support.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbhf03821en_us",
+                        "https://support.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbux03908en_us",
+                        "https://www.nomachine.com/SU08O00185"
+                    ],
+                    "verified": false,
+                    "cvss": "7.5",
+                    "summary": "In Apache httpd 2.2.x before 2.2.33 and 2.4.x before 2.4.26, mod_mime can read one byte past the end of a buffer when sending a malicious Content-Type response header."
+                },
+                "CVE-2018-17199": {
+                    "references": [
+                        "http://www.securityfocus.com/bid/106742",
+                        "https://httpd.apache.org/security/vulnerabilities_24.html",
+                        "https://lists.debian.org/debian-lts-announce/2019/01/msg00024.html",
+                        "https://seclists.org/bugtraq/2019/Apr/5",
+                        "https://security.gentoo.org/glsa/201903-21",
+                        "https://security.netapp.com/advisory/ntap-20190125-0001/",
+                        "https://usn.ubuntu.com/3937-1/",
+                        "https://www.debian.org/security/2019/dsa-4422",
+                        "https://www.oracle.com/technetwork/security-advisory/cpuapr2019-5072813.html",
+                        "https://www.oracle.com/technetwork/security-advisory/cpujul2019-5072835.html"
+                    ],
+                    "verified": false,
+                    "cvss": "5.0",
+                    "summary": "In Apache HTTP Server 2.4 release 2.4.37 and prior, mod_session checks the session expiry time before decoding the session. This causes session expiry time to be ignored for mod_session_cookie sessions since the expiry time is loaded when the session is decoded."
+                },
+                "CVE-2017-9788": {
+                    "references": [
+                        "http://www.debian.org/security/2017/dsa-3913",
+                        "http://www.oracle.com/technetwork/security-advisory/cpuoct2017-3236626.html",
+                        "http://www.securityfocus.com/bid/99569",
+                        "http://www.securitytracker.com/id/1038906",
+                        "https://access.redhat.com/errata/RHSA-2017:2478",
+                        "https://access.redhat.com/errata/RHSA-2017:2479",
+                        "https://access.redhat.com/errata/RHSA-2017:2483",
+                        "https://access.redhat.com/errata/RHSA-2017:2708",
+                        "https://access.redhat.com/errata/RHSA-2017:2709",
+                        "https://access.redhat.com/errata/RHSA-2017:2710",
+                        "https://access.redhat.com/errata/RHSA-2017:3113",
+                        "https://access.redhat.com/errata/RHSA-2017:3114",
+                        "https://access.redhat.com/errata/RHSA-2017:3193",
+                        "https://access.redhat.com/errata/RHSA-2017:3194",
+                        "https://access.redhat.com/errata/RHSA-2017:3195",
+                        "https://access.redhat.com/errata/RHSA-2017:3239",
+                        "https://access.redhat.com/errata/RHSA-2017:3240",
+                        "https://httpd.apache.org/security/vulnerabilities_22.html",
+                        "https://httpd.apache.org/security/vulnerabilities_24.html",
+                        "https://lists.apache.org/thread.html/0dd69204a6bd643cc4e9ccd008f07a9375525d977c6ebeb07a881afb@%3Cannounce.httpd.apache.org%3E",
+                        "https://lists.apache.org/thread.html/56c2e7cc9deb1c12a843d0dc251ea7fd3e7e80293cde02fcd65286ba@%3Ccvs.httpd.apache.org%3E",
+                        "https://security.gentoo.org/glsa/201710-32",
+                        "https://security.netapp.com/advisory/ntap-20170911-0002/",
+                        "https://support.apple.com/HT208221",
+                        "https://support.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbux03908en_us"
+                    ],
+                    "verified": false,
+                    "cvss": "6.4",
+                    "summary": "In Apache httpd before 2.2.34 and 2.4.x before 2.4.27, the value placeholder in [Proxy-]Authorization headers of type 'Digest' was not initialized or reset before or between successive key=value assignments by mod_auth_digest. Providing an initial key with no '=' assignment could reflect the stale value of uninitialized pool memory used by the prior request, leading to leakage of potentially confidential information, and a segfault in other cases resulting in denial of service."
+                },
+                "CVE-2014-8109": {
+                    "references": [
+                        "http://advisories.mageia.org/MGASA-2015-0011.html",
+                        "http://lists.apple.com/archives/security-announce/2015/Aug/msg00001.html",
+                        "http://lists.apple.com/archives/security-announce/2015/Sep/msg00004.html",
+                        "http://lists.fedoraproject.org/pipermail/package-announce/2015-June/159352.html",
+                        "http://www.openwall.com/lists/oss-security/2014/11/28/5",
+                        "http://www.oracle.com/technetwork/topics/security/cpujan2016-2367955.html",
+                        "http://www.securityfocus.com/bid/73040",
+                        "http://www.ubuntu.com/usn/USN-2523-1",
+                        "https://bugzilla.redhat.com/show_bug.cgi?id=1174077",
+                        "https://github.com/apache/httpd/commit/3f1693d558d0758f829c8b53993f1749ddf6ffcb",
+                        "https://issues.apache.org/bugzilla/show_bug.cgi?id=57204",
+                        "https://support.apple.com/HT205219",
+                        "https://support.apple.com/kb/HT205031"
+                    ],
+                    "verified": false,
+                    "cvss": 4.3,
+                    "summary": "mod_lua.c in the mod_lua module in the Apache HTTP Server 2.3.x and 2.4.x through 2.4.10 does not support an httpd configuration in which the same Lua authorization provider is used with different arguments within different contexts, which allows remote attackers to bypass intended access restrictions in opportunistic circumstances by leveraging multiple Require directives, as demonstrated by a configuration that specifies authorization for one group to access a certain directory, and authorization for a second group to access a second directory."
+                },
+                "CVE-2017-9798": {
+                    "references": [
+                        "http://openwall.com/lists/oss-security/2017/09/18/2",
+                        "http://www.debian.org/security/2017/dsa-3980",
+                        "http://www.oracle.com/technetwork/security-advisory/cpuapr2018-3678067.html",
+                        "http://www.oracle.com/technetwork/security-advisory/cpujan2018-3236628.html",
+                        "http://www.oracle.com/technetwork/security-advisory/cpujul2018-4258247.html",
+                        "http://www.oracle.com/technetwork/security-advisory/cpuoct2018-4428296.html",
+                        "http://www.securityfocus.com/bid/100872",
+                        "http://www.securityfocus.com/bid/105598",
+                        "http://www.securitytracker.com/id/1039387",
+                        "https://access.redhat.com/errata/RHSA-2017:2882",
+                        "https://access.redhat.com/errata/RHSA-2017:2972",
+                        "https://access.redhat.com/errata/RHSA-2017:3018",
+                        "https://access.redhat.com/errata/RHSA-2017:3113",
+                        "https://access.redhat.com/errata/RHSA-2017:3114",
+                        "https://access.redhat.com/errata/RHSA-2017:3193",
+                        "https://access.redhat.com/errata/RHSA-2017:3194",
+                        "https://access.redhat.com/errata/RHSA-2017:3195",
+                        "https://access.redhat.com/errata/RHSA-2017:3239",
+                        "https://access.redhat.com/errata/RHSA-2017:3240",
+                        "https://access.redhat.com/errata/RHSA-2017:3475",
+                        "https://access.redhat.com/errata/RHSA-2017:3476",
+                        "https://access.redhat.com/errata/RHSA-2017:3477",
+                        "https://blog.fuzzing-project.org/60-Optionsbleed-HTTP-OPTIONS-method-can-leak-Apaches-server-memory.html",
+                        "https://blog.fuzzing-project.org/uploads/apache-2.2-optionsbleed-backport.patch",
+                        "https://github.com/apache/httpd/commit/29afdd2550b3d30a8defece2b95ae81edcf66ac9",
+                        "https://github.com/hannob/optionsbleed",
+                        "https://httpd.apache.org/security/vulnerabilities_24.html#CVE-2017-9798",
+                        "https://security-tracker.debian.org/tracker/CVE-2017-9798",
+                        "https://security.gentoo.org/glsa/201710-32",
+                        "https://security.netapp.com/advisory/ntap-20180601-0003/",
+                        "https://support.apple.com/HT208331",
+                        "https://support.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbux03909en_us",
+                        "https://svn.apache.org/viewvc/httpd/httpd/branches/2.4.x/server/core.c?r1=1805223&r2=1807754&pathrev=1807754&view=patch",
+                        "https://www.exploit-db.com/exploits/42745/",
+                        "https://www.oracle.com/technetwork/security-advisory/cpuapr2019-5072813.html",
+                        "https://www.oracle.com/technetwork/security-advisory/cpujan2019-5072801.html"
+                    ],
+                    "verified": false,
+                    "cvss": "5.0",
+                    "summary": "Apache httpd allows remote attackers to read secret data from process memory if the Limit directive can be set in a user's .htaccess file, or if httpd.conf has certain misconfigurations, aka Optionsbleed. This affects the Apache HTTP Server through 2.2.34 and 2.4.x through 2.4.27. The attacker sends an unauthenticated OPTIONS HTTP request when attempting to read secret data. This is a use-after-free issue and thus secret data is not always sent, and the specific data depends on many factors including configuration. Exploitation with .htaccess can be blocked with a patch to the ap_limit_section function in server/core.c."
+                },
+                "CVE-2016-2161": {
+                    "references": [
+                        "http://rhn.redhat.com/errata/RHSA-2017-1415.html",
+                        "http://www.debian.org/security/2017/dsa-3796",
+                        "http://www.securityfocus.com/bid/95076",
+                        "http://www.securitytracker.com/id/1037508",
+                        "https://access.redhat.com/errata/RHSA-2017:0906",
+                        "https://access.redhat.com/errata/RHSA-2017:1161",
+                        "https://access.redhat.com/errata/RHSA-2017:1413",
+                        "https://access.redhat.com/errata/RHSA-2017:1414",
+                        "https://h20566.www2.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbux03725en_us",
+                        "https://httpd.apache.org/security/vulnerabilities_24.html#CVE-2016-2161",
+                        "https://security.gentoo.org/glsa/201701-36",
+                        "https://security.netapp.com/advisory/ntap-20180423-0001/",
+                        "https://support.apple.com/HT208221",
+                        "https://www.tenable.com/security/tns-2017-04"
+                    ],
+                    "verified": false,
+                    "cvss": 5.0,
+                    "summary": "In Apache HTTP Server versions 2.4.0 to 2.4.23, malicious input to mod_auth_digest can cause the server to crash, and each instance continues to crash even for subsequently valid requests."
+                },
+                "CVE-2014-0231": {
+                    "references": [
+                        "http://advisories.mageia.org/MGASA-2014-0304.html",
+                        "http://advisories.mageia.org/MGASA-2014-0305.html",
+                        "http://httpd.apache.org/security/vulnerabilities_24.html",
+                        "http://lists.apple.com/archives/security-announce/2015/Apr/msg00001.html",
+                        "http://marc.info/?l=bugtraq&m=143403519711434&w=2",
+                        "http://marc.info/?l=bugtraq&m=143748090628601&w=2",
+                        "http://marc.info/?l=bugtraq&m=144050155601375&w=2",
+                        "http://marc.info/?l=bugtraq&m=144493176821532&w=2",
+                        "http://packetstormsecurity.com/files/130769/RSA-Digital-Certificate-Solution-XSS-Denial-Of-Service.html",
+                        "http://rhn.redhat.com/errata/RHSA-2014-1019.html",
+                        "http://rhn.redhat.com/errata/RHSA-2014-1020.html",
+                        "http://rhn.redhat.com/errata/RHSA-2014-1021.html",
+                        "http://svn.apache.org/repos/asf/httpd/httpd/branches/2.2.x/CHANGES",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/generators/mod_cgid.c",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/generators/mod_cgid.c?r1=1482522&r2=1535125&diff_format=h",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/generators/mod_cgid.c?r1=1565711&r2=1610509&diff_format=h",
+                        "http://www.debian.org/security/2014/dsa-2989",
+                        "http://www.mandriva.com/security/advisories?name=MDVSA-2014:142",
+                        "http://www.oracle.com/technetwork/topics/security/cpujan2015-1972971.html",
+                        "http://www.securityfocus.com/bid/68742",
+                        "https://bugzilla.redhat.com/show_bug.cgi?id=1120596",
+                        "https://h20564.www2.hpe.com/portal/site/hpsc/public/kb/docDisplay?docId=emr_na-c04832246",
+                        "https://puppet.com/security/cve/cve-2014-0231",
+                        "https://security.gentoo.org/glsa/201504-03",
+                        "https://support.apple.com/HT204659"
+                    ],
+                    "verified": false,
+                    "cvss": "5.0",
+                    "summary": "The mod_cgid module in the Apache HTTP Server before 2.4.10 does not have a timeout mechanism, which allows remote attackers to cause a denial of service (process hang) via a request to a CGI script that does not read from its stdin file descriptor."
+                },
+                "CVE-2013-4352": {
+                    "references": [
+                        "http://httpd.apache.org/security/vulnerabilities_24.html",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/cache/cache_storage.c",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/cache/cache_storage.c?r1=1491564&r2=1523235&diff_format=h",
+                        "https://bugzilla.redhat.com/show_bug.cgi?id=1120604",
+                        "https://lists.apache.org/thread.html/56c2e7cc9deb1c12a843d0dc251ea7fd3e7e80293cde02fcd65286ba@%3Ccvs.httpd.apache.org%3E"
+                    ],
+                    "verified": false,
+                    "cvss": "4.3",
+                    "summary": "The cache_invalidate function in modules/cache/cache_storage.c in the mod_cache module in the Apache HTTP Server 2.4.6, when a caching forward proxy is enabled, allows remote HTTP servers to cause a denial of service (NULL pointer dereference and daemon crash) via vectors that trigger a missing hostname value."
+                },
+                "CVE-2019-0220": {
+                    "references": [
+                        "http://lists.opensuse.org/opensuse-security-announce/2019-04/msg00051.html",
+                        "http://lists.opensuse.org/opensuse-security-announce/2019-04/msg00061.html",
+                        "http://lists.opensuse.org/opensuse-security-announce/2019-04/msg00084.html",
+                        "http://www.openwall.com/lists/oss-security/2019/04/02/6",
+                        "http://www.securityfocus.com/bid/107670",
+                        "https://httpd.apache.org/security/vulnerabilities_24.html",
+                        "https://lists.debian.org/debian-lts-announce/2019/04/msg00008.html",
+                        "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/ALIR5S3O7NRHEGFMIDMUSYQIZOE4TJJN/",
+                        "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/EZRMTEIGZKYFNGIDOTXN3GNEJTLVCYU7/",
+                        "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/WETXNQWNQLWHV6XNW6YTO5UGDTIWAQGT/",
+                        "https://seclists.org/bugtraq/2019/Apr/5",
+                        "https://security.netapp.com/advisory/ntap-20190625-0007/",
+                        "https://support.f5.com/csp/article/K44591505",
+                        "https://usn.ubuntu.com/3937-1/",
+                        "https://www.debian.org/security/2019/dsa-4422"
+                    ],
+                    "verified": false,
+                    "cvss": "5.0",
+                    "summary": "A vulnerability was found in Apache HTTP Server 2.4.0 to 2.4.38. When the path component of a request URL contains multiple consecutive slashes ('/'), directives such as LocationMatch and RewriteRule must account for duplicates in regular expressions while other aspects of the servers processing will implicitly collapse them."
+                },
+                "CVE-2014-0098": {
+                    "references": [
+                        "http://advisories.mageia.org/MGASA-2014-0135.html",
+                        "http://archives.neohapsis.com/archives/bugtraq/2014-10/0101.html",
+                        "http://kb.juniper.net/InfoCenter/index?page=content&id=JSA10698",
+                        "http://lists.apple.com/archives/security-announce/2015/Apr/msg00001.html",
+                        "http://marc.info/?l=bugtraq&m=141017844705317&w=2",
+                        "http://marc.info/?l=bugtraq&m=141390017113542&w=2",
+                        "http://seclists.org/fulldisclosure/2014/Dec/23",
+                        "http://secunia.com/advisories/59219",
+                        "http://security.gentoo.org/glsa/glsa-201408-12.xml",
+                        "http://support.f5.com/kb/en-us/solutions/public/15000/300/sol15320.html",
+                        "http://svn.apache.org/repos/asf/httpd/httpd/branches/2.2.x/CHANGES",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/loggers/mod_log_config.c",
+                        "http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/loggers/mod_log_config.c?r1=1575394&r2=1575400&diff_format=h",
+                        "http://www-01.ibm.com/support/docview.wss?uid=swg21668973",
+                        "http://www-01.ibm.com/support/docview.wss?uid=swg21676091",
+                        "http://www-01.ibm.com/support/docview.wss?uid=swg21676092",
+                        "http://www.apache.org/dist/httpd/CHANGES_2.4.9",
+                        "http://www.oracle.com/technetwork/topics/security/cpujan2015-1972971.html",
+                        "http://www.oracle.com/technetwork/topics/security/cpujul2014-1972956.html",
+                        "http://www.securityfocus.com/archive/1/534161/100/0/threaded",
+                        "http://www.securityfocus.com/bid/66303",
+                        "http://www.ubuntu.com/usn/USN-2152-1",
+                        "http://www.vmware.com/security/advisories/VMSA-2014-0012.html",
+                        "https://blogs.oracle.com/sunsecurity/entry/multiple_input_validation_vulnerabilities_in1",
+                        "https://httpd.apache.org/security/vulnerabilities_24.html",
+                        "https://puppet.com/security/cve/cve-2014-0098",
+                        "https://support.apple.com/HT204659",
+                        "https://support.apple.com/kb/HT6535"
+                    ],
+                    "verified": false,
+                    "cvss": "5.0",
+                    "summary": "The log_cookie function in mod_log_config.c in the mod_log_config module in the Apache HTTP Server before 2.4.8 allows remote attackers to cause a denial of service (segmentation fault and daemon crash) via a crafted cookie that is not properly handled during truncation."
+                },
+                "CVE-2018-1283": {
+                    "references": [
+                        "http://www.openwall.com/lists/oss-security/2018/03/24/4",
+                        "http://www.securityfocus.com/bid/103520",
+                        "http://www.securitytracker.com/id/1040568",
+                        "https://access.redhat.com/errata/RHSA-2018:3558",
+                        "https://access.redhat.com/errata/RHSA-2019:0366",
+                        "https://access.redhat.com/errata/RHSA-2019:0367",
+                        "https://httpd.apache.org/security/vulnerabilities_24.html",
+                        "https://lists.apache.org/thread.html/56c2e7cc9deb1c12a843d0dc251ea7fd3e7e80293cde02fcd65286ba@%3Ccvs.httpd.apache.org%3E",
+                        "https://security.netapp.com/advisory/ntap-20180601-0004/",
+                        "https://support.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbux03909en_us",
+                        "https://usn.ubuntu.com/3627-1/",
+                        "https://usn.ubuntu.com/3627-2/",
+                        "https://www.debian.org/security/2018/dsa-4164"
+                    ],
+                    "verified": false,
+                    "cvss": "3.5",
+                    "summary": "In Apache httpd 2.4.0 to 2.4.29, when mod_session is configured to forward its session data to CGI applications (SessionEnv on, not the default), a remote user may influence their content by using a \"Session\" header. This comes from the \"HTTP_SESSION\" variable name used by mod_session to forward its data to CGIs, since the prefix \"HTTP_\" is also used by the Apache HTTP Server to pass HTTP header fields, per CGI specifications."
+                },
+                "CVE-2016-8743": {
+                    "references": [
+                        "http://rhn.redhat.com/errata/RHSA-2017-1415.html",
+                        "http://www.debian.org/security/2017/dsa-3796",
+                        "http://www.securityfocus.com/bid/95077",
+                        "http://www.securitytracker.com/id/1037508",
+                        "https://access.redhat.com/errata/RHSA-2017:0906",
+                        "https://access.redhat.com/errata/RHSA-2017:1161",
+                        "https://access.redhat.com/errata/RHSA-2017:1413",
+                        "https://access.redhat.com/errata/RHSA-2017:1414",
+                        "https://access.redhat.com/errata/RHSA-2017:1721",
+                        "https://h20566.www2.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbmu03753en_us",
+                        "https://h20566.www2.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbux03725en_us",
+                        "https://httpd.apache.org/security/vulnerabilities_24.html#CVE-2016-8743",
+                        "https://security.gentoo.org/glsa/201701-36",
+                        "https://security.netapp.com/advisory/ntap-20180423-0001/",
+                        "https://support.apple.com/HT208221",
+                        "https://www.tenable.com/security/tns-2017-04"
+                    ],
+                    "verified": false,
+                    "cvss": 5.0,
+                    "summary": "Apache HTTP Server, in all releases prior to 2.2.32 and 2.4.25, was liberal in the whitespace accepted from requests and sent in response lines and headers. Accepting these different behaviors represented a security concern when httpd participates in any chain of proxies or interacts with back-end application servers, either through mod_proxy or using conventional CGI mechanisms, and may result in request smuggling, response splitting and cache pollution."
+                }
+            },
+            "location": {
+                "city": "Fremont",
+                "region_code": "CA",
+                "area_code": null,
+                "longitude": -121.98857,
+                "country_code3": null,
+                "country_name": "United States",
+                "postal_code": null,
+                "dma_code": null,
+                "country_code": "US",
+                "latitude": 37.54827
+            },
+            "product": "Apache httpd",
+            "hash": -1046773946,
+            "tags": [
+                "cloud"
+            ],
+            "timestamp": "2021-03-24T09:53:13.360652",
+            "hostnames": [
+                "ack.nmap.org"
+            ],
+            "org": "Linode",
+            "data": "HTTP/1.1 301 Moved Permanently\r\nDate: Wed, 24 Mar 2021 09:53:06 GMT\r\nServer: Apache/2.4.6 (CentOS)\r\nLocation: https://insecure.org/\r\nContent-Length: 310\r\nContent-Type: text/html; charset=iso-8859-1\r\n\r\n",
+            "asn": "AS63949",
+            "info": "(CentOS)",
+            "isp": "Linode, LLC",
+            "cpe": [
+                "cpe:/a:apache:http_server:2.4.6"
+            ],
+            "domains": [
+                "nmap.org"
+            ],
+            "ip_str": "45.33.49.119",
+            "os": null,
+            "_shodan": {
+                "options": {
+                    "referrer": "500c7d7a-f739-46b8-921e-a63f74a07425",
+                    "hostname": "www.insecure.org",
+                    "scan": "ax8yTjwrI3CV23KW"
+                },
+                "id": "33f51af6-9d43-47f3-816b-8026057a1847",
+                "module": "http",
+                "crawler": "50ff92ade07e6d7e2cfd2af30c145ff9277dd115"
+            },
+            "opts": {}
+        }
+    ],
+    "asn": "AS63949",
+    "isp": "Linode, LLC",
+    "longitude": -121.98857,
+    "country_code3": null,
+    "domains": [
+        "nmap.org"
+    ],
+    "ip_str": "45.33.49.119",
+    "os": null,
+    "ports": [
+        80,
+        443
+    ]
+}

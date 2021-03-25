@@ -26,10 +26,14 @@ class VirusTotal(Service):
 
     @on_exception(expo, RateLimitException, max_tries=10, max_time=60)
     @limits(calls=4, period=60)
-    def _get_api_response(self, ioc: str, api_key: str) -> dict:
+    def _get_api_response(self, ioc: str, api_key: str) -> Optional[dict]:
         client = vt.Client(api_key)
         result = client.get_object(f"/files/{ioc}")
-        return result.to_dict().get("attributes")
+
+        try:
+            return result.to_dict().get("attributes")
+        except AttributeError:
+            return None
 
     @property
     def investigation_url(self) -> Optional[str]:
@@ -39,7 +43,10 @@ class VirusTotal(Service):
     @property
     def detections(self) -> Optional[dict]:
         """The anti-virus providers that detected the hash"""
-        return self.response.get("last_analysis_results")
+        try:
+            return self.response.get("last_analysis_results")
+        except AttributeError:
+            return None
 
     @property
     def detection_coverage(self) -> Optional[float]:
@@ -69,7 +76,10 @@ class VirusTotal(Service):
     @property
     def reputation(self) -> Optional[int]:
         """VirusTotal community score for a given entry"""
-        return self.response.get("reputation")
+        try:
+            return self.response.get("reputation")
+        except AttributeError:
+            return None
 
     @property
     def popular_threat_names(self) -> Optional[List[str]]:
@@ -88,13 +98,15 @@ class VirusTotal(Service):
     @property
     def relationships(self) -> Optional[dict]:
         """Describes how the hash interacts with IPs, domains, etc"""
-        return self.response.get("relationships")
+        try:
+            return self.response.get("relationships")
+        except AttributeError:
+            return None
 
     @property
     def tags(self) -> Optional[dict]:
         """User-provided tags to classify samples"""
         try:
-            result = self.response.get("tags") if self.response.get("tags") else None
+            return self.response.get("tags") if self.response.get("tags") else None
         except AttributeError:
             return None
-        return result
