@@ -1,3 +1,6 @@
 [report]
 show_missing = true
-omit = ioccheck/cli/__init__.py
+omit =
+    ioccheck/cli/__init__.py
+    ioccheck/__main__.py
+
