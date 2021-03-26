@@ -178,6 +178,3 @@ def run(ioc, config):
             )
         except FileNotFoundError as error:
             sys.exit(colored(f"[!] {error}", "red"))
-
-if __name__ == "__main__":
-    run()

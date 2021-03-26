@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ioccheck"
-version = "v0.3.0-beta.1"
+version = "v0.3.1-beta.2"
 description = "A tool for simplifying the process of researching IOCs."
 authors = ["ranguli <hello@joshmurphy.ca>"]
 
@@ -33,7 +33,7 @@ pytest-cov = "^2.11.1"
 pylint = "^2.7.2"
 
 [tool.poetry.scripts]
-ioccheck = "ioccheck.cli.cli:run"
+ioccheck = "ioccheck.cli:run"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
