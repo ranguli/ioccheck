@@ -24,8 +24,8 @@ logger.addHandler(f_handler)
 class VirusTotalFormatter(Formatter):
     """Provide pre-formatted output from the VirusTotal Service"""
 
-    def __init__(self, service: VirusTotal):
-        Formatter.__init__(self, service)
+    def __init__(self, service: VirusTotal, heading_color: str):
+        Formatter.__init__(self, service, heading_color)
 
     @property
     def reputation(self) -> Optional[str]:
@@ -54,18 +54,6 @@ class VirusTotalFormatter(Formatter):
             detection_count_string = colored(detection_count_string, "red")
 
         return detection_count_string
-
-    @property
-    def detections(self):
-        """Provide pre-formatted output of the detecting A.V engines"""
-
-        table = [["Antivirus", "Detection"]]
-
-        for detection, result in self.service.detections.items():
-            if result.get("category") == "malicious":
-                table.append([detection, colored(result.get("result"), "red")])
-
-        return tabulate(table, headers="firstrow", tablefmt="fancy_grid")
 
     @property
     def sandbox_verdicts(self):

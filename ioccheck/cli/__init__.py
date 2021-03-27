@@ -4,17 +4,23 @@
 import logging
 import random
 import sys
+import os
+from pathlib import Path
 
 import click
 import pkg_resources
 from pyfiglet import Figlet
 from termcolor import colored, cprint
 
+from tabulate import tabulate
+
 from ioccheck.cli.formatters import (MalwareBazaarFormatter, ShodanFormatter,
                                      VirusTotalFormatter)
 from ioccheck.exceptions import (InvalidHashException, InvalidIPException,
                                  NoConfiguredServicesException)
 from ioccheck.iocs import IP, Hash
+
+from ioccheck.reports import HTMLReport
 
 asyncio_logger = logging.getLogger("asyncio")
 asyncio_logger.setLevel(logging.CRITICAL)
@@ -65,17 +71,13 @@ def virustotal_results(_hash, heading_color):
 
     virustotal = _hash.reports.virustotal
 
-    formatter = VirusTotalFormatter(virustotal)
-
-    if formatter.tags:
-        tags_heading = colored("[*] VirusTotal tags:", heading_color)
-        print(f"{tags_heading} {formatter.tags}")
+    formatter = VirusTotalFormatter(virustotal, heading_color)
 
     investigation_url_heading = colored("[*] VirusTotal URL:", heading_color)
     print(f"{investigation_url_heading} {virustotal.investigation_url}")
 
     # Make a pretty table of the results
-    detections_heading = colored("[*] VirusTotal detections:", "blue")
+    detections_heading = colored("[*] Detections:", "blue")
 
     print(f"{detections_heading} {formatter.detection_count}")
     print(formatter.detections)
@@ -83,29 +85,42 @@ def virustotal_results(_hash, heading_color):
     reputation_heading = colored("[*] VirusTotal reputation:", heading_color)
     print(f"{reputation_heading} {formatter.reputation}")
 
-    if formatter.popular_threat_names:
-        threat_names_heading = colored("[*] VirusTotal threat labels:", heading_color)
-        print(f"{threat_names_heading} {formatter.popular_threat_names}")
+
+def detections(_hash, heading_color):
+    detection_heading = colored("[*] Vendor detections:", heading_color)
+    table = [["Antivirus", "Detection"]]
+
+    for detection, result in _hash.detections.items():
+        if result.get("category") == "malicious":
+            table.append([detection, colored(result.get("result"), "red")])
+
+    return tabulate(table, headers="firstrow", tablefmt="fancy_grid")
 
 
-def malwarebazaar_results(_hash, heading_color):
-    """ Use the MalwareBazaarFormatter to print pre-formatted output """
+def hash_details(_hash, heading_color):
+    results = [[k, v] for k, v in _hash.hashes.items() if v]
 
-    malwarebazaar = _hash.reports.malwarebazaar
+    table = []
 
-    formatter = MalwareBazaarFormatter(malwarebazaar)
+    for result in results:
+        table.append(result)
 
-    if formatter.tags:
-        tags_heading = colored("[*] MalwareBazaar tags:", heading_color)
-        print(f"{tags_heading} {formatter.tags}")
+    return tabulate(table, tablefmt="fancy_grid")
 
-    file_size_heading = colored("[*] File details:", heading_color)
-    print(
-        f"{file_size_heading} {formatter.file_type} | {malwarebazaar.mime_type} ({formatter.file_size})"
-    )
+def behaviour(_hash, heading_color):
+    table = [["Vendor", "Behaviour", "Threat"]]
 
-    cprint("[*] File hashes:\n", heading_color)
-    print(formatter.hashes)
+    for result in _hash.behaviour:
+        if result.get("threat") == 1:
+            threat = colored("Neutral", "green")
+        elif result.get("threat") == 2:
+            threat = colored("Suspicious", "yellow")
+        elif result.get("threat") == 3:
+            threat = colored("Malicious", "red")
+
+        table.append([result.get('service'), result.get('behaviour'), threat])
+
+    return tabulate(table, tablefmt="fancy_grid")
 
 
 def hash_results(_hash, heading_color):
@@ -118,16 +133,36 @@ def hash_results(_hash, heading_color):
     except AttributeError:
         cprint("[!] There was an error displaying the VirusTotal report.", "red")
 
-    try:
-        malwarebazaar_results(_hash, heading_color)
-    except AttributeError:
-        cprint("[!] There was an error diplaying the MalwareBazaar report.", "red")
+
+    hashes_heading = colored("[*] Hash details:", heading_color)
+    print(f"{hashes_heading}\n{hash_details(_hash, heading_color)}")
+
+
+    detections_heading = colored("[*] Detections:", heading_color)
+    print(f"{detections_heading}\n{detections(_hash, heading_color)}")
+
+
+
+    if not _hash.tags:
+        cprint("[!] No tags to display.", "yellow")
+
+    heading = colored("[*] User-submitted tags:", heading_color)
+    print(f"{heading} {', '.join(_hash.tags)}")
+
+    if not _hash.behaviour:
+        cprint("[!] No behaviour data to display.", "yellow")
+
+    heading = colored("[*] Behaviour:", heading_color)
+    print(heading)
+    print(behaviour(_hash, heading_color))
+
 
 
 @click.command()
 @click.argument("ioc")
 @click.option("--config", required=False, type=str)
-def run(ioc, config):
+@click.option("--report", required=False, type=str)
+def run(ioc, config, report):
     """Entrypoint for the ioccheck CLI"""
 
     ioc_types = [
@@ -161,6 +196,11 @@ def run(ioc, config):
     check_message = "[*] Checking if IOC is a valid"
     fail_message = "[!] IOC is not a valid"
 
+    if not config:
+        config = os.path.join(Path.home(), ".config/ioccheck/credentials")
+
+    templates_dir = os.path.join(Path.home(), ".config/ioccheck/reports/templates")
+
     for ioc_type in ioc_types:
         try:
             cprint(f"{check_message} {ioc_type.get('name')}.", heading_color)
@@ -178,3 +218,8 @@ def run(ioc, config):
             )
         except FileNotFoundError as error:
             sys.exit(colored(f"[!] {error}", "red"))
+
+    if report:
+        cprint(f"[*] Generating report {report}")
+        html_report = HTMLReport(ioc, templates_dir)
+        html_report.generate(report)

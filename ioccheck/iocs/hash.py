@@ -112,3 +112,58 @@ class Hash(IOC):  # pylint: disable=too-few-public-methods,too-many-instance-att
 
         reports = self._get_reports(services)
         self.reports = HashReport(**reports)
+
+    @property
+    def hashes(self) -> Optional[dict]:
+        hashes = {}
+
+        for report in [self.reports.malwarebazaar, self.reports.virustotal]:
+            if report is not None and report.hashes:
+                hashes.update(report.hashes)
+        return hashes
+
+    @property
+    def detections(self) -> Optional[dict]:
+        detections= {}
+
+        for report in [self.reports.virustotal]:
+            if report is not None and report.detections:
+                detections.update(report.detections)
+        return detections
+
+    @property
+    def file_type(self) -> Optional[str]:
+        malwarebazaar = self.reports.malwarebazaar
+
+        if malwarebazaar is not None and malwarebazaar.file_type:
+            return self.reports.malwarebazaar.file_type
+
+    @property
+    def mime_type(self) -> Optional[str]:
+        malwarebazaar = self.reports.malwarebazaar
+
+        if malwarebazaar is not None and malwarebazaar.mime_type:
+            return self.reports.malwarebazaar.mime_type
+
+    @property
+    def file_size(self) -> Optional[str]:
+        malwarebazaar = self.reports.malwarebazaar
+
+        if malwarebazaar is not None and malwarebazaar.file_size:
+            return self.reports.malwarebazaar.file_size
+
+    @property
+    def behaviour(self) -> Optional[List[dict]]:
+        return self._get_cross_report_value([self.reports.malwarebazaar], "behaviour")
+
+    @property
+    def tags(self) -> Optional[List[dict]]:
+        return self._get_cross_report_value([self.reports.malwarebazaar, self.reports.virustotal], "tags")
+
+    def _get_cross_report_value(self, reports: list, attribute: str):
+        result = []
+        for report in reports:
+            if report is not None and hasattr(report, attribute):
+                result.extend(getattr(report, attribute))
+        return result
+

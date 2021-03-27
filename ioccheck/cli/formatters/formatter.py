@@ -9,8 +9,9 @@ from ioccheck.services import Service
 class Formatter:  # pylint: disable=too-few-public-methods
     """Base class for creating human-friendly threat intelligence API output"""
 
-    def __init__(self, service: Service):
-        self.service = service
+    def __init__(self, service: Service, heading_color: str):
+        self.service: Service = service
+        self.heading_color: str = heading_color
 
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
