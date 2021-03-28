@@ -9,7 +9,7 @@ from typing import List, Optional, Union
 
 from ioccheck.exceptions import InvalidIPException
 from ioccheck.iocs.ioc import IOC, IOCReport
-from ioccheck.services import Service, Shodan, ip_services
+from ioccheck.services import Service, Shodan, ip_services, Twitter
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -31,7 +31,8 @@ logger.addHandler(f_handler)
 class IPReport(IOCReport):
     """Report representing threat intelligence results for an IP object"""
 
-    shodan: Shodan
+    shodan: Shodan = None  # type: ignore
+    twitter: Twitter = None  # type: ignore
 
 
 class IP(IOC):

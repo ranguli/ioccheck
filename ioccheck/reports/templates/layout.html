@@ -1,0 +1,120 @@
+
+<html>
+  <head>
+    <title>Report - ioccheck </title>
+    <meta name="viewport" content="width=device-width initial-scale=1.0" charset="utf-8">
+    <style>
+    @media print {
+        body {
+            font-size: 0.75em;
+        }
+
+        span.code {
+            font-size: 0.7em;
+        }
+
+        table {
+            min-width: 100%;
+        }
+
+    }
+
+    * {
+        font-family: monospace;
+    }
+
+
+    table {
+        border-collapse: collapse;
+        margin: 25px 0;
+        table-layout: fixed;
+        min-width: 100%;
+    }
+
+    thead tr {
+      background-color: #009879;
+      text-align: left;
+    }
+
+    th, td {
+        padding: 6px 7px;
+    }
+
+    td.key {
+        width: 20%;
+        min-width: 20%;
+    }
+
+    td.value{
+        width: 80%;
+    }
+
+    tbody tr {
+        border-bottom: 1px solid #dddddd;
+    }
+
+    tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+    }
+
+    tbody tr:last-of-type {
+        border-bottom: 2px solid #009879;
+    }
+    tbody tr.active-row {
+        font-weight: bold;
+        color: #009879;
+    }
+
+    .scary {
+        color: red;
+        font-weight: bold;
+    }
+
+    .ok {
+        color: green;
+        font-weight: bold;
+    }
+
+    a.icon {
+        text-decoration: none;
+
+    }
+
+    span.icon {
+        font-size: 1.25em;
+    }
+
+    span.code {
+        font-family: monospace;
+        background-color: #333;
+        padding: 5px;
+        color: white;
+    }
+
+    footer {
+      font-style: italic;
+    }
+
+    span.tag {
+        background-color: gray;
+        color: white;
+        border-radius: 12px;
+        padding-left: 7px;
+        padding-right: 7px;
+        padding-bottom: 3px;
+        padding-top: 3px;
+        line-height: 2em;
+        white-space: nowrap;
+    }
+    </style>
+  </head>
+  <body>
+    <header>
+        <h1>ioccheck report</h1>
+        <h2>{{ioc}}</h2>
+    </header>
+    {% block content %}{% endblock %}
+    <hr>
+    <footer>{{ footer }}</footer>
+  </body>
+</html>

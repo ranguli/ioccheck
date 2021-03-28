@@ -2,9 +2,7 @@
 """Module provides a base Service for implenting other services upon"""
 
 import logging
-import os
 from abc import ABC, abstractmethod
-from pathlib import Path
 from typing import Any
 
 
@@ -18,7 +16,6 @@ class Service(ABC):  # pylint: disable=too-few-public-methods
     def __init__(self, ioc, api_key: str):
         self.ioc = ioc
         self.api_key = api_key
-        self._default_config_path = os.path.join(Path.home(), ".ioccheck")
 
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
