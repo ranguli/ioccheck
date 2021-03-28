@@ -9,7 +9,7 @@ from typing import List, Optional
 from ioccheck.exceptions import InvalidHashException
 from ioccheck.ioc_types import MD5, SHA256, HashType, hash_types
 from ioccheck.iocs.ioc import IOC, IOCReport
-from ioccheck.services import MalwareBazaar, Service, VirusTotal, hash_services
+from ioccheck.services import MalwareBazaar, Service, VirusTotal, Twitter, hash_services
 
 
 @dataclass
@@ -23,6 +23,7 @@ class HashReport(IOCReport):
 
     virustotal: VirusTotal = None  # type: ignore
     malwarebazaar: MalwareBazaar = None  # type: ignore
+    twitter: Twitter = None  # type: ignore
 
 
 class Hash(IOC):  # pylint: disable=too-few-public-methods,too-many-instance-attributes

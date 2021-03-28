@@ -237,7 +237,7 @@ def run(ioc, config, report):
     if not config:
         config = os.path.join(Path.home(), ".config/ioccheck/credentials")
 
-    templates_dir = os.path.join(Path.home(), ".config/ioccheck/reports/templates")
+    templates_dir = os.path.join(Path.home(), ".config/ioccheck/reports/templates/")
 
     for ioc_type in ioc_types:
         try:

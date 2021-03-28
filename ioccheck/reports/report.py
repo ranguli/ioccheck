@@ -31,17 +31,12 @@ class Report(ABC):
         link=emojize(":link:")
     )
 
+    template_file = "template.html"
 
     def __init__(self, ioc: IOC, templates_dir):
         self.ioc = ioc
         self.templates_dir = templates_dir
-
-        if isinstance(self.ioc, Hash):
-            self.template_file = "hash_template.html"
-        elif isinstance(self.ioc, IP):
-            self.template_file = "ip_template.html"
-        self.templates_dir = templates_dir
-
+        print(self.templates_dir)
         self.contents = {"ioc": self.ioc, "icons": self.icons}
 
     def _make_ordinal(self, n):

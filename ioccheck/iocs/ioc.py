@@ -30,10 +30,11 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
         services: All potential services avilable for the IOC type
     """
 
+    default_config_path = os.path.join(Path.home(), ".config/ioccheck/credentials")
+
     def __init__(self, ioc, config_path: Optional[str] = None):
 
         self.ioc = ioc
-        self._default_config_path = os.path.join(Path.home(), ".config/ioccheck/credentials")
 
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
@@ -50,7 +51,7 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
         self.logger.addHandler(f_handler)
 
         if config_path is None:
-            self.config_path = self._default_config_path
+            self.config_path = self.default_config_path
         else:
             self.config_path = config_path
 
@@ -60,7 +61,7 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
             raise FileNotFoundError(message)
 
         self.logger.info(
-            f"Default config path is {self._default_config_path}, supplied path is {self.config_path}"
+            f"Default config path is {self.default_config_path}, supplied path is {self.config_path}"
         )
 
         self.reports: IOCReport
@@ -85,10 +86,18 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
         return credentials
 
     @property
+    def tweets(self) -> Optional[List]:
+        try:
+            return self.reports.twitter.tweets
+        except AttributeError:
+            return None
+
+
+    @property
     def configured_services(self) -> list:
         """IOC services in the config file with keys"""
         if self.config_path is None:
-            self.config_path = self._default_config_path
+            self.config_path = self.default_config_path
 
         if not Path(self.config_path).is_file():
             message = f"File {self.config_path} does not exist"
@@ -111,7 +120,7 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
     def _get_reports(self, services: Optional[Union[List, List[Service]]] = None):
 
         reports = {}
-        # config_path = self._default_config_path if config_path is None else config_path
+        # config_path = self.default_config_path if config_path is None else config_path
         report_services = []
 
         if services is None:
@@ -155,3 +164,5 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
                     pass
 
         return result
+
+

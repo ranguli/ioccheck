@@ -18,7 +18,6 @@ class Service(ABC):  # pylint: disable=too-few-public-methods
     def __init__(self, ioc, api_key: str):
         self.ioc = ioc
         self.api_key = api_key
-        self._default_config_path = os.path.join(Path.home(), ".config/ioccheck/credentials")
 
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)

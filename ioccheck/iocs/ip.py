@@ -90,9 +90,3 @@ class IP(IOC):
 
         return ip
 
-    @property
-    def tweets(self) -> Optional[List]:
-        try:
-            return self.reports.twitter.tweets
-        except AttributeError:
-            return None
