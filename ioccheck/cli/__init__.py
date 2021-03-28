@@ -14,10 +14,18 @@ from termcolor import colored, cprint
 
 from tabulate import tabulate
 
-from ioccheck.cli.formatters import (MalwareBazaarFormatter, ShodanFormatter,
-                                     VirusTotalFormatter)
-from ioccheck.exceptions import (InvalidHashException, InvalidIPException,
-                                 NoConfiguredServicesException)
+import shodan
+
+from ioccheck.cli.formatters import (
+    MalwareBazaarFormatter,
+    ShodanFormatter,
+    VirusTotalFormatter,
+)
+from ioccheck.exceptions import (
+    InvalidHashException,
+    InvalidIPException,
+    NoConfiguredServicesException,
+)
 from ioccheck.iocs import IP, Hash
 
 from ioccheck.reports import HTMLReport
@@ -44,12 +52,35 @@ fonts = [
     "trek",
 ]
 
+"""
+def location_data():
+    Pre-formatted output for geolocation data
+
+    location = self.service.location
+    table = []
+
+    headings = {
+        "City": location.get("city"),
+        "Country": location.get("country_name"),
+        "Organization": location.get("org"),
+        "ISP": location.get("isp"),
+        "Hostnames": ", ".join(self.service.hostnames),
+        "ASN": location.get("asn"),
+    }
+
+    for title, value in headings.items():
+        if value:
+            table.append([colored(title, "blue"), value])
+
+    return tabulate(table, tablefmt="fancy_grid")
+    """
+
 
 def shodan_results(ip_addr, heading_color):
     """ Use the ShodanFormatter to print pre-formatted output """
-    shodan = ip_addr.reports.shodan
+    shodan_report = ip_addr.reports.shodan
 
-    formatter = ShodanFormatter(shodan)
+    formatter = ShodanFormatter(shodan_report)
 
     cprint("[*] Shodan location data:", heading_color)
     print(formatter.location)
@@ -87,7 +118,6 @@ def virustotal_results(_hash, heading_color):
 
 
 def detections(_hash, heading_color):
-    detection_heading = colored("[*] Vendor detections:", heading_color)
     table = [["Antivirus", "Detection"]]
 
     for detection, result in _hash.detections.items():
@@ -107,6 +137,7 @@ def hash_details(_hash, heading_color):
 
     return tabulate(table, tablefmt="fancy_grid")
 
+
 def behaviour(_hash, heading_color):
     table = [["Vendor", "Behaviour", "Threat"]]
 
@@ -118,7 +149,7 @@ def behaviour(_hash, heading_color):
         elif result.get("threat") == 3:
             threat = colored("Malicious", "red")
 
-        table.append([result.get('service'), result.get('behaviour'), threat])
+        table.append([result.get("service"), result.get("behaviour"), threat])
 
     return tabulate(table, tablefmt="fancy_grid")
 
@@ -133,15 +164,11 @@ def hash_results(_hash, heading_color):
     except AttributeError:
         cprint("[!] There was an error displaying the VirusTotal report.", "red")
 
-
     hashes_heading = colored("[*] Hash details:", heading_color)
     print(f"{hashes_heading}\n{hash_details(_hash, heading_color)}")
 
-
     detections_heading = colored("[*] Detections:", heading_color)
     print(f"{detections_heading}\n{detections(_hash, heading_color)}")
-
-
 
     if not _hash.tags:
         cprint("[!] No tags to display.", "yellow")
@@ -155,7 +182,6 @@ def hash_results(_hash, heading_color):
     heading = colored("[*] Behaviour:", heading_color)
     print(heading)
     print(behaviour(_hash, heading_color))
-
 
 
 @click.command()

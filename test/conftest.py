@@ -8,6 +8,8 @@ from ioccheck.ioc_types import MD5, SHA256
 from ioccheck.iocs import IP, Hash
 from ioccheck.services import MalwareBazaar, Shodan, VirusTotal
 
+import shodan
+
 
 @pytest.fixture
 def hash_1():
@@ -91,25 +93,44 @@ def malwarebazaar_report_1(malwarebazaar_mocked_response_1, hash_1, config_file)
 
 
 @pytest.fixture
-def malwarebazaar_report_2(malwarebazaar_mocked_response_2, hash_1, config_file):
-    """ MalwareBazaar report generated from malware_mocked_response_2 """
+def shodan_report_1(shodan_mocked_response_1, config_file):
+    """ Shodan report generated from shodan_mocked_response_1 """
     with patch.object(
-        MalwareBazaar, "_get_api_response", return_value=malwarebazaar_mocked_response_2
+        Shodan, "_get_api_response", return_value=shodan_mocked_response_1
     ) as mock_method:
-        mock_api_response = malwarebazaar_mocked_response_2
-        sample = Hash(hash_1, config_path=config_file)
+        mock_api_response = shodan_mocked_response_1
+        sample = IP("45.33.49.119", config_path=config_file)
 
-        sample.check(services=[MalwareBazaar])
+        sample.check(services=[Shodan])
 
         return sample
 
 
 @pytest.fixture
 def shodan_report_1(shodan_mocked_response_1, config_file):
-    """ MalwareBazaar report generated from malware_mocked_response_2 """
+    """ Shodan report generated from shodan_mocked_response_1 """
     with patch.object(
         Shodan, "_get_api_response", return_value=shodan_mocked_response_1
     ) as mock_method:
+        mock_api_response = shodan_mocked_response_1
+        sample = IP("45.33.49.119", config_path=config_file)
+
+        sample.check(services=[Shodan])
+
+        return sample
+
+
+@pytest.fixture
+def shodan_bad_response_1(shodan_mocked_response_1, config_file):
+    """ Shodan report simulating a shodan.error.APIError"""
+
+    def side_effect(*args):
+        raise shodan.exception.APIError("")
+
+    with patch.object(
+        shodan.client.Shodan, "host", return_value=None, side_effect=side_effect
+    ) as mock_method:
+
         mock_api_response = shodan_mocked_response_1
         sample = IP("45.33.49.119", config_path=config_file)
 

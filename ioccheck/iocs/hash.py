@@ -124,7 +124,7 @@ class Hash(IOC):  # pylint: disable=too-few-public-methods,too-many-instance-att
 
     @property
     def detections(self) -> Optional[dict]:
-        detections= {}
+        detections = {}
 
         for report in [self.reports.virustotal]:
             if report is not None and report.detections:
@@ -158,12 +158,24 @@ class Hash(IOC):  # pylint: disable=too-few-public-methods,too-many-instance-att
 
     @property
     def tags(self) -> Optional[List[dict]]:
-        return self._get_cross_report_value([self.reports.malwarebazaar, self.reports.virustotal], "tags")
+        return self._get_cross_report_value(
+            [self.reports.malwarebazaar, self.reports.virustotal], "tags"
+        )
+
+    @property
+    def urls(self) -> Optional[List[dict]]:
+        return self._get_cross_report_value(
+            [self.reports.malwarebazaar, self.reports.virustotal], "urls"
+        )
 
     def _get_cross_report_value(self, reports: list, attribute: str):
         result = []
+
         for report in reports:
             if report is not None and hasattr(report, attribute):
-                result.extend(getattr(report, attribute))
-        return result
+                try:
+                    result.extend(getattr(report, attribute))
+                except TypeError:
+                    pass
 
+        return result

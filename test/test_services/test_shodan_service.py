@@ -55,3 +55,6 @@ class TestShodan:
             "CVE-2018-1283",
             "CVE-2016-8743",
         ]
+
+    def test_api_error(self, shodan_bad_response_1):
+        assert shodan_bad_response_1.reports.shodan.tags is None

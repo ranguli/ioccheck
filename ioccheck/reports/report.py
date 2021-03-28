@@ -1,15 +1,13 @@
 #!/usr/bin/evnv python
 
-from abc import ABC, abstractmethod
-from typing import Optional
-
 import datetime
 import pkg_resources
+from abc import ABC, abstractmethod
 
 from ioccheck.iocs import IOC, Hash, IP
 
-class Report:
 
+class Report(ABC):
     def __init__(self, ioc: IOC, templates_dir):
         self.ioc = ioc
         self.templates_dir = templates_dir
@@ -30,13 +28,12 @@ class Report:
 
         return f"Generated on {datestamp} by ioccheck v{version}"
 
-
     def _make_ordinal(self, n):
         # https://stackoverflow.com/a/50992575
         n = int(n)
-        suffix = ['th', 'st', 'nd', 'rd', 'th'][min(n % 10, 4)]
+        suffix = ["th", "st", "nd", "rd", "th"][min(n % 10, 4)]
         if 11 <= (n % 100) <= 13:
-            suffix = 'th'
+            suffix = "th"
         return str(n) + suffix
 
     @abstractmethod

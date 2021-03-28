@@ -22,6 +22,10 @@ class Shodan(Service):
         Service.__init__(self, ioc, api_key)
 
         self.response = self._get_api_response(ioc, api_key)
+
+        if not self.response:
+            return
+
         self._response_data = self.response.get("data")[0]
 
     @on_exception(expo, RateLimitException, max_tries=10)
@@ -30,8 +34,11 @@ class Shodan(Service):
         self, ioc: Union[IPv4Address, IPv6Address], api_key: str
     ) -> dict:
         client = shodan.Shodan(api_key)
-        result = client.host(str(ioc))
-        return result
+
+        try:
+            return client.host(str(ioc))
+        except shodan.exception.APIError:
+            return None
 
     @property
     def investigation_url(self) -> Optional[str]:
@@ -57,7 +64,11 @@ class Shodan(Service):
     @property
     def tags(self) -> list:
         """User-submitted tags for the sample from the MalwareBazaar website"""
-        return self._response_data.get("tags")
+        try:
+            return self._response_data.get("tags")
+        except AttributeError:
+            pass
+        return None
 
     @property
     def hostnames(self) -> list:

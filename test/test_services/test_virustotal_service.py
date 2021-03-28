@@ -26,9 +26,6 @@ class TestVirusTotal:
     def test_virustotal_relationships_exists(self, virustotal_report_1):
         assert not virustotal_report_1.reports.virustotal.relationships
 
-    def test_virustotal_popular_threat_names_exists(self, virustotal_report_1):
-        assert virustotal_report_1.reports.virustotal.popular_threat_names
-
     def test_virustotal_tags_exists(self, virustotal_report_1):
         assert virustotal_report_1.reports.virustotal.tags
 
@@ -43,11 +40,8 @@ class TestVirusTotalAPIError:
     def test_virustotal_error_reputation(self, virustotal_bad_response_1):
         assert virustotal_bad_response_1.reports.virustotal.reputation is None
 
-    def test_virustotal_error_popular_threat_names(self, virustotal_bad_response_1):
-        assert virustotal_bad_response_1.reports.virustotal.popular_threat_names is None
-
     def test_virustotal_error_popular_relationships(self, virustotal_bad_response_1):
         assert virustotal_bad_response_1.reports.virustotal.relationships is None
 
-    def test_virustotal_error_popular_tags(self, virustotal_bad_response_1):
+    def test_virustotal_error_tags(self, virustotal_bad_response_1):
         assert virustotal_bad_response_1.reports.virustotal.tags is None

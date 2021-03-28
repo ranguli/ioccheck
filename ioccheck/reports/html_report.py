@@ -1,8 +1,5 @@
 #!/usr/bin/env python
 
-from pathlib import Path
-from typing import Optional
-
 from dataclasses import dataclass
 
 import emoji
@@ -11,22 +8,32 @@ from jinja2 import FileSystemLoader, Environment
 from ioccheck.iocs import IOC
 from .report import Report
 
+
 class HTMLReport(Report):
-    warning_icon = emoji.emojize(':warning:')
-    ok_icon = emoji.emojize(':check_mark_button:')
-    clipboard_icon = emoji.emojize(':clipboard:')
+    warning_icon = emoji.emojize(":warning:")
+    ok_icon = emoji.emojize(":check_mark_button:")
+    clipboard_icon = emoji.emojize(":clipboard:")
+    alert_icon = emoji.emojize(":police_car_light:")
+    virus_icon = emoji.emojize(":microbe:")
 
     def __init__(self, ioc: IOC, templates_dir: str):
         Report.__init__(self, ioc, templates_dir)
         self.contents = dict(
-                detections=self.detections,
-                footer=self.footer,
-                icons=Icons(
-                    warning=self.warning_icon,
-                    ok=self.ok_icon,
-                    clipboard=self.clipboard_icon
-                ),
-                hashes=self.ioc.hashes
+            ioc=self.ioc,
+            detections=self.detections,
+            footer=self.footer,
+            icons=Icons(
+                warning=self.warning_icon,
+                ok=self.ok_icon,
+                clipboard=self.clipboard_icon,
+                alert=self.alert_icon,
+                virus=self.virus_icon,
+            ),
+            behaviour=self.behaviour,
+            hashes=self.ioc.hashes,
+            tags=self.ioc.tags,
+            tag_colors=self.tag_colors,
+            urls=self.ioc.urls,
         )
 
     def generate(self, output_file: str):
@@ -46,10 +53,43 @@ class HTMLReport(Report):
             if result.get("category") == "malicious":
                 malicious = True
 
-            name = result.get("result") if result.get("result") is not None else "Not detected"
+            name = (
+                result.get("result")
+                if result.get("result") is not None
+                else "Not detected"
+            )
 
-            detections.append(Detection(engine=detection, name=name, malicious=malicious))
-        return detections
+            detections.append(
+                Detection(engine=detection, name=name, malicious=malicious)
+            )
+        return sorted(detections, key=lambda x: x.malicious, reverse=True)
+
+    @property
+    def behaviour(self):
+        behaviours = []
+        for behaviour in self.ioc.behaviour:
+            behaviours.append(
+                Behaviour(
+                    sandbox=behaviour.get("service"),
+                    description=behaviour.get("behaviour"),
+                    threat=behaviour.get("threat"),
+                )
+            )
+        return sorted(behaviours, key=lambda x: x.threat, reverse=True)
+
+    @property
+    def tag_colors(self):
+        return [
+            "#264653",
+            "#2A9D8F",
+            "#E9C46A",
+            "#F4A261",
+            "#E76F51",
+            "#3F88C5",
+            "#A2AEBB",
+            "#D00000",
+            "#79ADDC",
+        ]
 
 
 @dataclass
@@ -57,6 +97,9 @@ class Icons:
     warning: str
     ok: str
     clipboard: str
+    alert: str
+    virus: str
+
 
 @dataclass
 class Detection:
@@ -65,21 +108,8 @@ class Detection:
     malicious: bool
 
 
-
-"""
-
-TEMPLATE_FILE = "template.html"
-
-
-
-items = []
-for i in range(1, 11):
-    i = str(i)
-
-    warning = emoji.emojize(':warning:')
-
-    an_item = dict(threat=warning, date="2012-02-" + i, id=i, position="here", status="waiting")
-    items.append(an_item)
-
-output_text = template.render(my_list=["foo", "bar", "baz"], items=items)  # this is where to put args to the template renderer
-"""
+@dataclass
+class Behaviour:
+    sandbox: str
+    description: str
+    threat: int

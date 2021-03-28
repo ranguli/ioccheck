@@ -3,9 +3,6 @@
 
 import logging
 
-from tabulate import tabulate
-from termcolor import colored
-
 from ioccheck.cli.formatters.formatter import Formatter
 from ioccheck.services import Shodan
 
@@ -23,32 +20,5 @@ logger.addHandler(f_handler)
 class ShodanFormatter(Formatter):
     """Provide pre-formatted output from the Shodan.io Service"""
 
-    def __init__(self, service: Shodan):
-        Formatter.__init__(self, service)
-
-    @property
-    def tags(self):
-        """Pre-formatted output for user-submitted tags"""
-        return ", ".join(self.service.tags) if self.service.tags else None
-
-    @property
-    def location(self):
-        """Pre-formatted output for geolocation data"""
-
-        location = self.service.location
-        table = []
-
-        headings = {
-            "City": location.get("city"),
-            "Country": location.get("country_name"),
-            "Organization": location.get("org"),
-            "ISP": location.get("isp"),
-            "Hostnames": ", ".join(self.service.hostnames),
-            "ASN": location.get("asn"),
-        }
-
-        for title, value in headings.items():
-            if value:
-                table.append([colored(title, "blue"), value])
-
-        return tabulate(table, tablefmt="fancy_grid")
+    def __init__(self, service: Shodan, heading_color):
+        Formatter.__init__(self, service, heading_color)

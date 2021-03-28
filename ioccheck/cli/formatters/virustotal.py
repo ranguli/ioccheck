@@ -4,7 +4,6 @@
 import logging
 from typing import Optional
 
-from tabulate import tabulate
 from termcolor import colored
 
 from ioccheck.cli.formatters.formatter import Formatter
@@ -54,28 +53,3 @@ class VirusTotalFormatter(Formatter):
             detection_count_string = colored(detection_count_string, "red")
 
         return detection_count_string
-
-    @property
-    def sandbox_verdicts(self):
-        """Provide pre-formatted output of the results from sandbox analysis"""
-        result = None
-        try:
-            result = self.service.response.sandbox_verdicts
-        except AttributeError:
-            pass
-
-        return result
-
-    @property
-    def tags(self):
-        """Provide pre-formatted output of user-submitted tags for the sample"""
-        return ", ".join(self.service.tags) if self.service.tags else None
-
-    @property
-    def popular_threat_names(self):
-        """Provide pre-formatted output of popular humand-friendly names"""
-        return (
-            ", ".join(self.service.popular_threat_names)
-            if self.service.popular_threat_names
-            else None
-        )
