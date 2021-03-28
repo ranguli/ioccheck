@@ -2,13 +2,14 @@
 
 import datetime
 import pkg_resources
-from abc import ABC, abstractmethod
+from abc import ABC
 from dataclasses import dataclass
 
-from ioccheck.iocs import IOC, Hash, IP
+from ioccheck.iocs import IOC
 from emoji import emojize
 
 from jinja2 import FileSystemLoader, Environment
+
 
 @dataclass
 class Icons:
@@ -22,13 +23,13 @@ class Icons:
 
 class Report(ABC):
 
-    icons=Icons(
+    icons = Icons(
         warning=emojize(":warning:"),
         ok=emojize(":check_mark_button"),
         clipboard=emojize(":clipboard:"),
         alert=emojize(":police_car_light:"),
         virus=emojize(":microbe:"),
-        link=emojize(":link:")
+        link=emojize(":link:"),
     )
 
     template_file = "template.html"
@@ -46,7 +47,6 @@ class Report(ABC):
         if 11 <= (n % 100) <= 13:
             suffix = "th"
         return str(n) + suffix
-
 
     def generate(self, output_file: str):
         template_loader = FileSystemLoader(searchpath=self.templates_dir)
@@ -67,7 +67,6 @@ class Report(ABC):
 
         return f"Generated on {datestamp} by ioccheck v{version}"
 
-
     @property
     def tag_colors(self):
         return [
@@ -81,4 +80,3 @@ class Report(ABC):
             "#D00000",
             "#79ADDC",
         ]
-

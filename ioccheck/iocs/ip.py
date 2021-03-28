@@ -31,8 +31,8 @@ logger.addHandler(f_handler)
 class IPReport(IOCReport):
     """Report representing threat intelligence results for an IP object"""
 
-    shodan: Shodan = None # type: ignore
-    twitter: Twitter = None # type: ignore
+    shodan: Shodan = None  # type: ignore
+    twitter: Twitter = None  # type: ignore
 
 
 class IP(IOC):
@@ -89,4 +89,3 @@ class IP(IOC):
             raise InvalidIPException
 
         return ip
-

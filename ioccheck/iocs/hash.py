@@ -119,8 +119,8 @@ class Hash(IOC):  # pylint: disable=too-few-public-methods,too-many-instance-att
         hashes = {}
 
         for report in [self.reports.malwarebazaar, self.reports.virustotal]:
-            if report is not None and report.hashes:
-                hashes.update(report.hashes)
+            if report is not None and hasattr(report, "hashes"):
+                hashes.update(report.hashes)  # type: ignore
         return hashes
 
     @property
@@ -138,6 +138,7 @@ class Hash(IOC):  # pylint: disable=too-few-public-methods,too-many-instance-att
 
         if malwarebazaar is not None and malwarebazaar.file_type:
             return self.reports.malwarebazaar.file_type
+        return None
 
     @property
     def mime_type(self) -> Optional[str]:
@@ -145,6 +146,7 @@ class Hash(IOC):  # pylint: disable=too-few-public-methods,too-many-instance-att
 
         if malwarebazaar is not None and malwarebazaar.mime_type:
             return self.reports.malwarebazaar.mime_type
+        return None
 
     @property
     def file_size(self) -> Optional[str]:
@@ -152,6 +154,7 @@ class Hash(IOC):  # pylint: disable=too-few-public-methods,too-many-instance-att
 
         if malwarebazaar is not None and malwarebazaar.file_size:
             return self.reports.malwarebazaar.file_size
+        return None
 
     @property
     def behaviour(self) -> Optional[List[dict]]:

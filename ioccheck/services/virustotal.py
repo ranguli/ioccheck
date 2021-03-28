@@ -90,16 +90,16 @@ class VirusTotal(Service):
             return None
 
     @property
-    def tags(self) -> Optional[dict]:
+    def tags(self) -> Optional[list]:
         """User-provided tags to classify samples"""
-        tags = []
+        tags: List[str]
 
         try:
             names = self.response.get("popular_threat_classification").get(  # type: ignore
                 "popular_threat_name"
             )
         except AttributeError:
-            return
+            return tags
 
         if names:
             tags.extend([name[0] for name in names])

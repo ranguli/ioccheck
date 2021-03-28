@@ -2,10 +2,8 @@
 """Module provides human-friendly output from Twitter """
 
 import logging
-from typing import Optional
 
-from tabulate import tabulate
-from termcolor import cprint, colored
+from termcolor import colored
 
 from ioccheck.cli.formatters.formatter import Formatter
 from ioccheck.services import Twitter
@@ -28,7 +26,7 @@ class TwitterFormatter(Formatter):
         Formatter.__init__(self, service, heading_color)
 
     @property
-    def tweets(self) -> Optional[str]:
+    def tweets(self):
         """Provide pre-formatted output of tweets"""
 
         for tweet in self.service.tweets:

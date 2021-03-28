@@ -12,12 +12,17 @@ from ioccheck.exceptions import (
     InvalidCredentialsException,
     NoConfiguredServicesException,
 )
-from ioccheck.services import Service
+from ioccheck.services import Service, Twitter, VirusTotal, MalwareBazaar, Shodan
 
 
 @dataclass
 class IOCReport:
     """Base dataclass for creating indicators of compromise reports """
+
+    virustotal: VirusTotal = None  # type: ignore
+    malwarebazaar: MalwareBazaar = None  # type: ignore
+    shodan: Shodan = None  # type: ignore
+    twitter: Twitter = None  # type: ignore
 
 
 class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attributes
@@ -92,7 +97,6 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
         except AttributeError:
             return None
 
-
     @property
     def configured_services(self) -> list:
         """IOC services in the config file with keys"""
@@ -152,7 +156,6 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
     def __str__(self):
         return self.ioc
 
-
     def _get_cross_report_value(self, reports: list, attribute: str):
         result = []
 
@@ -164,5 +167,3 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
                     pass
 
         return result
-
-

@@ -20,7 +20,7 @@ from ioccheck.cli.formatters import (
     MalwareBazaarFormatter,
     ShodanFormatter,
     VirusTotalFormatter,
-    TwitterFormatter
+    TwitterFormatter,
 )
 from ioccheck.exceptions import (
     InvalidHashException,
@@ -105,6 +105,7 @@ def ip_results(ip_addr, heading_color):
         cprint("[!] There was an error displaying the Shodan report.", "red")
 
     twitter_results(ip_addr, heading_color)
+
 
 def virustotal_results(_hash, heading_color):
     """ Use the VirusTotalFormatter to print pre-formatted output """
@@ -191,7 +192,6 @@ def hash_results(_hash, heading_color):
     heading = colored("[*] Behaviour:", heading_color)
     print(heading)
     print(behaviour(_hash, heading_color))
-
 
     twitter_results(_hash, heading_color)
 

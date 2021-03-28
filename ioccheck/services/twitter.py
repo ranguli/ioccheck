@@ -2,7 +2,7 @@
 """ Represents response from the VirusTotal API """
 
 from dataclasses import dataclass
-from typing import List, Optional
+from typing import Optional
 
 import tweepy
 
@@ -40,9 +40,9 @@ class Twitter(Service):
                 lang="en",
                 tweet_mode="extended",
             ).items()
-            return [tweet for tweet in tweets if not tweet.retweeted]
+            return {"tweets": [tweet for tweet in tweets if not tweet.retweeted]}
         except tweepy.error.TweepError:
-            return None
+            return {}
 
     @property
     def tweets(self):
@@ -53,7 +53,7 @@ class Twitter(Service):
                 text=tweet.full_text,
                 url=f"https://twitter.com/twitter/status/{tweet.id}",
             )
-            for tweet in self.response
+            for tweet in self.response.get("tweets")
         ]
 
 
