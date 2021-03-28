@@ -20,6 +20,7 @@ from ioccheck.cli.formatters import (
     MalwareBazaarFormatter,
     ShodanFormatter,
     VirusTotalFormatter,
+    TwitterFormatter
 )
 from ioccheck.exceptions import (
     InvalidHashException,
@@ -28,7 +29,7 @@ from ioccheck.exceptions import (
 )
 from ioccheck.iocs import IP, Hash
 
-from ioccheck.reports import HTMLReport
+from ioccheck.reports import HTMLHashReport, HTMLIPReport
 
 asyncio_logger = logging.getLogger("asyncio")
 asyncio_logger.setLevel(logging.CRITICAL)
@@ -80,13 +81,20 @@ def shodan_results(ip_addr, heading_color):
     """ Use the ShodanFormatter to print pre-formatted output """
     shodan_report = ip_addr.reports.shodan
 
-    formatter = ShodanFormatter(shodan_report)
+    formatter = ShodanFormatter(shodan_report, heading_color)
 
     cprint("[*] Shodan location data:", heading_color)
     print(formatter.location)
 
     tags_header = colored("[*] Shodan tags:", heading_color)
     print(f"{tags_header} {formatter.tags}")
+
+
+def twitter_results(ioc, heading_color):
+    twitter_report = ioc.reports.twitter
+
+    formatter = TwitterFormatter(twitter_report, heading_color)
+    print(formatter.tweets)
 
 
 def ip_results(ip_addr, heading_color):
@@ -96,6 +104,7 @@ def ip_results(ip_addr, heading_color):
     except AttributeError:
         cprint("[!] There was an error displaying the Shodan report.", "red")
 
+    twitter_results(ip_addr, heading_color)
 
 def virustotal_results(_hash, heading_color):
     """ Use the VirusTotalFormatter to print pre-formatted output """
@@ -184,6 +193,9 @@ def hash_results(_hash, heading_color):
     print(behaviour(_hash, heading_color))
 
 
+    twitter_results(_hash, heading_color)
+
+
 @click.command()
 @click.argument("ioc")
 @click.option("--config", required=False, type=str)
@@ -247,5 +259,9 @@ def run(ioc, config, report):
 
     if report:
         cprint(f"[*] Generating report {report}")
-        html_report = HTMLReport(ioc, templates_dir)
+        if isinstance(ioc, Hash):
+            html_report = HTMLHashReport(ioc, templates_dir)
+        elif isinstance(ioc, IP):
+            html_report = HTMLIPReport(ioc, templates_dir)
+
         html_report.generate(report)

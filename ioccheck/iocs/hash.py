@@ -167,15 +167,3 @@ class Hash(IOC):  # pylint: disable=too-few-public-methods,too-many-instance-att
         return self._get_cross_report_value(
             [self.reports.malwarebazaar, self.reports.virustotal], "urls"
         )
-
-    def _get_cross_report_value(self, reports: list, attribute: str):
-        result = []
-
-        for report in reports:
-            if report is not None and hasattr(report, attribute):
-                try:
-                    result.extend(getattr(report, attribute))
-                except TypeError:
-                    pass
-
-        return result

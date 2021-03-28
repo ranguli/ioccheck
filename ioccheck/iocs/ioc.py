@@ -33,7 +33,7 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
     def __init__(self, ioc, config_path: Optional[str] = None):
 
         self.ioc = ioc
-        self._default_config_path = os.path.join(Path.home(), ".ioccheck")
+        self._default_config_path = os.path.join(Path.home(), ".config/ioccheck/credentials")
 
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
@@ -80,7 +80,7 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
                 f"Got values {values} for {section} from {self.config_path}."
             )
 
-            credentials.update({section: config[section]["api_key"]})
+            credentials.update({section: config[section]})
 
         return credentials
 
@@ -142,3 +142,16 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
 
     def __str__(self):
         return self.ioc
+
+
+    def _get_cross_report_value(self, reports: list, attribute: str):
+        result = []
+
+        for report in reports:
+            if report is not None and hasattr(report, attribute):
+                try:
+                    result.extend(getattr(report, attribute))
+                except TypeError:
+                    pass
+
+        return result
