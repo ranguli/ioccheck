@@ -50,12 +50,3 @@ class TestVirusTotal:
             with pytest.raises(AttributeError):
                 sample.check(services=[VirusTotal])
                 assert sample.detections is None
-
-    def test_detection_coverage_typecheck_1(
-        self, hash_1, config_file, virustotal_report_1
-    ):
-        with patch("ioccheck.services.virustotal.VirusTotal") as Mocked:
-            instance = Mocked()
-            instance.detections = 69
-
-            assert virustotal_report_1.reports.virustotal.detections == 69

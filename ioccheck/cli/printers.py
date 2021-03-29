@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+"""Module containing classes for printing pre-formatted data to the CLI"""
 
 from abc import ABC, abstractmethod
 from typing import Optional
@@ -6,14 +7,29 @@ from typing import Optional
 from tabulate import tabulate
 from termcolor import colored, cprint
 
+
+from ioccheck.iocs import IOC
 from ioccheck.services import Twitter
 
 
 class Printer(ABC):
+    """Base class for creating an object that prints information to the CLI
+
+    Attributes:
+        heading_color: Color used by the heading text describing a piece of data.
+        error_color: Color to be used for displaying back error messages.
+    """
+
     heading_color = "blue"
     error_color = "red"
 
-    def __init__(self, ioc, heading, attr, delim, error):
+    def __init__(self, ioc: IOC, heading: str, attr: str, delim: str, error_text: str):
+        """
+        Args:
+            ioc: The
+
+
+        """
         self.ioc = ioc
         self.heading = heading
         self.attr = attr
@@ -45,11 +61,11 @@ class Printer(ABC):
             )
 
 
-class BehaviourPrinter(Printer):
-    heading = "Sandbox behaviour"
-    attr = "behaviour"
+class BehaviorPrinter(Printer):
+    heading = "Sandbox behavior"
+    attr = "behavior"
     delim = "\n"
-    error = "No behaviour data to display"
+    error = "No behavior data to display"
 
     def __init__(self, ioc):
         Printer.__init__(self, ioc, self.heading, self.attr, self.delim, self.error)
@@ -57,7 +73,7 @@ class BehaviourPrinter(Printer):
     def make_text(self) -> Optional[str]:
         table = [["Vendor", "Behaviour", "Threat"]]
 
-        for result in self.ioc.behaviour:
+        for result in self.ioc.behavior:
             if result.get("threat") is None:
                 continue
             elif result.get("threat") == 1:
@@ -127,6 +143,7 @@ class DetectionsPrinter(Printer):
 
     def detection_count(self):
         """Provide pre-formatted output for the number of detections"""
+        """
         detection_percent = self.ioc.detection_coverage * 100
 
         detection_count_string = f"{self.service.detection_count} engines ({detection_percent:.2g}%) detected this file.\n"
@@ -137,3 +154,4 @@ class DetectionsPrinter(Printer):
             detection_count_string = colored(detection_count_string, "red")
 
         return detection_count_string
+        """

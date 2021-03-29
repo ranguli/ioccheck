@@ -100,7 +100,7 @@ class VirusTotal(Service):
     @property
     def tags(self) -> Set[str]:
         """User-provided tags to classify samples"""
-        tags: Set[str]
+        tags: Set[str] = set()
 
         try:
             names = self.response.get("popular_threat_classification").get(  # type: ignore

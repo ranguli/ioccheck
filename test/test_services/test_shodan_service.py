@@ -10,10 +10,10 @@ class TestShodan:
         assert shodan_report_1
 
     def test_tags(self, shodan_report_1):
-        assert shodan_report_1.reports.shodan.tags == ["cloud"]
+        assert shodan_report_1.reports.shodan.tags == {"cloud"}
 
     def test_hostname(self, shodan_report_1):
-        assert shodan_report_1.reports.shodan.hostnames == ["ack.nmap.org"]
+        assert shodan_report_1.reports.shodan.hostnames == {"ack.nmap.org"}
 
     def test_location(self, shodan_report_1):
         assert shodan_report_1.reports.shodan.location == {

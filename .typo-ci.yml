@@ -15,7 +15,7 @@ excluded_words:
   - cprint
   - asctime
   - delim
-  - emoijize
+  - emojize
   - urlhaus
   - URLhaus
   - vxcube

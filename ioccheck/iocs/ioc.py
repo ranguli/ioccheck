@@ -93,6 +93,7 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
 
     @property
     def tweets(self) -> Optional[List]:
+        """Tweets that mention the IOC directly"""
         try:
             return self.reports.twitter.tweets
         except AttributeError:
@@ -170,12 +171,14 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
 
     @property
     def tags(self) -> Optional[List[dict]]:
+        """User-submitted tags describing the IOC across multiple services."""
         return self._get_cross_report_value(
             [self.reports.malwarebazaar, self.reports.virustotal], "tags"
         )
 
     @property
     def urls(self) -> Optional[List[dict]]:
+        """URLs to use for following up on information from a service."""
         return self._get_cross_report_value(
             [self.reports.malwarebazaar, self.reports.virustotal], "urls"
         )

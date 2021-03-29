@@ -1,4 +1,4 @@
-#!/usr/bin/evnv python
+#!/usr/bin/env python
 
 import datetime
 from abc import ABC

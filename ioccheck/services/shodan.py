@@ -34,13 +34,12 @@ class Shodan(Service):
 
         try:
             result = client.host(str(ioc))
-        except shodan.exception.APIError as e:
-            if str(e) == "Invalid API key":
+        except shodan.exception.APIError as error:
+            if str(error) == "Invalid API key":
                 raise InvalidCredentialsError(
                     "Shodan says your API keys are invalid."
-                ) from e
-            else:
-                raise APIError from e
+                ) from error
+            raise APIError from error
 
         return result
 
@@ -66,16 +65,16 @@ class Shodan(Service):
         return {k: self.response.get(k) for k in keys}
 
     @property
-    def tags(self) -> list:
+    def tags(self) -> set:
         """User-submitted tags for the sample from the MalwareBazaar website"""
-        return self._response_data.get("tags", default=[])
+        return set(self._response_data.get("tags", []))
 
     @property
-    def hostnames(self) -> list:
+    def hostnames(self) -> set:
         """Hostnames found for the given IP address"""
-        return self.response.get("hostnames", default=[])
+        return set(self.response.get("hostnames", []))
 
     @property
     def vulns(self) -> list:
         """CVEs found by the Shodan scanners for the given IP address"""
-        return self.response.get("vulns", default=[])
+        return self.response.get("vulns", [])

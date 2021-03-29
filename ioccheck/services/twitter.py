@@ -4,8 +4,7 @@
 from dataclasses import dataclass
 
 import tweepy
-from ioccehck.exceptions import APIError
-
+from ioccheck.exceptions import APIError
 from ioccheck.services.service import Service
 
 
@@ -50,8 +49,8 @@ class Twitter(Service):
             return {
                 "tweets": [tweet for tweet in tweets if self.ioc in tweet.full_text]
             }
-        except tweepy.error.TweepError as e:
-            raise APIError from e
+        except tweepy.error.TweepError as error:
+            raise APIError from error
 
     @property
     def tweets(self):
