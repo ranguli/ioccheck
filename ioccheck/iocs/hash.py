@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 """Module representing file hashes"""
 
-
 import re
 from typing import List, Optional
 
@@ -9,6 +8,7 @@ from ioccheck.exceptions import InvalidHashException
 from ioccheck.ioc_types import MD5, SHA256, HashType, hash_types
 from ioccheck.iocs.ioc import IOC, IOCReport
 from ioccheck.services import Service, hash_services
+from ioccheck.services.data_types import Behavior
 
 
 class HashReport(IOCReport):
@@ -156,5 +156,5 @@ class Hash(IOC):  # pylint: disable=too-few-public-methods,too-many-instance-att
         return None
 
     @property
-    def behavior(self) -> Optional[List[dict]]:
+    def behavior(self) -> Optional[List[Behavior]]:
         return self._get_cross_report_value([self.reports.malwarebazaar], "behavior")

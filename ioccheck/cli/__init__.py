@@ -113,12 +113,13 @@ def run(ioc, config, report):
             ioc.check()
 
             for printer in ioc_type.get("printers"):
-                printer(ioc).print_text()
+                text_printer = printer(ioc)
+                text_printer.print_text()
             break
         except ioc_type.get("exception"):
             cprint(f"{fail_message} {ioc_type.get('name')}.", "yellow")
-        except exceptions.InvalidCredentialsError as e:
-            cprint(f"[!] {e}", "red")
+        except exceptions.InvalidCredentialsError as error:
+            cprint(f"[!] {error}", "red")
         except exceptions.NoConfiguredServicesException:
             sys.exit(
                 colored(

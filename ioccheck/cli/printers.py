@@ -2,13 +2,13 @@
 """Module containing classes for printing pre-formatted data to the CLI"""
 
 from abc import ABC, abstractmethod
-from typing import Optional
+from typing import Optional, Union
 
 from tabulate import tabulate
 from termcolor import colored, cprint
 
 
-from ioccheck.iocs import IOC
+from ioccheck.iocs import Hash, IP
 from ioccheck.services import Twitter
 
 
@@ -23,7 +23,9 @@ class Printer(ABC):
     heading_color = "blue"
     error_color = "red"
 
-    def __init__(self, ioc: IOC, heading: str, attr: str, delim: str, error_text: str):
+    def __init__(
+        self, ioc, heading: Optional[str], attr: str, delim: str, error_text: str
+    ):
         """
         Args:
             ioc: The
@@ -31,6 +33,7 @@ class Printer(ABC):
 
         """
         self.ioc = ioc
+
         self.heading = heading
         self.attr = attr
         self.delim = delim
@@ -43,12 +46,7 @@ class Printer(ABC):
         pass
 
     def print_text(self):
-        if (
-            self.text is None
-            or self.text == ""
-            or not hasattr(self.ioc, self.attr)
-            or getattr(self.ioc, self.attr) is None
-        ):
+        if self.text is None or self.text == "":
             cprint(f"[!] {self.error_text}", self.error_color)
             return
 
@@ -67,25 +65,28 @@ class BehaviorPrinter(Printer):
     delim = "\n"
     error_text = "No behavior data to display"
 
-    def __init__(self, ioc):
+    def __init__(self, ioc: Hash):
         Printer.__init__(
             self, ioc, self.heading, self.attr, self.delim, self.error_text
         )
 
+        self.ioc = ioc
+
     def make_text(self) -> Optional[str]:
         table = [["Vendor", "Behaviour", "Threat"]]
 
-        for result in self.ioc.behavior:
-            if result.get("threat") is None:
+        for result in self.ioc.behavior:  # type: ignore
+            if result.threat is None:
                 continue
-            elif result.get("threat") == 1:
+
+            if result.threat == 1:
                 threat = colored("Neutral", "green")
-            elif result.get("threat") == 2:
+            elif result.threat == 2:
                 threat = colored("Suspicious", "yellow")
-            elif result.get("threat") == 3:
+            elif result.threat == 3:
                 threat = colored("Malicious", "red")
 
-            table.append([result.get("service"), result.get("behaviour"), threat])
+            table.append([result.vendor, result.behavior, threat])
 
         if len(table) == 1:
             return None
@@ -99,7 +100,7 @@ class TagsPrinter(Printer):
     delim = " "
     error_text = "No tags to display"
 
-    def __init__(self, ioc):
+    def __init__(self, ioc: Union[Hash, IP]):
         Printer.__init__(
             self, ioc, self.heading, self.attr, self.delim, self.error_text
         )
@@ -115,12 +116,15 @@ class TwitterPrinter(Printer):
     error_text = "No tweets about this IOC."
     service = Twitter
 
-    def __init__(self, ioc):
+    def __init__(self, ioc: Union[Hash, IP]):
         Printer.__init__(
             self, ioc, self.heading, self.attr, self.delim, self.error_text
         )
 
     def make_text(self) -> Optional[str]:
+        if not self.ioc.tweets:
+            return None
+
         text = []
         for tweet in self.ioc.tweets:
             author = colored(f"\n[*] Tweet from: @{tweet.author}:", self.heading_color)
@@ -135,7 +139,7 @@ class DetectionsPrinter(Printer):
     error_text = "No vendors detected this sample."
     heading = "Vendor detections"
 
-    def __init__(self, ioc):
+    def __init__(self, ioc: Hash):
         Printer.__init__(
             self, ioc, self.heading, self.attr, self.delim, self.error_text
         )
@@ -148,18 +152,3 @@ class DetectionsPrinter(Printer):
                 table.append([detection, colored(result.get("result"), "red")])
 
         return tabulate(table, headers="firstrow", tablefmt="fancy_grid")
-
-    def detection_count(self):
-        """Provide pre-formatted output for the number of detections"""
-        """
-        detection_percent = self.ioc.detection_coverage * 100
-
-        detection_count_string = f"{self.service.detection_count} engines ({detection_percent:.2g}%) detected this file.\n"
-
-        if self.service.detection_count == 0:
-            detection_count_string = colored(detection_count_string, "green")
-        elif self.service.detection_count > 0:
-            detection_count_string = colored(detection_count_string, "red")
-
-        return detection_count_string
-        """

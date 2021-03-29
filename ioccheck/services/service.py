@@ -3,8 +3,9 @@
 
 import logging
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
-from typing import Any, List, Optional
+from typing import Any, List
+
+from .data_types import Credentials
 
 from ioccheck import exceptions
 
@@ -49,12 +50,3 @@ class Service(ABC):  # pylint: disable=too-few-public-methods
 
     def __str__(self):
         return self.name
-
-
-@dataclass
-class Credentials:
-    api_key: Optional[str] = None
-    consumer_key: Optional[str] = None
-    consumer_secret: Optional[str] = None
-    access_token: Optional[str] = None
-    access_secret: Optional[str] = None

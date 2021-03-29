@@ -4,6 +4,7 @@
 from dataclasses import dataclass
 
 import tweepy
+
 from ioccheck.exceptions import APIError
 from ioccheck.services.service import Service
 

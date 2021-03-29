@@ -14,7 +14,7 @@ from ioccheck.iocs import IOC
 @dataclass
 class Icons:
     warning: str
-    ok: str
+    okay: str
     clipboard: str
     alert: str
     virus: str
@@ -25,7 +25,7 @@ class Report(ABC):
 
     icons = Icons(
         warning=emojize(":warning:"),
-        ok=emojize(":check_mark_button"),
+        okay=emojize(":check_mark_button"),
         clipboard=emojize(":clipboard:"),
         alert=emojize(":police_car_light:"),
         virus=emojize(":microbe:"),

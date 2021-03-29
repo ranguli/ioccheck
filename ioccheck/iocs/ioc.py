@@ -4,12 +4,12 @@
 import configparser
 import logging
 import os
-from pathlib import Path
-from typing import List, Optional, Union
 from dataclasses import dataclass
+from pathlib import Path
+from typing import List, Optional, Set, Union
 
 from ioccheck.exceptions import InvalidCredentialsError, NoConfiguredServicesException
-from ioccheck.services import Service, Twitter, VirusTotal, MalwareBazaar, Shodan
+from ioccheck.services import MalwareBazaar, Service, Shodan, Twitter, VirusTotal
 from ioccheck.shared import default_config_path
 
 
@@ -157,7 +157,8 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
     def __str__(self):
         return self.ioc
 
-    def _get_cross_report_value(self, reports: list, attribute: str):
+    @staticmethod
+    def _get_cross_report_value(reports: list, attribute: str):
         result = []
 
         for report in reports:
@@ -170,11 +171,17 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
         return result
 
     @property
-    def tags(self) -> Optional[List[dict]]:
+    def tags(self) -> Set[str]:
         """User-submitted tags describing the IOC across multiple services."""
-        return self._get_cross_report_value(
-            [self.reports.malwarebazaar, self.reports.virustotal], "tags"
+        tags = set()
+
+        tags.update(
+            self._get_cross_report_value(
+                [self.reports.malwarebazaar, self.reports.virustotal], "tags"
+            )
         )
+
+        return tags
 
     @property
     def urls(self) -> Optional[List[dict]]:
