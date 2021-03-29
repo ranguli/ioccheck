@@ -1,12 +1,12 @@
 import glob
-import json
 import inspect
-
+import json
 from unittest.mock import patch
-from ioccheck.services import VirusTotal
-from ioccheck.iocs import Hash
 
 import pytest
+
+from ioccheck.iocs import Hash
+from ioccheck.services import VirusTotal
 
 test_inputs = []
 

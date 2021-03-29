@@ -1,1 +1,1 @@
-from .html_report import HTMLIPReport, HTMLHashReport
+from .html_report import HTMLHashReport, HTMLIPReport

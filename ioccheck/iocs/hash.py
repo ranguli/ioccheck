@@ -3,16 +3,14 @@
 
 
 import re
-from dataclasses import dataclass
 from typing import List, Optional
 
 from ioccheck.exceptions import InvalidHashException
 from ioccheck.ioc_types import MD5, SHA256, HashType, hash_types
 from ioccheck.iocs.ioc import IOC, IOCReport
-from ioccheck.services import MalwareBazaar, Service, VirusTotal, Twitter, hash_services
+from ioccheck.services import Service, hash_services
 
 
-@dataclass
 class HashReport(IOCReport):
     """Report representing threat intelligence results for a Hash object
 
@@ -20,10 +18,6 @@ class HashReport(IOCReport):
         virustotal: Results from the VirusTotal API
         malwarebazaar: Results from the MalwareBazaar API
     """
-
-    virustotal: VirusTotal = None  # type: ignore
-    malwarebazaar: MalwareBazaar = None  # type: ignore
-    twitter: Twitter = None  # type: ignore
 
 
 class Hash(IOC):  # pylint: disable=too-few-public-methods,too-many-instance-attributes
@@ -115,7 +109,12 @@ class Hash(IOC):  # pylint: disable=too-few-public-methods,too-many-instance-att
         self.reports = HashReport(**reports)
 
     @property
-    def hashes(self) -> Optional[dict]:
+    def hashes(self) -> dict:
+        """Results from other hashing algorithms found by other services
+
+        Returns:
+           Other
+        """
         hashes = {}
 
         for report in [self.reports.malwarebazaar, self.reports.virustotal]:
@@ -124,7 +123,7 @@ class Hash(IOC):  # pylint: disable=too-few-public-methods,too-many-instance-att
         return hashes
 
     @property
-    def detections(self) -> Optional[dict]:
+    def detections(self) -> dict:
         detections = {}
 
         for report in [self.reports.virustotal]:
@@ -149,7 +148,7 @@ class Hash(IOC):  # pylint: disable=too-few-public-methods,too-many-instance-att
         return None
 
     @property
-    def file_size(self) -> Optional[str]:
+    def file_size(self) -> Optional[int]:
         malwarebazaar = self.reports.malwarebazaar
 
         if malwarebazaar is not None and malwarebazaar.file_size:
@@ -159,15 +158,3 @@ class Hash(IOC):  # pylint: disable=too-few-public-methods,too-many-instance-att
     @property
     def behaviour(self) -> Optional[List[dict]]:
         return self._get_cross_report_value([self.reports.malwarebazaar], "behaviour")
-
-    @property
-    def tags(self) -> Optional[List[dict]]:
-        return self._get_cross_report_value(
-            [self.reports.malwarebazaar, self.reports.virustotal], "tags"
-        )
-
-    @property
-    def urls(self) -> Optional[List[dict]]:
-        return self._get_cross_report_value(
-            [self.reports.malwarebazaar, self.reports.virustotal], "urls"
-        )

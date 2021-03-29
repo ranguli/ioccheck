@@ -1,5 +1,6 @@
 import pytest
 
+from ioccheck.exceptions import APIError
 from ioccheck.iocs import IP
 from ioccheck.services import Shodan
 
@@ -57,4 +58,5 @@ class TestShodan:
         ]
 
     def test_api_error(self, shodan_bad_response_1):
-        assert shodan_bad_response_1.reports.shodan.tags is None
+        with pytest.raises(APIError):
+            shodan_bad_response_1.check()

@@ -3,6 +3,7 @@
 from dataclasses import dataclass
 
 from ioccheck.iocs import IOC
+
 from .report import Report
 
 
@@ -54,7 +55,7 @@ class HTMLHashReport(Report):
                 "detections": self.detections,
                 "footer": self.footer,
                 "behaviour": self.behaviour,
-                "hashes": self.ioc.hashes,
+                "hashes": self.ioc.hashes,  # type: ignore
                 "tags": self.ioc.tags,
                 "tag_colors": self.tag_colors,
                 "urls": self.ioc.urls,

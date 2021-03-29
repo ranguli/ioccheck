@@ -3,7 +3,10 @@
 
 import logging
 from abc import ABC, abstractmethod
-from typing import Any
+from dataclasses import dataclass
+from typing import Any, List, Optional
+
+from ioccheck import exceptions
 
 
 class Service(ABC):  # pylint: disable=too-few-public-methods
@@ -12,10 +15,9 @@ class Service(ABC):  # pylint: disable=too-few-public-methods
     name: str
     ioc: Any
     reputation: Any
+    required_credentials: List[str]
 
-    def __init__(self, ioc, api_key: str):
-        self.ioc = ioc
-        self.api_key = api_key
+    def __init__(self, ioc, credentials: dict):
 
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
@@ -30,9 +32,29 @@ class Service(ABC):  # pylint: disable=too-few-public-methods
 
         self.logger.addHandler(f_handler)
 
+        self.ioc = ioc
+
+        if list(credentials.keys()) != self.required_credentials:
+            raise exceptions.InvalidCredentialsError
+
+        self.credentials = Credentials(**credentials)
+        self.response: dict = self._get_api_response(self.ioc)
+
+        if self.response is None:
+            raise exceptions.APIError
+
     @abstractmethod
-    def _get_api_response(self, ioc, api_key: str) -> dict:
+    def _get_api_response(self, ioc) -> dict:
         pass
 
     def __str__(self):
         return self.name
+
+
+@dataclass
+class Credentials:
+    api_key: Optional[str] = None
+    consumer_key: Optional[str] = None
+    consumer_secret: Optional[str] = None
+    access_token: Optional[str] = None
+    access_secret: Optional[str] = None

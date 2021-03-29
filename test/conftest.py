@@ -2,13 +2,13 @@ import json
 from unittest.mock import patch
 
 import pytest
+import shodan
 import vt
 
+from ioccheck import exceptions
 from ioccheck.ioc_types import MD5, SHA256
 from ioccheck.iocs import IP, Hash
 from ioccheck.services import MalwareBazaar, Shodan, VirusTotal
-
-import shodan
 
 
 @pytest.fixture
@@ -50,11 +50,8 @@ def shodan_mocked_response_1():
 
 @pytest.fixture
 def virustotal_bad_response_1(virustotal_mocked_response_1, hash_1, config_file):
-    def side_effect(*args):
-        raise vt.error.APIError("WrongCredentialsError", "")
-
     with patch.object(
-        VirusTotal, "_get_api_response", return_value=None, side_effect=side_effect
+        VirusTotal, "_get_api_response", return_value=None
     ) as mock_method:
 
         mock_api_response = virustotal_mocked_response_1
@@ -134,11 +131,9 @@ def shodan_bad_response_1(shodan_mocked_response_1, config_file):
         mock_api_response = shodan_mocked_response_1
         sample = IP("45.33.49.119", config_path=config_file)
 
-        sample.check(services=[Shodan])
-
         return sample
 
 
 @pytest.fixture
 def config_file():
-    return ".ioccheck"
+    return "test/data/config"

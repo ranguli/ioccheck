@@ -3,8 +3,6 @@
 
 import logging
 
-from termcolor import colored
-
 from ioccheck.cli.formatters.formatter import Formatter
 from ioccheck.services import Twitter
 
@@ -24,12 +22,3 @@ class TwitterFormatter(Formatter):
 
     def __init__(self, service: Twitter, heading_color: str):
         Formatter.__init__(self, service, heading_color)
-
-    @property
-    def tweets(self):
-        """Provide pre-formatted output of tweets"""
-
-        for tweet in self.service.tweets:
-            author = colored(f"\n@{tweet.author}:", self.heading_color)
-            url = colored(tweet.url, self.heading_color)
-            print(f"{author} {tweet.text}\n{url}\n")

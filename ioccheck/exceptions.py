@@ -2,6 +2,18 @@
 """ Exceptions for ioccheck """
 
 
+class Error(Exception):
+    """Generic exception for non-recoverable exceptions."""
+
+
+class IOCException(Exception):
+    """Generic exception raised for issues pertaining to IOCs."""
+
+
+class IOCNotFoundError(Exception):
+    """Raised when can not find an IOC."""
+
+
 class InvalidHashException(Exception):
     """Raised if a given hash is invalid.
 
@@ -26,7 +38,14 @@ class NoConfiguredServicesException(Exception):
     """
 
 
-class InvalidCredentialsException(Exception):
+class APIError(Error):
+    """Generic API exception that is chained with a library-specific (i.e Shodan or VirusTotal) API exception.
+
+    This is a catch-all for any API error returned by someone elses API.
+    """
+
+
+class InvalidCredentialsError(APIError):
     """Raised if there is some kind of error with credentials.
 
     If an API returns an authentication error, or no valid credential

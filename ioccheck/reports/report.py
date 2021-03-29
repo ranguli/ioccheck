@@ -1,14 +1,14 @@
 #!/usr/bin/evnv python
 
 import datetime
-import pkg_resources
 from abc import ABC
 from dataclasses import dataclass
 
-from ioccheck.iocs import IOC
+import pkg_resources
 from emoji import emojize
+from jinja2 import Environment, FileSystemLoader
 
-from jinja2 import FileSystemLoader, Environment
+from ioccheck.iocs import IOC
 
 
 @dataclass
@@ -40,13 +40,13 @@ class Report(ABC):
         print(self.templates_dir)
         self.contents = {"ioc": self.ioc, "icons": self.icons}
 
-    def _make_ordinal(self, n):
+    def _make_ordinal(self, number) -> str:
         # https://stackoverflow.com/a/50992575
-        n = int(n)
-        suffix = ["th", "st", "nd", "rd", "th"][min(n % 10, 4)]
-        if 11 <= (n % 100) <= 13:
+        number = int(number)
+        suffix = ["th", "st", "nd", "rd", "th"][min(number % 10, 4)]
+        if 11 <= (number % 100) <= 13:
             suffix = "th"
-        return str(n) + suffix
+        return str(number) + suffix
 
     def generate(self, output_file: str):
         template_loader = FileSystemLoader(searchpath=self.templates_dir)
@@ -54,8 +54,8 @@ class Report(ABC):
         template = template_env.get_template(self.template_file)
         report_contents = template.render(**self.contents)
 
-        with open(output_file, "w+") as f:
-            f.write(report_contents)
+        with open(output_file, "w+") as outfile:
+            outfile.write(report_contents)
 
     @property
     def footer(self) -> str:

@@ -4,25 +4,21 @@
 import configparser
 import logging
 import os
-from dataclasses import dataclass
 from pathlib import Path
 from typing import List, Optional, Union
+from dataclasses import dataclass
 
-from ioccheck.exceptions import (
-    InvalidCredentialsException,
-    NoConfiguredServicesException,
-)
+from ioccheck.exceptions import InvalidCredentialsError, NoConfiguredServicesException
 from ioccheck.services import Service, Twitter, VirusTotal, MalwareBazaar, Shodan
+from ioccheck.shared import default_config_path
 
 
 @dataclass
 class IOCReport:
-    """Base dataclass for creating indicators of compromise reports """
-
+    twitter: Twitter = None  # type: ignore
+    shodan: Shodan = None  # type: ignore
     virustotal: VirusTotal = None  # type: ignore
     malwarebazaar: MalwareBazaar = None  # type: ignore
-    shodan: Shodan = None  # type: ignore
-    twitter: Twitter = None  # type: ignore
 
 
 class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attributes
@@ -34,8 +30,6 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
         reports: The Indicator of Compromise
         services: All potential services avilable for the IOC type
     """
-
-    default_config_path = os.path.join(Path.home(), ".config/ioccheck/credentials")
 
     def __init__(self, ioc, config_path: Optional[str] = None):
 
@@ -56,18 +50,20 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
         self.logger.addHandler(f_handler)
 
         if config_path is None:
-            self.config_path = self.default_config_path
+            self.config_path = default_config_path
         else:
             self.config_path = config_path
 
-        if not Path(self.config_path).is_file():
-            message = f"File {self.config_path} does not exist."
-            self.logger.error(message)
-            raise FileNotFoundError(message)
+        self.credentials_file = os.path.join(self.config_path, "credentials")
 
         self.logger.info(
-            f"Default config path is {self.default_config_path}, supplied path is {self.config_path}"
+            f"Default config path is {default_config_path}, supplied path is {self.config_path}"
         )
+
+        if not Path(self.credentials_file).is_file():
+            message = f"File {self.credentials_file} does not exist"
+            self.logger.error(message)
+            raise FileNotFoundError(message)
 
         self.reports: IOCReport
 
@@ -75,18 +71,23 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
     def credentials(self) -> dict:
         """Credentials for use with API services"""
 
+        if not Path(self.credentials_file).is_file():
+            message = f"File {self.credentials_file} does not exist"
+            self.logger.error(message)
+            raise FileNotFoundError(message)
+
         config = configparser.ConfigParser()
-        config.read(self.config_path)
+        config.read(self.credentials_file)
 
         credentials: dict = {}
 
         for section in config.sections():
             values = ",".join(config[section].keys())
             self.logger.info(
-                f"Got values {values} for {section} from {self.config_path}."
+                f"Got {values} for {section} from {self.credentials_file}."
             )
 
-            credentials.update({section: config[section]})
+            credentials.update({section: dict(config[section])})
 
         return credentials
 
@@ -100,16 +101,16 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
     @property
     def configured_services(self) -> list:
         """IOC services in the config file with keys"""
-        if self.config_path is None:
-            self.config_path = self.default_config_path
 
-        if not Path(self.config_path).is_file():
-            message = f"File {self.config_path} does not exist"
+        # TODO: refactor out this duplicate snippet also in credentials()
+
+        if not Path(self.credentials_file).is_file():
+            message = f"File {self.credentials_file} does not exist"
             self.logger.error(message)
             raise FileNotFoundError(message)
 
         config = configparser.ConfigParser()
-        config.read(self.config_path)
+        config.read(self.credentials_file)
 
         result = [
             service for service in self.services if service.name in config.sections()
@@ -124,7 +125,6 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
     def _get_reports(self, services: Optional[Union[List, List[Service]]] = None):
 
         reports = {}
-        # config_path = self.default_config_path if config_path is None else config_path
         report_services = []
 
         if services is None:
@@ -149,7 +149,7 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
 
         if not api_key:
             self.logger.error(f"No API keys for {service}")
-            raise InvalidCredentialsException
+            raise InvalidCredentialsError
 
         return service(ioc, api_key)
 
@@ -167,3 +167,15 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
                     pass
 
         return result
+
+    @property
+    def tags(self) -> Optional[List[dict]]:
+        return self._get_cross_report_value(
+            [self.reports.malwarebazaar, self.reports.virustotal], "tags"
+        )
+
+    @property
+    def urls(self) -> Optional[List[dict]]:
+        return self._get_cross_report_value(
+            [self.reports.malwarebazaar, self.reports.virustotal], "urls"
+        )

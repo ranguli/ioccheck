@@ -9,7 +9,7 @@ from typing import List, Optional, Union
 
 from ioccheck.exceptions import InvalidIPException
 from ioccheck.iocs.ioc import IOC, IOCReport
-from ioccheck.services import Service, Shodan, ip_services, Twitter
+from ioccheck.services import Service, Shodan, Twitter, ip_services
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -74,9 +74,6 @@ class IP(IOC):
         Raises:
             InvalidIPException: If the IP address string can't be converted.
         """
-        if not isinstance(ip_addr, str):
-            logger.error("%(ip_addr)s is not of type string.")
-            raise InvalidIPException
 
         try:
             ip = ipaddress.ip_address(ip_addr)  # pylint: disable=C0103
