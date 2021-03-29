@@ -3,8 +3,8 @@ dictionaries:
 excluded_files:
   - "poetry.lock"
   - "coverage.xml"
-  - "test/data/malware_bulk_responses/"
-  - "test/data/virustotal_bulk_responses/"
+  - "test/data/malwarebazaar_bulk_responses/*"
+  - "test/data/virustotal_bulk_responses/*"
 
 excluded_words:
   - ioc
@@ -24,5 +24,12 @@ excluded_words:
   - TweepError
   - noxfile
   - authentihash
+  - formatters
+  - geolocation
+  - conftest
+  - pyproject
+  - mypy
+  - vhash
+  - tlsh
 
 spellcheck_filenames: true
