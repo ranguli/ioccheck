@@ -6,16 +6,19 @@ import logging
 import os
 from dataclasses import dataclass
 from pathlib import Path
-from typing import List, Optional, Union
+from typing import List, Optional, Set, Union
 
-from ioccheck.exceptions import (InvalidCredentialsException,
-                                 NoConfiguredServicesException)
-from ioccheck.services import Service
+from ioccheck.exceptions import InvalidCredentialsError, NoConfiguredServicesException
+from ioccheck.services import MalwareBazaar, Service, Shodan, Twitter, VirusTotal
+from ioccheck.shared import default_config_path
 
 
 @dataclass
 class IOCReport:
-    """Base dataclass for creating indicators of compromise reports """
+    twitter: Twitter = None  # type: ignore
+    shodan: Shodan = None  # type: ignore
+    virustotal: VirusTotal = None  # type: ignore
+    malwarebazaar: MalwareBazaar = None  # type: ignore
 
 
 class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attributes
@@ -31,7 +34,6 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
     def __init__(self, ioc, config_path: Optional[str] = None):
 
         self.ioc = ioc
-        self._default_config_path = os.path.join(Path.home(), ".ioccheck")
 
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
@@ -48,18 +50,20 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
         self.logger.addHandler(f_handler)
 
         if config_path is None:
-            self.config_path = self._default_config_path
+            self.config_path = default_config_path
         else:
             self.config_path = config_path
 
-        if not Path(self.config_path).is_file():
-            message = f"File {self.config_path} does not exist."
-            self.logger.error(message)
-            raise FileNotFoundError(message)
+        self.credentials_file = os.path.join(self.config_path, "credentials")
 
         self.logger.info(
-            f"Default config path is {self._default_config_path}, supplied path is {self.config_path}"
+            f"Default config path is {default_config_path}, supplied path is {self.config_path}"
         )
+
+        if not Path(self.credentials_file).is_file():
+            message = f"File {self.credentials_file} does not exist"
+            self.logger.error(message)
+            raise FileNotFoundError(message)
 
         self.reports: IOCReport
 
@@ -67,34 +71,47 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
     def credentials(self) -> dict:
         """Credentials for use with API services"""
 
+        if not Path(self.credentials_file).is_file():
+            message = f"File {self.credentials_file} does not exist"
+            self.logger.error(message)
+            raise FileNotFoundError(message)
+
         config = configparser.ConfigParser()
-        config.read(self.config_path)
+        config.read(self.credentials_file)
 
         credentials: dict = {}
 
         for section in config.sections():
             values = ",".join(config[section].keys())
             self.logger.info(
-                f"Got values {values} for {section} from {self.config_path}."
+                f"Got {values} for {section} from {self.credentials_file}."
             )
 
-            credentials.update({section: config[section]["api_key"]})
+            credentials.update({section: dict(config[section])})
 
         return credentials
 
     @property
+    def tweets(self) -> Optional[List]:
+        """Tweets that mention the IOC directly"""
+        try:
+            return self.reports.twitter.tweets
+        except AttributeError:
+            return None
+
+    @property
     def configured_services(self) -> list:
         """IOC services in the config file with keys"""
-        if self.config_path is None:
-            self.config_path = self._default_config_path
 
-        if not Path(self.config_path).is_file():
-            message = f"File {self.config_path} does not exist"
+        # TODO: refactor out this duplicate snippet also in credentials()
+
+        if not Path(self.credentials_file).is_file():
+            message = f"File {self.credentials_file} does not exist"
             self.logger.error(message)
             raise FileNotFoundError(message)
 
         config = configparser.ConfigParser()
-        config.read(self.config_path)
+        config.read(self.credentials_file)
 
         result = [
             service for service in self.services if service.name in config.sections()
@@ -109,7 +126,6 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
     def _get_reports(self, services: Optional[Union[List, List[Service]]] = None):
 
         reports = {}
-        # config_path = self._default_config_path if config_path is None else config_path
         report_services = []
 
         if services is None:
@@ -134,9 +150,42 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
 
         if not api_key:
             self.logger.error(f"No API keys for {service}")
-            raise InvalidCredentialsException
+            raise InvalidCredentialsError
 
         return service(ioc, api_key)
 
     def __str__(self):
         return self.ioc
+
+    @staticmethod
+    def _get_cross_report_value(reports: list, attribute: str):
+        result = []
+
+        for report in reports:
+            if report is not None and hasattr(report, attribute):
+                try:
+                    result.extend(getattr(report, attribute))
+                except TypeError:
+                    pass
+
+        return result
+
+    @property
+    def tags(self) -> Set[str]:
+        """User-submitted tags describing the IOC across multiple services."""
+        tags = set()
+
+        tags.update(
+            self._get_cross_report_value(
+                [self.reports.malwarebazaar, self.reports.virustotal], "tags"
+            )
+        )
+
+        return tags
+
+    @property
+    def urls(self) -> Optional[List[dict]]:
+        """URLs to use for following up on information from a service."""
+        return self._get_cross_report_value(
+            [self.reports.malwarebazaar, self.reports.virustotal], "urls"
+        )

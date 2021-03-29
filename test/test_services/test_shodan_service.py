@@ -1,5 +1,6 @@
 import pytest
 
+from ioccheck.exceptions import APIError
 from ioccheck.iocs import IP
 from ioccheck.services import Shodan
 
@@ -9,10 +10,10 @@ class TestShodan:
         assert shodan_report_1
 
     def test_tags(self, shodan_report_1):
-        assert shodan_report_1.reports.shodan.tags == ["cloud"]
+        assert shodan_report_1.reports.shodan.tags == {"cloud"}
 
     def test_hostname(self, shodan_report_1):
-        assert shodan_report_1.reports.shodan.hostnames == ["ack.nmap.org"]
+        assert shodan_report_1.reports.shodan.hostnames == {"ack.nmap.org"}
 
     def test_location(self, shodan_report_1):
         assert shodan_report_1.reports.shodan.location == {
@@ -55,3 +56,7 @@ class TestShodan:
             "CVE-2018-1283",
             "CVE-2016-8743",
         ]
+
+    def test_api_error(self, shodan_bad_response_1):
+        with pytest.raises(APIError):
+            shodan_bad_response_1.check()

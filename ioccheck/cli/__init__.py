@@ -1,20 +1,27 @@
 #!/usr/bin/env python
 """Command-line interface for the ioccheck library"""
 
+import cProfile
 import logging
+import os
 import random
 import sys
+from pathlib import Path
 
 import click
 import pkg_resources
+import shodan
 from pyfiglet import Figlet
+from tabulate import tabulate
 from termcolor import colored, cprint
 
-from ioccheck.cli.formatters import (MalwareBazaarFormatter, ShodanFormatter,
-                                     VirusTotalFormatter)
-from ioccheck.exceptions import (InvalidHashException, InvalidIPException,
-                                 NoConfiguredServicesException)
+from ioccheck import exceptions
 from ioccheck.iocs import IP, Hash
+from ioccheck.reports import HTMLHashReport, HTMLIPReport
+from ioccheck.services import Shodan, Twitter
+from ioccheck.shared import default_config_path
+
+from .printers import BehaviorPrinter, DetectionsPrinter, TagsPrinter, TwitterPrinter
 
 asyncio_logger = logging.getLogger("asyncio")
 asyncio_logger.setLevel(logging.CRITICAL)
@@ -39,109 +46,41 @@ fonts = [
 ]
 
 
-def shodan_results(ip_addr, heading_color):
-    """ Use the ShodanFormatter to print pre-formatted output """
-    shodan = ip_addr.reports.shodan
+def hash_details(_hash, heading_color):
+    results = [[k, v] for k, v in _hash.hashes.items() if v]
 
-    formatter = ShodanFormatter(shodan)
+    table = []
 
-    cprint("[*] Shodan location data:", heading_color)
-    print(formatter.location)
+    for result in results:
+        table.append(result)
 
-    tags_header = colored("[*] Shodan tags:", heading_color)
-    print(f"{tags_header} {formatter.tags}")
-
-
-def ip_results(ip_addr, heading_color):
-    """Print results for an IP address"""
-    try:
-        shodan_results(ip_addr, heading_color)
-    except AttributeError:
-        cprint("[!] There was an error displaying the Shodan report.", "red")
-
-
-def virustotal_results(_hash, heading_color):
-    """ Use the VirusTotalFormatter to print pre-formatted output """
-
-    virustotal = _hash.reports.virustotal
-
-    formatter = VirusTotalFormatter(virustotal)
-
-    if formatter.tags:
-        tags_heading = colored("[*] VirusTotal tags:", heading_color)
-        print(f"{tags_heading} {formatter.tags}")
-
-    investigation_url_heading = colored("[*] VirusTotal URL:", heading_color)
-    print(f"{investigation_url_heading} {virustotal.investigation_url}")
-
-    # Make a pretty table of the results
-    detections_heading = colored("[*] VirusTotal detections:", "blue")
-
-    print(f"{detections_heading} {formatter.detection_count}")
-    print(formatter.detections)
-
-    reputation_heading = colored("[*] VirusTotal reputation:", heading_color)
-    print(f"{reputation_heading} {formatter.reputation}")
-
-    if formatter.popular_threat_names:
-        threat_names_heading = colored("[*] VirusTotal threat labels:", heading_color)
-        print(f"{threat_names_heading} {formatter.popular_threat_names}")
-
-
-def malwarebazaar_results(_hash, heading_color):
-    """ Use the MalwareBazaarFormatter to print pre-formatted output """
-
-    malwarebazaar = _hash.reports.malwarebazaar
-
-    formatter = MalwareBazaarFormatter(malwarebazaar)
-
-    if formatter.tags:
-        tags_heading = colored("[*] MalwareBazaar tags:", heading_color)
-        print(f"{tags_heading} {formatter.tags}")
-
-    file_size_heading = colored("[*] File details:", heading_color)
-    print(
-        f"{file_size_heading} {formatter.file_type} | {malwarebazaar.mime_type} ({formatter.file_size})"
-    )
-
-    cprint("[*] File hashes:\n", heading_color)
-    print(formatter.hashes)
-
-
-def hash_results(_hash, heading_color):
-    """Print results a file hash"""
-    hash_algorithm_heading = colored("[*] Hashing algorithm:", heading_color)
-    print(f"{hash_algorithm_heading} {_hash.hash_type}")
-
-    try:
-        virustotal_results(_hash, heading_color)
-    except AttributeError:
-        cprint("[!] There was an error displaying the VirusTotal report.", "red")
-
-    try:
-        malwarebazaar_results(_hash, heading_color)
-    except AttributeError:
-        cprint("[!] There was an error diplaying the MalwareBazaar report.", "red")
+    return tabulate(table, tablefmt="fancy_grid")
 
 
 @click.command()
 @click.argument("ioc")
 @click.option("--config", required=False, type=str)
-def run(ioc, config):
+@click.option("--report", required=False, type=str)
+def run(ioc, config, report):
     """Entrypoint for the ioccheck CLI"""
 
     ioc_types = [
         {
             "name": "file hash",
             "ioc": Hash,
-            "exception": InvalidHashException,
-            "results": hash_results,
+            "exception": exceptions.InvalidHashException,
+            "printers": [
+                TagsPrinter,
+                DetectionsPrinter,
+                BehaviorPrinter,
+                TwitterPrinter,
+            ],
         },
         {
             "name": "public IPv4 or IPv6 address",
             "ioc": IP,
-            "exception": InvalidIPException,
-            "results": ip_results,
+            "exception": exceptions.InvalidIPException,
+            "printers": [TagsPrinter, TwitterPrinter],
         },
     ]
 
@@ -161,16 +100,27 @@ def run(ioc, config):
     check_message = "[*] Checking if IOC is a valid"
     fail_message = "[!] IOC is not a valid"
 
+    if not config:
+        config = default_config_path
+
+    templates_dir = os.path.join(Path.home(), ".config/ioccheck/reports/templates/")
+
     for ioc_type in ioc_types:
         try:
             cprint(f"{check_message} {ioc_type.get('name')}.", heading_color)
             ioc = ioc_type.get("ioc")(ioc, config_path=config)
+            cprint("[?] Checking services", "red")
             ioc.check()
-            ioc_type.get("results")(ioc, heading_color)
+
+            for printer in ioc_type.get("printers"):
+                text_printer = printer(ioc)
+                text_printer.print_text()
             break
         except ioc_type.get("exception"):
             cprint(f"{fail_message} {ioc_type.get('name')}.", "yellow")
-        except NoConfiguredServicesException:
+        except exceptions.InvalidCredentialsError as error:
+            cprint(f"[!] {error}", "red")
+        except exceptions.NoConfiguredServicesException:
             sys.exit(
                 colored(
                     "[!] No configured services available to search that IOC.", "red"
@@ -178,3 +128,12 @@ def run(ioc, config):
             )
         except FileNotFoundError as error:
             sys.exit(colored(f"[!] {error}", "red"))
+
+    if report:
+        cprint(f"[*] Generating report {report}")
+        if isinstance(ioc, Hash):
+            html_report = HTMLHashReport(ioc, templates_dir)
+        elif isinstance(ioc, IP):
+            html_report = HTMLIPReport(ioc, templates_dir)
+
+        html_report.generate(report)

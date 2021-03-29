@@ -16,6 +16,8 @@ requests = "^2.25.1"
 "hurry.filesize" = "^0.9"
 shodan = "^1.25.0"
 pyfiglet = "^0.8.post1"
+emoji = "^1.2.0"
+tweepy = "^3.10.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
