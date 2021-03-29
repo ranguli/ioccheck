@@ -54,7 +54,7 @@ class HTMLHashReport(Report):
             {
                 "detections": self.detections,
                 "footer": self.footer,
-                "behaviour": self.behaviour,
+                "behavior": self.behavior,
                 "hashes": self.ioc.hashes,  # type: ignore
                 "tags": self.ioc.tags,
                 "tag_colors": self.tag_colors,
@@ -83,14 +83,14 @@ class HTMLHashReport(Report):
         return sorted(detections, key=lambda x: x.malicious, reverse=True)
 
     @property
-    def behaviour(self):
-        behaviours = []
-        for behaviour in self.ioc.behaviour:
-            behaviours.append(
+    def behavior(self):
+        behaviors = []
+        for behavior in self.ioc.behavior:
+            behaviors.append(
                 Behaviour(
-                    sandbox=behaviour.get("service"),
-                    description=behaviour.get("behaviour"),
-                    threat=behaviour.get("threat"),
+                    sandbox=behavior.get("service"),
+                    description=behavior.get("behavior"),
+                    threat=behavior.get("threat"),
                 )
             )
-        return sorted(behaviours, key=lambda x: x.threat, reverse=True)
+        return sorted(behaviors, key=lambda x: x.threat, reverse=True)

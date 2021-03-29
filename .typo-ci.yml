@@ -31,5 +31,7 @@ excluded_words:
   - mypy
   - vhash
   - tlsh
+  - behaviour
+  - telfhash
 
 spellcheck_filenames: true

@@ -34,7 +34,7 @@ class Printer(ABC):
         self.heading = heading
         self.attr = attr
         self.delim = delim
-        self.error = error
+        self.error_text = error_text
 
         self.text = self.make_text()
 
@@ -49,7 +49,7 @@ class Printer(ABC):
             or not hasattr(self.ioc, self.attr)
             or getattr(self.ioc, self.attr) is None
         ):
-            cprint(f"[!] {self.error}", self.error_color)
+            cprint(f"[!] {self.error_text}", self.error_color)
             return
 
         if self.heading is None:
@@ -65,10 +65,12 @@ class BehaviorPrinter(Printer):
     heading = "Sandbox behavior"
     attr = "behavior"
     delim = "\n"
-    error = "No behavior data to display"
+    error_text = "No behavior data to display"
 
     def __init__(self, ioc):
-        Printer.__init__(self, ioc, self.heading, self.attr, self.delim, self.error)
+        Printer.__init__(
+            self, ioc, self.heading, self.attr, self.delim, self.error_text
+        )
 
     def make_text(self) -> Optional[str]:
         table = [["Vendor", "Behaviour", "Threat"]]
@@ -95,10 +97,12 @@ class TagsPrinter(Printer):
     heading = "User-submitted tags"
     attr = "tags"
     delim = " "
-    error = "No tags to display"
+    error_text = "No tags to display"
 
     def __init__(self, ioc):
-        Printer.__init__(self, ioc, self.heading, self.attr, self.delim, self.error)
+        Printer.__init__(
+            self, ioc, self.heading, self.attr, self.delim, self.error_text
+        )
 
     def make_text(self) -> Optional[str]:
         return ", ".join(self.ioc.tags)
@@ -108,11 +112,13 @@ class TwitterPrinter(Printer):
     heading = None
     attr = "tweets"
     delim = " "
-    error = "No tweets about this IOC."
+    error_text = "No tweets about this IOC."
     service = Twitter
 
     def __init__(self, ioc):
-        Printer.__init__(self, ioc, self.heading, self.attr, self.delim, self.error)
+        Printer.__init__(
+            self, ioc, self.heading, self.attr, self.delim, self.error_text
+        )
 
     def make_text(self) -> Optional[str]:
         text = []
@@ -126,11 +132,13 @@ class TwitterPrinter(Printer):
 class DetectionsPrinter(Printer):
     attr = "detections"
     delim = "\n"
-    error = "No vendors detected this sample."
+    error_text = "No vendors detected this sample."
     heading = "Vendor detections"
 
     def __init__(self, ioc):
-        Printer.__init__(self, ioc, self.heading, self.attr, self.delim, self.error)
+        Printer.__init__(
+            self, ioc, self.heading, self.attr, self.delim, self.error_text
+        )
 
     def make_text(self) -> Optional[str]:
         table = [["Vendor", "Detection"]]

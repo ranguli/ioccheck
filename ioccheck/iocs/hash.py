@@ -156,5 +156,5 @@ class Hash(IOC):  # pylint: disable=too-few-public-methods,too-many-instance-att
         return None
 
     @property
-    def behaviour(self) -> Optional[List[dict]]:
-        return self._get_cross_report_value([self.reports.malwarebazaar], "behaviour")
+    def behavior(self) -> Optional[List[dict]]:
+        return self._get_cross_report_value([self.reports.malwarebazaar], "behavior")

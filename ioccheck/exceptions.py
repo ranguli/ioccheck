@@ -41,7 +41,7 @@ class NoConfiguredServicesException(Exception):
 class APIError(Error):
     """Generic API exception that is chained with a library-specific (i.e Shodan or VirusTotal) API exception.
 
-    This is a catch-all for any API error returned by someone elses API.
+    This is a catch-all for any API error returned by someone else's API.
     """
 
 
