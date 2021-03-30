@@ -1,6 +1,7 @@
-# iocheck
+# ioccheck
 [![Documentation Status](https://readthedocs.org/projects/ioccheck/badge/?version=latest)](https://ioccheck.readthedocs.io/en/latest/?badge=latest)
 [![Tests](https://github.com/ranguli/ioccheck/actions/workflows/main.yml/badge.svg)](https://github.com/ranguli/ioccheck/actions/workflows/main.yml)
+[![Maintainability](https://api.codeclimate.com/v1/badges/abf6cb8ead9e0269ab22/maintainability)](https://codeclimate.com/github/ranguli/ioccheck/maintainability)
 [![PyPi Status](https://img.shields.io/pypi/v/ioccheck.svg)](https://pypi.org/project/ioccheck/)
 [![codecov](https://codecov.io/gh/ranguli/ioccheck/branch/main/graph/badge.svg?token=pjjBiTgJFC)](https://codecov.io/gh/ranguli/ioccheck)
 

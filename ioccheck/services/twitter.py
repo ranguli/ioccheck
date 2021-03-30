@@ -61,9 +61,8 @@ class Twitter(Service):  # pylint: disable=too-few-public-methods
             "author": tweet.author.screen_name,
             "date": str(tweet.created_at),
             "text": tweet.full_text,
-            "url": f"{self.url}/twitter/status/{tweet.id}"
+            "url": f"{self.url}/twitter/status/{tweet.id}",
         }
-
 
     @property
     def tweets(self):
@@ -73,7 +72,7 @@ class Twitter(Service):  # pylint: disable=too-few-public-methods
                 author=tweet.get("author"),
                 date=tweet.get("date"),
                 text=tweet.get("text"),
-                url=tweet.get("url")
+                url=tweet.get("url"),
             )
             for tweet in self.response.get("tweets")
         ]
