@@ -4,7 +4,7 @@ from unittest.mock import Mock, patch
 import pytest
 import vt
 
-from ioccheck.exceptions import InvalidCredentialsError
+from ioccheck.exceptions import APIError, InvalidCredentialsError
 from ioccheck.iocs import Hash
 from ioccheck.services import VirusTotal
 
@@ -35,7 +35,6 @@ class TestVirusTotal:
         with patch("ioccheck.services.service.Credentials") as MockCredentials:
             instance = MockCredentials.return_value
             instance.api_key = None
-
             with pytest.raises(InvalidCredentialsError):
                 sample = Hash(hash_1, config_path=config_file)
                 sample.check(services=[VirusTotal])
@@ -50,3 +49,13 @@ class TestVirusTotal:
             with pytest.raises(AttributeError):
                 sample.check(services=[VirusTotal])
                 assert sample.detections is None
+
+    def test_error_chaining(self, hash_1, config_file):
+        """vt.Client errors should be caught and chained as our own APIError"""
+        with patch("vt.Client") as MockClass:
+            MockClass.side_effect = vt.error.APIError("foo", "bar")
+
+            sample = Hash(hash_1, config_path=config_file)
+
+            with pytest.raises(APIError):
+                sample.check(services=[VirusTotal])

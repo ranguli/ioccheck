@@ -1,27 +1,15 @@
 #!/usr/bin/env python
-
-from dataclasses import dataclass
+"""Provides HTML report generation"""
 
 from ioccheck.iocs import IOC
+from ioccheck.shared import Behavior, Detection
 
 from .report import Report
 
 
-@dataclass
-class Detection:
-    engine: str
-    name: str
-    malicious: bool
-
-
-@dataclass
-class Behaviour:
-    sandbox: str
-    description: str
-    threat: int
-
-
 class HTMLIPReport(Report):
+    """HTML report for an IP IOC"""
+
     def __init__(self, ioc: IOC, templates_dir: str):
         Report.__init__(self, ioc, templates_dir)
 
@@ -31,22 +19,10 @@ class HTMLIPReport(Report):
             }
         )
 
-    @property
-    def tag_colors(self):
-        return [
-            "#264653",
-            "#2A9D8F",
-            "#E9C46A",
-            "#F4A261",
-            "#E76F51",
-            "#3F88C5",
-            "#A2AEBB",
-            "#D00000",
-            "#79ADDC",
-        ]
-
 
 class HTMLHashReport(Report):
+    """HTML report for a hash IOC"""
+
     def __init__(self, ioc: IOC, templates_dir: str):
         Report.__init__(self, ioc, templates_dir)
 
@@ -65,6 +41,7 @@ class HTMLHashReport(Report):
 
     @property
     def detections(self):
+        """Detections with specific formatting applied for HTML reports"""
         detections = []
         for detection, result in self.ioc.detections.items():
             malicious = False
@@ -84,10 +61,11 @@ class HTMLHashReport(Report):
 
     @property
     def behavior(self):
+        """Behaviors with specific formatting applied for HTML reports"""
         behaviors = []
         for behavior in self.ioc.behavior:
             behaviors.append(
-                Behaviour(
+                Behavior(
                     sandbox=behavior.get("service"),
                     description=behavior.get("behavior"),
                     threat=behavior.get("threat"),

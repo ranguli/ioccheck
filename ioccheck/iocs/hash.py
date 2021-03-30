@@ -8,10 +8,10 @@ from ioccheck.exceptions import InvalidHashException
 from ioccheck.ioc_types import MD5, SHA256, HashType, hash_types
 from ioccheck.iocs.ioc import IOC, IOCReport
 from ioccheck.services import Service, hash_services
-from ioccheck.services.data_types import Behavior
+from ioccheck.shared import Behavior
 
 
-class HashReport(IOCReport):
+class HashReport(IOCReport):  # pylint: disable=too-few-public-methods
     """Report representing threat intelligence results for a Hash object
 
     Attributes:
@@ -124,6 +124,7 @@ class Hash(IOC):  # pylint: disable=too-few-public-methods,too-many-instance-att
 
     @property
     def detections(self) -> dict:
+        """Anti-virus engines detecting this sample"""
         detections = {}
 
         for report in [self.reports.virustotal]:
@@ -133,6 +134,7 @@ class Hash(IOC):  # pylint: disable=too-few-public-methods,too-many-instance-att
 
     @property
     def file_type(self) -> Optional[str]:
+        """The file type/extension of the sample"""
         malwarebazaar = self.reports.malwarebazaar
 
         if malwarebazaar is not None and malwarebazaar.file_type:
@@ -141,6 +143,7 @@ class Hash(IOC):  # pylint: disable=too-few-public-methods,too-many-instance-att
 
     @property
     def mime_type(self) -> Optional[str]:
+        """The MIME type of the sample"""
         malwarebazaar = self.reports.malwarebazaar
 
         if malwarebazaar is not None and malwarebazaar.mime_type:
@@ -149,6 +152,7 @@ class Hash(IOC):  # pylint: disable=too-few-public-methods,too-many-instance-att
 
     @property
     def file_size(self) -> Optional[int]:
+        """Size of the file in bytes"""
         malwarebazaar = self.reports.malwarebazaar
 
         if malwarebazaar is not None and malwarebazaar.file_size:
@@ -157,4 +161,5 @@ class Hash(IOC):  # pylint: disable=too-few-public-methods,too-many-instance-att
 
     @property
     def behavior(self) -> Optional[List[Behavior]]:
+        """Behavior of the sample in vendor sandboxes"""
         return self._get_cross_report_value([self.reports.malwarebazaar], "behavior")

@@ -8,13 +8,17 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import List, Optional, Set, Union
 
-from ioccheck.exceptions import InvalidCredentialsError, NoConfiguredServicesException
-from ioccheck.services import MalwareBazaar, Service, Shodan, Twitter, VirusTotal
+from ioccheck.exceptions import (InvalidCredentialsError,
+                                 NoConfiguredServicesException)
+from ioccheck.services import (MalwareBazaar, Service, Shodan, Twitter,
+                               VirusTotal)
 from ioccheck.shared import default_config_path
 
 
 @dataclass
 class IOCReport:
+    """Report class containing responses for specific services"""
+
     twitter: Twitter = None  # type: ignore
     shodan: Shodan = None  # type: ignore
     virustotal: VirusTotal = None  # type: ignore
@@ -71,10 +75,7 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
     def credentials(self) -> dict:
         """Credentials for use with API services"""
 
-        if not Path(self.credentials_file).is_file():
-            message = f"File {self.credentials_file} does not exist"
-            self.logger.error(message)
-            raise FileNotFoundError(message)
+        self._check_config_exists(self.credentials_file)
 
         config = configparser.ConfigParser()
         config.read(self.credentials_file)
@@ -103,12 +104,7 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
     def configured_services(self) -> list:
         """IOC services in the config file with keys"""
 
-        # TODO: refactor out this duplicate snippet also in credentials()
-
-        if not Path(self.credentials_file).is_file():
-            message = f"File {self.credentials_file} does not exist"
-            self.logger.error(message)
-            raise FileNotFoundError(message)
+        self._check_config_exists(self.credentials_file)
 
         config = configparser.ConfigParser()
         config.read(self.credentials_file)
@@ -122,6 +118,45 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
             raise NoConfiguredServicesException
 
         return result
+
+    @property
+    def tags(self) -> Set[str]:
+        """User-submitted tags describing the IOC across multiple services."""
+        tags = set()
+
+        tags.update(
+            self._get_cross_report_value(
+                [self.reports.malwarebazaar, self.reports.virustotal], "tags"
+            )
+        )
+
+        return tags
+
+    @property
+    def urls(self) -> Optional[List[dict]]:
+        """URLs to use for following up on information from a service."""
+        return self._get_cross_report_value(
+            [self.reports.malwarebazaar, self.reports.virustotal], "urls"
+        )
+
+    @staticmethod
+    def _get_cross_report_value(reports: list, attribute: str):
+        result = []
+
+        for report in reports:
+            if report is not None and hasattr(report, attribute):
+                try:
+                    result.extend(getattr(report, attribute))
+                except TypeError:
+                    pass
+
+        return result
+
+    def _check_config_exists(self, credentials_file):
+        if not Path(credentials_file).is_file():
+            message = f"File {self.credentials_file} does not exist"
+            self.logger.error(message)
+            raise FileNotFoundError(message)
 
     def _get_reports(self, services: Optional[Union[List, List[Service]]] = None):
 
@@ -156,36 +191,3 @@ class IOC:  # pylint: disable=too-few-public-methods,too-many-instance-attribute
 
     def __str__(self):
         return self.ioc
-
-    @staticmethod
-    def _get_cross_report_value(reports: list, attribute: str):
-        result = []
-
-        for report in reports:
-            if report is not None and hasattr(report, attribute):
-                try:
-                    result.extend(getattr(report, attribute))
-                except TypeError:
-                    pass
-
-        return result
-
-    @property
-    def tags(self) -> Set[str]:
-        """User-submitted tags describing the IOC across multiple services."""
-        tags = set()
-
-        tags.update(
-            self._get_cross_report_value(
-                [self.reports.malwarebazaar, self.reports.virustotal], "tags"
-            )
-        )
-
-        return tags
-
-    @property
-    def urls(self) -> Optional[List[dict]]:
-        """URLs to use for following up on information from a service."""
-        return self._get_cross_report_value(
-            [self.reports.malwarebazaar, self.reports.virustotal], "urls"
-        )

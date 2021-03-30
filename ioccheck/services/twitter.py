@@ -1,15 +1,14 @@
 #!/usr/bin/env python
 """ Represents response from the VirusTotal API """
 
-from dataclasses import dataclass
-
 import tweepy
 
 from ioccheck.exceptions import APIError
 from ioccheck.services.service import Service
+from ioccheck.shared import Tweet
 
 
-class Twitter(Service):
+class Twitter(Service):  # pylint: disable=too-few-public-methods
     """Represents response from the VirusTotal API
 
     Attributes:
@@ -47,28 +46,33 @@ class Twitter(Service):
                 lang="en",
                 tweet_mode="extended",
             ).items(20)
-            return {
-                "tweets": [tweet for tweet in tweets if self.ioc in tweet.full_text]
-            }
+
+            results = []
+            for tweet in tweets:
+                if self.ioc in tweet.full_text:
+                    results.append(self._create_result(tweet))
+            return {"tweets": results}
+
         except tweepy.error.TweepError as error:
             raise APIError from error
 
+    def _create_result(self, tweet: tweepy.models.Status):
+        return {
+            "author": tweet.author.screen_name,
+            "date": str(tweet.created_at),
+            "text": tweet.full_text,
+            "url": f"{self.url}/twitter/status/{tweet.id}",
+        }
+
     @property
     def tweets(self):
+        """Tweets that reference the IOC directly by name"""
         return [
             Tweet(
-                author=tweet.author.screen_name,
-                date=tweet.created_at,
-                text=tweet.full_text,
-                url=f"{self.url}/twitter/status/{tweet.id}",
+                author=tweet.get("author"),
+                date=tweet.get("date"),
+                text=tweet.get("text"),
+                url=tweet.get("url"),
             )
             for tweet in self.response.get("tweets")
         ]
-
-
-@dataclass
-class Tweet:
-    author: str
-    date: str
-    text: str
-    url: str
