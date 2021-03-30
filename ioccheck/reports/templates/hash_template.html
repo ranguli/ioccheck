@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+{% block content %}
+
+  {% if tags %}
+    <h2>User-submitted tags</h2>
+      {% for tag in tags %}
+        <span class="tag" style="background-color: {{ tag_colors | random }}">{{tag}}</span>
+      {% endfor %}
+  {% endif %}
+
+  {% if urls %}
+      <h2>Links</h2>
+      <table>
+      <thead>
+          <tr>
+              <th>Service</th>
+              <th>URL</th>
+          </tr>
+      </thead>
+      {% for url in urls %}
+      {% if url %}
+          <tr>
+            <td class="key"><p>{{url.get('service')}}</p></td>
+            <td class="value"><a href="{{url.get('url')}}">{{url.get('url')}}</a></td>
+          </tr>
+      {% endif %}
+      {% endfor %}
+      </table>
+  {% endif %}
+
+  {% if hashes %}
+      <h2>Hash details</h2>
+      <table>
+      <thead>
+          <tr>
+              <th>Hashing algorithm</th>
+              <th>Hash</th>
+          </tr>
+      </thead>
+      {% for key, value in hashes.items() %}
+      <tr>
+        <td class="key"><p>{{key}}</p></td>
+        <td class="value"><span class="icon">{{icons.clipboard}}</span> <span class="code">{{value}}</span></td>
+      </tr>
+      {% endfor %}
+      </table>
+  {% endif %}
+
+  {% if detections %}
+      <h2>Anti-Virus Detections {{icons.virus}} </h2>
+      <table>
+      <thead>
+          <tr>
+              <th>Engine</th>
+              <th>Name</th>
+          </tr>
+      </thead>
+
+      {% for detection in detections %}
+      <tr>
+         <td class="key"><p>{{detection.engine}}</p></td>
+         {% if detection.malicious %}
+            <td class="value"><span class="icon">{{icons.alert}}</span> <span class="scary">{{detection.name}}</span></td>
+         {% else %}
+            <td class="value"><span class="icon">{{icons.okay}}</span> <span class="okay">{{detection.name}}</span></td>
+         {% endif %}
+      </tr>
+      {% endfor %}
+      </table>
+  {% endif %}
+
+  {% if behaviour %}
+      <h2>Sandbox Detections</h2>
+      <table>
+      <thead>
+          <tr>
+              <th>Sandbox</th>
+              <th>Behaviour</th>
+          </tr>
+      </thead>
+      {% for item in behaviour %}
+      <tr>
+         <td class="key"><p>{{ item.sandbox }}</p></td>
+
+         {% if item.threat < 2 %}
+            <td class="value"><span class="icon">{{icons.warning}}</span> <span>{{item.description}}</span></td>
+         {% else %}
+            <td class="value"><span class="icon">{{icons.alert}}</span> <span>{{item.description}}</span></td>
+         {% endif %}
+
+      </tr>
+      {% endfor %}
+      </table>
+  {% endif %}
+
+
+
+{% endblock %}

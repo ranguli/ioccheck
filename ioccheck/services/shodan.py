@@ -8,6 +8,7 @@ import shodan
 from backoff import expo, on_exception
 from ratelimit import RateLimitException, limits
 
+from ioccheck.exceptions import APIError, InvalidCredentialsError
 from ioccheck.services.service import Service
 
 
@@ -17,20 +18,29 @@ class Shodan(Service):
     name = "shodan"
     url = "https://shodan.io/host/"
     ioc: Union[IPv4Address, IPv6Address]
+    required_credentials = ["api_key"]
 
-    def __init__(self, ioc: Union[IPv4Address, IPv6Address], api_key: str):
-        Service.__init__(self, ioc, api_key)
-
-        self.response = self._get_api_response(ioc, api_key)
-        self._response_data = self.response.get("data")[0]
+    def __init__(self, ioc: Union[IPv4Address, IPv6Address], credentials: dict):
+        Service.__init__(self, ioc, credentials)
+        self._response_data = self.response.get("data")[0]  # type: ignore
 
     @on_exception(expo, RateLimitException, max_tries=10)
     @limits(calls=15, period=60)
-    def _get_api_response(
-        self, ioc: Union[IPv4Address, IPv6Address], api_key: str
-    ) -> dict:
-        client = shodan.Shodan(api_key)
-        result = client.host(str(ioc))
+    def _get_api_response(self, ioc: Union[IPv4Address, IPv6Address]) -> dict:
+        if not self.credentials.api_key:
+            raise InvalidCredentialsError
+
+        client = shodan.Shodan(self.credentials.api_key)
+
+        try:
+            result = client.host(str(ioc))
+        except shodan.exception.APIError as error:
+            if str(error) == "Invalid API key":
+                raise InvalidCredentialsError(
+                    "Shodan says your API keys are invalid."
+                ) from error
+            raise APIError from error
+
         return result
 
     @property
@@ -55,16 +65,16 @@ class Shodan(Service):
         return {k: self.response.get(k) for k in keys}
 
     @property
-    def tags(self) -> list:
+    def tags(self) -> set:
         """User-submitted tags for the sample from the MalwareBazaar website"""
-        return self._response_data.get("tags")
+        return set(self._response_data.get("tags", []))
 
     @property
-    def hostnames(self) -> list:
+    def hostnames(self) -> set:
         """Hostnames found for the given IP address"""
-        return self.response.get("hostnames")
+        return set(self.response.get("hostnames", []))
 
     @property
     def vulns(self) -> list:
         """CVEs found by the Shodan scanners for the given IP address"""
-        return self.response.get("vulns")
+        return self.response.get("vulns", [])

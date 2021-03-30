@@ -1,0 +1,37 @@
+dictionaries:
+  - en
+excluded_files:
+  - "poetry.lock"
+  - "coverage.xml"
+  - "test/data/malwarebazaar_bulk_responses/*"
+  - "test/data/virustotal_bulk_responses/*"
+
+excluded_words:
+  - ioc
+  - iocs
+  - shodan
+  - Shodan
+  - tablefmt
+  - cprint
+  - asctime
+  - delim
+  - emojize
+  - urlhaus
+  - URLhaus
+  - vxcube
+  - vulns
+  - tweepy
+  - TweepError
+  - noxfile
+  - authentihash
+  - formatters
+  - geolocation
+  - conftest
+  - pyproject
+  - mypy
+  - vhash
+  - tlsh
+  - behaviour
+  - telfhash
+
+spellcheck_filenames: true
