@@ -33,5 +33,10 @@ excluded_words:
   - tlsh
   - behaviour
   - telfhash
+  - lokibot
+  - Lokibot
+  - else's
+  - idontexist
+  - UnpacMe
 
 spellcheck_filenames: true

@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+"""Module provides reporting capabilities"""
 
 import datetime
 from abc import ABC
@@ -13,6 +14,8 @@ from ioccheck.iocs import IOC
 
 @dataclass
 class Icons:
+    """Contains icons for use in report"""
+
     warning: str
     okay: str
     clipboard: str
@@ -22,6 +25,7 @@ class Icons:
 
 
 class Report(ABC):
+    """Base class for a custom report"""
 
     icons = Icons(
         warning=emojize(":warning:"),
@@ -40,8 +44,13 @@ class Report(ABC):
         print(self.templates_dir)
         self.contents = {"ioc": self.ioc, "icons": self.icons}
 
-    def _make_ordinal(self, number) -> str:
-        # https://stackoverflow.com/a/50992575
+    @staticmethod
+    def make_ordinal(number) -> str:
+        """Convert an integer into its ordinal string
+
+        https://stackoverflow.com/a/50992575
+        """
+
         number = int(number)
         suffix = ["th", "st", "nd", "rd", "th"][min(number % 10, 4)]
         if 11 <= (number % 100) <= 13:
@@ -49,6 +58,7 @@ class Report(ABC):
         return str(number) + suffix
 
     def generate(self, output_file: str):
+        """Generate a report"""
         template_loader = FileSystemLoader(searchpath=self.templates_dir)
         template_env = Environment(loader=template_loader, autoescape=True)
         template = template_env.get_template(self.template_file)
@@ -59,8 +69,9 @@ class Report(ABC):
 
     @property
     def footer(self) -> str:
+        """Create the footer for the bottom page of reports"""
         today = datetime.datetime.today()
-        day = self._make_ordinal(today.day)
+        day = self.make_ordinal(today.day)
 
         datestamp = f"{today.strftime('%A %B')} {day}, {today.year} at {today.strftime('%I:%M:%S %p')}"
         version = pkg_resources.get_distribution("ioccheck").version
@@ -69,6 +80,7 @@ class Report(ABC):
 
     @property
     def tag_colors(self):
+        """Colors used for visualizing tags"""
         return [
             "#264653",
             "#2A9D8F",

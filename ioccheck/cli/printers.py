@@ -7,13 +7,12 @@ from typing import Optional, Union
 from tabulate import tabulate
 from termcolor import colored, cprint
 
-
-from ioccheck.iocs import Hash, IP
+from ioccheck.iocs import IP, Hash
 from ioccheck.services import Twitter
 
 
 class Printer(ABC):
-    """Base class for creating an object that prints information to the CLI
+    """Base class for creating an object that prints information to the CLI.
 
     Attributes:
         heading_color: Color used by the heading text describing a piece of data.
@@ -25,7 +24,7 @@ class Printer(ABC):
 
     def __init__(
         self, ioc, heading: Optional[str], attr: str, delim: str, error_text: str
-    ):
+    ):  # pylint: disable=too-many-arguments:
         """
         Args:
             ioc: The
@@ -43,9 +42,10 @@ class Printer(ABC):
 
     @abstractmethod
     def make_text(self) -> Optional[str]:
-        pass
+        """Generate the text to be printed."""
 
     def print_text(self):
+        """Prints the text created by the Printer."""
         if self.text is None or self.text == "":
             cprint(f"[!] {self.error_text}", self.error_color)
             return
@@ -60,6 +60,8 @@ class Printer(ABC):
 
 
 class BehaviorPrinter(Printer):
+    """Printer for behaviors detected by vendors."""
+
     heading = "Sandbox behavior"
     attr = "behavior"
     delim = "\n"
@@ -95,6 +97,8 @@ class BehaviorPrinter(Printer):
 
 
 class TagsPrinter(Printer):
+    """Printer for user-submitted tags from services."""
+
     heading = "User-submitted tags"
     attr = "tags"
     delim = " "
@@ -110,6 +114,8 @@ class TagsPrinter(Printer):
 
 
 class TwitterPrinter(Printer):
+    """Printer for Tweets retrieved through the Twitter API."""
+
     heading = None
     attr = "tweets"
     delim = " "
@@ -134,6 +140,8 @@ class TwitterPrinter(Printer):
 
 
 class DetectionsPrinter(Printer):
+    """Printer for anti-virus detections."""
+
     attr = "detections"
     delim = "\n"
     error_text = "No vendors detected this sample."

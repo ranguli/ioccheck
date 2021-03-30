@@ -1,0 +1,82 @@
+{
+    "tweets": [
+        {
+            "author": "malthe",
+            "date": "2021-03-30 00:54:24",
+            "text": "@francismori7 No, just Eero to AT&amp;T Fiber. Just set DNS to 8.8.8.8 and I don't *think* have Eero configured to do anything \"smart\". But ping indeed says `cannot resolve https://t.co/KstWWy4fg5: Unknown host`. \ud83e\udd14",
+            "url": "https://twitter.com/twitter/status/1376699296150523904"
+        },
+        {
+            "author": "StanBobOP",
+            "date": "2021-03-29 21:31:15",
+            "text": "In Lent for Breviary Hymns in 8.8.8.8 (long Meter) which is most of them... I use the melody from the Dwarve's Song in the 1970s Ranking Bass version of the Hobbit.\n\nhttps://t.co/b5tu5U8HsD",
+            "url": "https://twitter.com/twitter/status/1376648170847956998"
+        },
+        {
+            "author": "elrebelde4",
+            "date": "2021-03-29 20:34:23",
+            "text": "@tazmom @AskFrontier In my case it appears to be only the DNS server. If I'm connected, the connection is not lost. Try to change your dns server to a free one like google (8.8.8.8,8.8.4.4), opendns, cloudflare, etc",
+            "url": "https://twitter.com/twitter/status/1376633861204017154"
+        },
+        {
+            "author": "PakKrish",
+            "date": "2021-03-29 20:23:58",
+            "text": "@rixzkyfn update ethernet drivers, optimize them, use 8.8.8.8 8.8.4.4 or 1.1.1.1 1.0.0.1",
+            "url": "https://twitter.com/twitter/status/1376631237691981833"
+        },
+        {
+            "author": "GameClou",
+            "date": "2021-03-29 19:26:58",
+            "text": "@deviousix @FJT2511 @Respawn @PlayApex I've got all of that wired dns 1.1.1.1 or the Google 8.8.8.8 also the 1st one ever 208.67.222.222 208.67.220.220 the 20hz servers are just trash",
+            "url": "https://twitter.com/twitter/status/1376616892278923264"
+        },
+        {
+            "author": "MylesBorins",
+            "date": "2021-03-29 18:59:59",
+            "text": "@davidlymanning I'm still wrapping my head around how the 127.0.0.1 dnsmasq stuff works and why that is the deafult provisioned directly into the secure gateway... and want to confirm that I'm using my configured 1.1.1.1 primary and 8.8.8.8 secondary.... then I want to get dig to work",
+            "url": "https://twitter.com/twitter/status/1376610104800378880"
+        },
+        {
+            "author": "davidlymanning",
+            "date": "2021-03-29 18:58:06",
+            "text": "@MylesBorins I changed a domain alias in a way that _should_ have been totally fine. EdgeRouter decided that it didn't know about the upstream DNS server anymore and couldn't possibly be expected to acquire it.\n\nTL;DR I'm running on 8.8.8.8 till I feel like dealing with it again.",
+            "url": "https://twitter.com/twitter/status/1376609628511997963"
+        },
+        {
+            "author": "deviousix",
+            "date": "2021-03-29 18:28:40",
+            "text": "@FJT2511 @Respawn @PlayApex I play daily 4 hrs sessions \nMy internet is 300mb Download 15mb upload wired to ps4 not wi fi\nMy DNS is custom google primary\n 8.8.8.8 secondary 8.8.4.4\nAlso my ps4 is always up to date and I rebuild my data base at least once a month.",
+            "url": "https://twitter.com/twitter/status/1376602223979999233"
+        },
+        {
+            "author": "mpk",
+            "date": "2021-03-29 17:32:06",
+            "text": "One Google product I can still encourage people to use, everywhere, without hesitation is HonestDNS (8.8.8.8, 8.8.4.4). It just works, it doesn\u2019t store any of your personal data, and it\u2019s really fast. Also the people who implemented it are really nice.",
+            "url": "https://twitter.com/twitter/status/1376587985932718088"
+        },
+        {
+            "author": "askubuntumemes",
+            "date": "2021-03-29 17:07:44",
+            "text": "\u201cConnect: Network is unreachable\u201d when pinging 8.8.8.8 https://t.co/Je9o90odJj #resolvconf #networking #lubuntu https://t.co/yIPJPBAMGg",
+            "url": "https://twitter.com/twitter/status/1376581855680561153"
+        },
+        {
+            "author": "UbiZJW",
+            "date": "2021-03-29 15:38:12",
+            "text": "@AIOZNetwork are there issues with the service? I can't withdraw anything from either AIOZTube or the node.\n\n''ABCIQuery: Post failed: Post \"http://node:26657\": dial tcp: lookup node on 8.8.8.8:53: no such host''\n\nI've lost some coins already.",
+            "url": "https://twitter.com/twitter/status/1376559324500201475"
+        },
+        {
+            "author": "divinetechygirl",
+            "date": "2021-03-29 13:26:40",
+            "text": "Not that I\u2019ll be using it anytime soon but now I know enough Suricata to be dangerous lol \n\nEx rule if you\u2019re curious: \nalert tcp 8.8.8.8 any -&gt; $HOME_NET 80 ( msg:\"Alerting on access from malicious host to internal web services\";\u00a0 sid:#; rev:1; ) \n\nThere was even one for YMSG \ud83d\ude29 https://t.co/ZlRiGyXZxc",
+            "url": "https://twitter.com/twitter/status/1376526220830117892"
+        },
+        {
+            "author": "xbox_chief",
+            "date": "2021-03-29 08:02:19",
+            "text": "@CURT_BLOOM @XboxSupport You can try to setup a different DNS server, this might help. You could use googles which is 8.8.8.8 or cloudflares which is the fastest 1.1.1.1. keep in mind that those company's \"know\" what you are doing if you use their dns server.",
+            "url": "https://twitter.com/twitter/status/1376444596436275201"
+        }
+    ]
+}

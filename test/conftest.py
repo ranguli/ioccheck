@@ -8,13 +8,18 @@ import vt
 from ioccheck import exceptions
 from ioccheck.ioc_types import MD5, SHA256
 from ioccheck.iocs import IP, Hash
-from ioccheck.services import MalwareBazaar, Shodan, VirusTotal
+from ioccheck.services import MalwareBazaar, Shodan, VirusTotal, Twitter
 
 
 @pytest.fixture
 def hash_1():
     """ Test hash 1"""
     return "73bef2ac39be261ae9a06076302c1d0af982e0560e88ac168980fab6ea5dd9c4"
+
+@pytest.fixture
+def ip_1():
+    """ Test IP 1"""
+    return "8.8.8.8"
 
 
 @pytest.fixture
@@ -46,6 +51,23 @@ def malwarebazaar_mocked_response_2():
 def shodan_mocked_response_1():
     with open("test/data/shodan_mock_response_1.json", "r") as f:
         return json.load(f)
+
+@pytest.fixture
+def twitter_mocked_response_1():
+    with open("test/data/twitter_mock_response_1.json", "r") as f:
+        return json.load(f)
+
+@pytest.fixture
+def twitter_report_1(twitter_mocked_response_1, ip_1, config_file):
+    """ Twitter report generated from twitter_mocked_response_1 """
+    with patch.object(
+        Twitter, "_get_api_response", return_value=twitter_mocked_response_1
+    ) as mock_method:
+        sample = IP(ip_1, config_path=config_file)
+
+        sample.check(services=[Twitter])
+
+        return sample
 
 
 @pytest.fixture

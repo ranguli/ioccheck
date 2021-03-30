@@ -5,9 +5,8 @@ import logging
 from abc import ABC, abstractmethod
 from typing import Any, List
 
-from .data_types import Credentials
-
 from ioccheck import exceptions
+from ioccheck.shared import Credentials
 
 
 class Service(ABC):  # pylint: disable=too-few-public-methods
