@@ -30,7 +30,7 @@ mypy = "^0.812"
 coverage = "^5.5"
 sphinx = "^3.5.3"
 sphinx_rtd_theme = "^0.5.1"
-nox-poetry = "^0.8.4"
+nox-poetry = "^0.8.6"
 pytest-cov = "^2.11.1"
 pylint = "^2.9.0"
 
