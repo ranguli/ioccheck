@@ -21,7 +21,11 @@ tweepy = "^3.10.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
+<<<<<<< HEAD
 black = "^21.8b0"
+=======
+black = "^20.8b1"
+>>>>>>> development
 flake8 = "^3.9.2"
 bandit = "^1.7.0"
 nox = "^2021.6.12"
@@ -32,7 +36,12 @@ sphinx = "^4.1.2"
 sphinx_rtd_theme = "^0.5.1"
 nox-poetry = "^0.8.4"
 pytest-cov = "^2.12.1"
+<<<<<<< HEAD
 pylint = "^2.7.2"
+=======
+pylint = "^2.10.2"
+
+>>>>>>> development
 
 
 [tool.poetry.scripts]
