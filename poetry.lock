@@ -926,6 +926,38 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "types-emoji"
+version = "1.2.4"
+description = "Typing stubs for emoji"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "types-requests"
+version = "2.25.6"
+description = "Typing stubs for requests"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "types-tabulate"
+version = "0.8.2"
+description = "Typing stubs for tabulate"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "types-termcolor"
+version = "1.1.1"
+description = "Typing stubs for termcolor"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "typing-extensions"
 version = "3.7.4.3"
 description = "Backported and Experimental Type Hints for Python 3.5+"
@@ -1031,7 +1063,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pyt
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7.3"
-content-hash = "02b6ead63c052fec44c4b63edc53966bc920c419ad2a14fc97f9fe467b0c18c0"
+content-hash = "3b55e34889e7cba529759357717898ad5413538152bcd1a595d04d0616282b45"
 
 [metadata.files]
 aiohttp = [
@@ -1662,6 +1694,22 @@ typed-ast = [
     {file = "typed_ast-1.4.2-cp39-cp39-win32.whl", hash = "sha256:cc7b98bf58167b7f2db91a4327da24fb93368838eb84a44c472283778fc2446b"},
     {file = "typed_ast-1.4.2-cp39-cp39-win_amd64.whl", hash = "sha256:7147e2a76c75f0f64c4319886e7639e490fee87c9d25cb1d4faef1d8cf83a440"},
     {file = "typed_ast-1.4.2.tar.gz", hash = "sha256:9fc0b3cb5d1720e7141d103cf4819aea239f7d136acf9ee4a69b047b7986175a"},
+]
+types-emoji = [
+    {file = "types-emoji-1.2.4.tar.gz", hash = "sha256:a7426bcbf0bc8d0809d49f1807e5cb8582f87d4a681b0ae80103f6eca5492e81"},
+    {file = "types_emoji-1.2.4-py3-none-any.whl", hash = "sha256:9fb171f36ef167aaec899e5d42b78dea19c94f50553351731b6997b6e70f7b05"},
+]
+types-requests = [
+    {file = "types-requests-2.25.6.tar.gz", hash = "sha256:e21541c0f55c066c491a639309159556dd8c5833e49fcde929c4c47bdb0002ee"},
+    {file = "types_requests-2.25.6-py3-none-any.whl", hash = "sha256:a5a305b43ea57bf64d6731f89816946a405b591eff6de28d4c0fd58422cee779"},
+]
+types-tabulate = [
+    {file = "types-tabulate-0.8.2.tar.gz", hash = "sha256:6dbad23ccb92562fcc420c4402799fbb14dfc1cb288bffa84f389d0b12120ba6"},
+    {file = "types_tabulate-0.8.2-py3-none-any.whl", hash = "sha256:456c8066f1ae8ae445a0484aaff9f30d6293e1cb84e8b15e3ad939047c8508bf"},
+]
+types-termcolor = [
+    {file = "types-termcolor-1.1.1.tar.gz", hash = "sha256:546a69801f14252d32744d8b58f9cfe04c99485befc6d07fb402a0729241331c"},
+    {file = "types_termcolor-1.1.1-py3-none-any.whl", hash = "sha256:7ee2cb4fdeeb82501ef3d4ad32b93747db9de081bbc43e28e9d2bc94f20b4444"},
 ]
 typing-extensions = [
     {file = "typing_extensions-3.7.4.3-py2-none-any.whl", hash = "sha256:dafc7639cde7f1b6e1acc0f457842a83e722ccca8eef5270af2d74792619a89f"},
