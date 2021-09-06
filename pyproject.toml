@@ -22,17 +22,18 @@ tweepy = "^3.10.0"
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
 black = "^20.8b1"
-flake8 = "^3.8.4"
+flake8 = "^3.9.2"
 bandit = "^1.7.0"
-nox = "^2020.12.31"
+nox = "^2021.6.12"
 isort = "^5.7.0"
 mypy = "^0.910"
 coverage = "^5.5"
-sphinx = "^3.5.3"
+sphinx = "^4.1.2"
 sphinx_rtd_theme = "^0.5.1"
 nox-poetry = "^0.8.4"
-pytest-cov = "^2.11.1"
+pytest-cov = "^2.12.1"
 pylint = "^2.7.2"
+
 
 [tool.poetry.scripts]
 ioccheck = "ioccheck.cli:run"
