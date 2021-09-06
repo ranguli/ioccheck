@@ -110,7 +110,7 @@ class VirusTotal(Service):
             return tags
 
         if names:
-            tags.update([name[0] for name in names])
+            tags.update([name.get("value") for name in names])
 
         other_tags = self.response.get("tags")
         if other_tags:
