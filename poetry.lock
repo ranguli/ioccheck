@@ -955,7 +955,7 @@ testing = ["coverage (>=4)", "coverage-enable-subprocess (>=1)", "flaky (>=3)", 
 
 [[package]]
 name = "vt-py"
-version = "0.6.1"
+version = "0.7.2"
 description = "The official Python client library for VirusTotal"
 category = "main"
 optional = false
@@ -963,6 +963,9 @@ python-versions = ">=3.6.0"
 
 [package.dependencies]
 aiohttp = "*"
+
+[package.extras]
+test = ["pytest", "pytest-httpserver", "pytest-asyncio"]
 
 [[package]]
 name = "wcwidth"
@@ -1016,7 +1019,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pyt
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7.3"
-content-hash = "f8e814fec8ab85114b86502a1344dd229e29d56a082f8f920a92f993be0f95f0"
+content-hash = "40880fb48f11d3cfd86961420e3d9dd836e22d608098b49abc6732cf06bc697c"
 
 [metadata.files]
 aiohttp = [
@@ -1659,7 +1662,8 @@ virtualenv = [
     {file = "virtualenv-20.4.3.tar.gz", hash = "sha256:49ec4eb4c224c6f7dd81bb6d0a28a09ecae5894f4e593c89b0db0885f565a107"},
 ]
 vt-py = [
-    {file = "vt-py-0.6.1.tar.gz", hash = "sha256:1c91e8b1c9d1d797bafe297b9176177691a84f262d9d031aa2addbcb8b9b969d"},
+    {file = "vt-py-0.7.2.tar.gz", hash = "sha256:e1adfcb54b4ff3e86456b8a551827702650e25469e9d99bf030b71d564358b1d"},
+    {file = "vt_py-0.7.2-py3-none-any.whl", hash = "sha256:df9adb0ff949bd2504b37a0f51ee9820eb6bee6e5d01e108b8ce0bec1c678df9"},
 ]
 wcwidth = [
     {file = "wcwidth-0.2.5-py2.py3-none-any.whl", hash = "sha256:beb4802a9cebb9144e99086eff703a642a13d6a0052920003a230f3294bbe784"},

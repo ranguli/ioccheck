@@ -6,7 +6,7 @@ authors = ["ranguli <hello@joshmurphy.ca>"]
 
 [tool.poetry.dependencies]
 python = "^3.7.3"
-vt-py = "^0.6.1"
+vt-py = ">=0.6.1,<0.8.0"
 ratelimit = "^2.2.1"
 backoff = "^1.10.0"
 tabulate = "^0.8.9"
