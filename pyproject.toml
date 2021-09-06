@@ -20,7 +20,7 @@ emoji = "^1.2.0"
 tweepy = "^3.10.0"
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.2"
+pytest = "^6.2"
 black = "^20.8b1"
 flake8 = "^3.9.2"
 bandit = "^1.7.0"
