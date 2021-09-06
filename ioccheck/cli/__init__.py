@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 """Command-line interface for the ioccheck library"""
 
-import cProfile
 import logging
 import os
 import random
