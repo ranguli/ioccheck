@@ -21,7 +21,7 @@ tweepy = "^3.10.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2"
-black = "^20.8b1"
+black = "^21.9b0"
 flake8 = "^3.9.2"
 bandit = "^1.7.0"
 nox = "^2021.6.12"
