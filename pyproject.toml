@@ -32,8 +32,7 @@ sphinx = "^4.1.2"
 sphinx_rtd_theme = "^0.5.1"
 nox-poetry = "^0.8.4"
 pytest-cov = "^2.12.1"
-pylint = "^2.10.2"
-
+pylint = "^2.11.1"
 
 [tool.poetry.scripts]
 ioccheck = "ioccheck.cli:run"
