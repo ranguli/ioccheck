@@ -770,7 +770,7 @@ python-versions = "*"
 
 [[package]]
 name = "sphinx"
-version = "4.1.2"
+version = "4.2.0"
 description = "Python documentation generator"
 category = "dev"
 optional = false
@@ -1016,7 +1016,7 @@ testing = ["coverage (>=4)", "coverage-enable-subprocess (>=1)", "flaky (>=3)", 
 
 [[package]]
 name = "vt-py"
-version = "0.7.2"
+version = "0.7.4"
 description = "The official Python client library for VirusTotal"
 category = "main"
 optional = false
@@ -1063,7 +1063,7 @@ version = "3.5.0"
 description = "Backport of pathlib-compatible object wrapper for zip files"
 category = "main"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.6"erge 7 commits into main from development
 
 [package.extras]
 docs = ["sphinx", "jaraco.packaging (>=8.2)", "rst.linker (>=1.9)"]
@@ -1625,8 +1625,8 @@ snowballstemmer = [
     {file = "snowballstemmer-2.1.0.tar.gz", hash = "sha256:e997baa4f2e9139951b6f4c631bad912dfd3c792467e2f03d7239464af90e914"},
 ]
 sphinx = [
-    {file = "Sphinx-4.1.2-py3-none-any.whl", hash = "sha256:46d52c6cee13fec44744b8c01ed692c18a640f6910a725cbb938bc36e8d64544"},
-    {file = "Sphinx-4.1.2.tar.gz", hash = "sha256:3092d929cd807926d846018f2ace47ba2f3b671b309c7a89cd3306e80c826b13"},
+    {file = "Sphinx-4.2.0-py3-none-any.whl", hash = "sha256:98a535c62a4fcfcc362528592f69b26f7caec587d32cd55688db580be0287ae0"},
+    {file = "Sphinx-4.2.0.tar.gz", hash = "sha256:94078db9184491e15bce0a56d9186e0aec95f16ac20b12d00e06d4e36f1058a6"},
 ]
 sphinx-rtd-theme = [
     {file = "sphinx_rtd_theme-0.5.2-py2.py3-none-any.whl", hash = "sha256:4a05bdbe8b1446d77a01e20a23ebc6777c74f43237035e76be89699308987d6f"},
@@ -1729,8 +1729,8 @@ virtualenv = [
     {file = "virtualenv-20.7.2.tar.gz", hash = "sha256:9ef4e8ee4710826e98ff3075c9a4739e2cb1040de6a2a8d35db0055840dc96a0"},
 ]
 vt-py = [
-    {file = "vt-py-0.7.2.tar.gz", hash = "sha256:e1adfcb54b4ff3e86456b8a551827702650e25469e9d99bf030b71d564358b1d"},
-    {file = "vt_py-0.7.2-py3-none-any.whl", hash = "sha256:df9adb0ff949bd2504b37a0f51ee9820eb6bee6e5d01e108b8ce0bec1c678df9"},
+    {file = "vt-py-0.7.4.tar.gz", hash = "sha256:27af411495a115f6cc2da5d184a9f32c12a2304eca94efefaae03d2b12b66174"},
+    {file = "vt_py-0.7.4-py3-none-any.whl", hash = "sha256:15be46323a2d760f023d83ed1ce3c460fbb0fca662f23573d9c0a48978dcbc70"},
 ]
 wrapt = [
     {file = "wrapt-1.12.1.tar.gz", hash = "sha256:b62ffa81fb85f4332a4f609cab4ac40709470da05643a082ec1eb88e6d9b97d7"},
