@@ -104,6 +104,7 @@ def run(ioc, config, report):
             sys.exit(colored(f"[!] {error}", "red"))
 
     if report:
+        ioc = ioc_type.get("ioc")(ioc, config_path=config)
         handle_report(ioc, report)
 
 
@@ -124,7 +125,13 @@ def handle_report(ioc, report):
     cprint(f"[*] Generating report {report}")
     if isinstance(ioc, Hash):
         html_report = HTMLHashReport(ioc, templates_dir)
+        html_report.generate(report)
     elif isinstance(ioc, IP):
         html_report = HTMLIPReport(ioc, templates_dir)
-
-    html_report.generate(report)
+        html_report.generate(report)
+    else:
+        sys.exit(
+            colored(
+                "[!] Could not generate report.", "red"
+            )
+        )

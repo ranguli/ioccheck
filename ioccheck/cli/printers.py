@@ -78,17 +78,17 @@ class BehaviorPrinter(Printer):
         table = [["Vendor", "Behaviour", "Threat"]]
 
         for result in self.ioc.behavior:  # type: ignore
-            if result.threat is None:
+            if result.get("threat") is None:
                 continue
 
-            if result.threat == 1:
+            if result.get("threat") == 1:
                 threat = colored("Neutral", "green")
-            elif result.threat == 2:
+            elif result.get("threat") == 2:
                 threat = colored("Suspicious", "yellow")
-            elif result.threat == 3:
+            elif result.get("threat") == 3:
                 threat = colored("Malicious", "red")
 
-            table.append([result.vendor, result.behavior, threat])
+            table.append([result.get("vendor"), result.get("behavior"), threat])
 
         if len(table) == 1:
             return None
