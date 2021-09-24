@@ -34,6 +34,25 @@ git clone https://github.com/ranguli/ioccheck && cd ioccheck
 poetry install
 ```
 
+Populate `~/.config/ioccheck/credentials` with an entry for each service you have credentials for: 
+
+```
+[virustotal]
+api_key=YOUR_API_KEY_HERE
+
+[malwarebazaar]
+api_key=YOUR_API_KEY_HERE
+
+[shodan]
+api_key=YOUR_API_KEY_HERE
+
+[twitter]
+consumer_key=YOUR_API_KEY_HERE
+consumer_secret=YOUR_API_KEY_HERE
+access_token=YOUR_API_KEY_HERE
+access_secret=YOUR_API_KEY_HERE
+```
+
 ## Usage
 ```
 ➜  ioccheck 275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f
